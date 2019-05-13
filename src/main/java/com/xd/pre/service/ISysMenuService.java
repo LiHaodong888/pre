@@ -1,7 +1,9 @@
 package com.xd.pre.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.xd.pre.domain.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.xd.pre.dto.MenuDto;
 import com.xd.pre.utils.R;
 
 import java.io.Serializable;
@@ -30,8 +32,7 @@ public interface ISysMenuService extends IService<SysMenu> {
      * @param entity
      * @return
      */
-    @Override
-    boolean updateById(SysMenu entity);
+    boolean updateMenuById(MenuDto entity);
 
     /**
      * 删除菜单信息
@@ -45,4 +46,16 @@ public interface ISysMenuService extends IService<SysMenu> {
      * @return
      */
     List<SysMenu> selectMenuTree(Integer uid);
+
+    /**
+     * @Author 李号东
+     * @Description 根据父id查询菜单
+     * @Date 18:43 2019-05-12
+     **/
+    SysMenu getMenuById(Integer parentId);
+
+    /**
+     * @Description 根据用户id查询权限
+     **/
+    List<String> findPermsByUserId(Integer userId);
 }

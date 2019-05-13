@@ -2,6 +2,7 @@ package com.xd.pre.service;
 
 import com.xd.pre.domain.SysDept;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.xd.pre.dto.DeptDto;
 
 import java.io.Serializable;
 import java.util.List;
@@ -34,8 +35,7 @@ public interface ISysDeptService extends IService<SysDept> {
      * @param entity
      * @return
      */
-    @Override
-    boolean updateById(SysDept entity);
+    boolean updateDeptById(DeptDto entity);
 
     /**
      * 删除部门
@@ -44,4 +44,18 @@ public interface ISysDeptService extends IService<SysDept> {
      */
     @Override
     boolean removeById(Serializable id);
+
+    /**
+     * 根据部门id查询部门名称
+     * @param deptId
+     * @return
+     */
+    String selectDeptNameByDeptId(int deptId);
+
+    /**
+     * 根据部门名称查询
+     * @param deptName
+     * @return
+     */
+    List<SysDept> selectDeptListBydeptName(String deptName);
 }

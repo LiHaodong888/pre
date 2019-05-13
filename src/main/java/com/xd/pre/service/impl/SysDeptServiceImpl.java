@@ -1,16 +1,17 @@
 package com.xd.pre.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.xd.pre.domain.SysDept;
+import com.xd.pre.dto.DeptDto;
 import com.xd.pre.mapper.SysDeptMapper;
 import com.xd.pre.service.ISysDeptService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,7 +35,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
     @Override
     public List<SysDept> selectDeptList() {
         List<SysDept> sysDepts = new ArrayList<>();
-        List<SysDept> depts = baseMapper.selectList(new QueryWrapper<SysDept>().select("dept_id", "name", "parent_id", "sort", "create_time"));
+        List<SysDept> depts = baseMapper.selectList(Wrappers.<SysDept>query().select("dept_id", "name", "parent_id", "sort", "create_time"));
         for (SysDept dept : depts) {
             if (dept.getParentId() == null || dept.getParentId() == 0) {
                 dept.setLevel(0);
@@ -44,6 +45,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         findChildren(sysDepts, depts);
         return sysDepts;
     }
+
 
     private void findChildren(List<SysDept> sysDepts, List<SysDept> depts) {
         for (SysDept sysDept : sysDepts) {
@@ -60,12 +62,16 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         }
     }
 
-
     @Override
-    public boolean updateById(SysDept entity) {
-        return super.updateById(entity);
+    public boolean updateDeptById(DeptDto entity) {
+        SysDept sysDept = new SysDept();
+        BeanUtils.copyProperties(entity,sysDept);
+        sysDept.setUpdateTime(LocalDateTime.now());
+        return this.updateById(sysDept);
     }
 
+
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean removeById(Serializable id) {
         // 部门层级删除
@@ -73,6 +79,16 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         // 删除自己
         idList.add((Integer) id);
         return super.removeByIds(idList);
+    }
+
+    @Override
+    public String selectDeptNameByDeptId(int deptId) {
+        return baseMapper.selectOne(Wrappers.<SysDept>query().lambda().select(SysDept::getName).eq(SysDept::getDeptId,deptId)).getName();
+    }
+
+    @Override
+    public List<SysDept> selectDeptListBydeptName(String deptName) {
+        return null;
     }
 
 }

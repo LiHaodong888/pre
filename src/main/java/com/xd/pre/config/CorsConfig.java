@@ -2,30 +2,32 @@ package com.xd.pre.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * @author lihaodong
- * @create 2018-10-02 12:38
- * @desc
- **/
-
-@Configuration
+ * @Classname CorsConfig
+ * @Description 跨域设置
+ * @Author 李号东 lihaodongmail@163.com
+ * @Date 2019-04-21 11:28
+ * @Version 1.0
+ */
+//@Configuration
+//@EnableWebMvc
 public class CorsConfig {
-    private CorsConfiguration buildConfig() {
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("*"); // 1允许任何域名使用
-        corsConfiguration.addAllowedHeader("*"); // 2允许任何头
-        corsConfiguration.addAllowedMethod("*"); // 3允许任何方法（post、get等）
-        return corsConfiguration;
-    }
 
     @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", buildConfig()); // 4
-        return new CorsFilter(source);
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowCredentials(true)
+                        .allowedHeaders("*")
+                        .allowedOrigins("*")
+                        .allowedMethods("GET","POST","PUT","DELETE");
+            }
+        };
     }
 }

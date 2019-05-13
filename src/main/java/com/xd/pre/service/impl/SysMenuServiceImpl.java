@@ -1,15 +1,21 @@
 package com.xd.pre.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.xd.pre.domain.SysDept;
 import com.xd.pre.domain.SysMenu;
+import com.xd.pre.dto.MenuDto;
+import com.xd.pre.exception.BaseException;
 import com.xd.pre.mapper.SysMenuMapper;
 import com.xd.pre.service.ISysMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.xd.pre.service.ISysRoleMenuService;
+import com.xd.pre.utils.Constant;
+import com.xd.pre.utils.PreUtil;
 import com.xd.pre.utils.R;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,71 +33,95 @@ import java.util.stream.Collectors;
 @Service
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
 
+    @Autowired
+    private ISysRoleMenuService roleMenuService;
+
     @Override
-    public boolean save(SysMenu entity) {
-        return super.save(entity);
+    public boolean save(SysMenu sysMenu) {
+        // 菜单校验
+        verifyForm(sysMenu);
+        return super.save(sysMenu);
+    }
+
+    @Override
+    public boolean updateMenuById(MenuDto entity) {
+        SysMenu sysMenu = new SysMenu();
+        BeanUtils.copyProperties(entity, sysMenu);
+        // 菜单校验
+        verifyForm(sysMenu);
+        return this.updateById(sysMenu);
     }
 
     @Override
     public List<SysMenu> selectMenuTree(Integer uid) {
+
+        LambdaQueryWrapper<SysMenu> sysMenuLambdaQueryWrapper = Wrappers.<SysMenu>query().lambda();
+        sysMenuLambdaQueryWrapper.select(SysMenu::getMenuId, SysMenu::getName, SysMenu::getPerms, SysMenu::getPath, SysMenu::getParentId, SysMenu::getComponent, SysMenu::getIsFrame, SysMenu::getIcon, SysMenu::getSort, SysMenu::getType, SysMenu::getDelFlag);
+        if (uid != 0) {
+            List<Integer> menuIdList = roleMenuService.getMenuIdByUserId(uid);
+            sysMenuLambdaQueryWrapper.in(SysMenu::getMenuId, menuIdList);
+        }
         List<SysMenu> sysMenus = new ArrayList<>();
-        List<SysMenu> menus = baseMapper.selectList(Wrappers.<SysMenu>query()
-                .select("menu_id","name","perms","url","parent_id","icon","sort","type","del_flag"));
-        for (SysMenu menu : menus) {
+        List<SysMenu> menus = baseMapper.selectList(sysMenuLambdaQueryWrapper);
+        menus.forEach(menu -> {
             if (menu.getParentId() == null || menu.getParentId() == 0) {
                 menu.setLevel(0);
-                if(exists(sysMenus, menu)) {
+
+                if (PreUtil.exists(sysMenus, menu)) {
                     sysMenus.add(menu);
                 }
             }
-        }
+        });
         sysMenus.sort((o1, o2) -> o1.getSort().compareTo(o2.getSort()));
-        findChildren(sysMenus, menus, 0);
+        PreUtil.findChildren(sysMenus, menus, 0);
         return sysMenus;
     }
 
-    private void findChildren(List<SysMenu> menuList, List<SysMenu> menus, int menuType) {
-        for (SysMenu sysMenu : menuList) {
-            List<SysMenu> children = new ArrayList<>();
-            for (SysMenu menu : menus) {
-                if(menuType == 1 && menu.getType() == 2) {
-                    // 如果是获取类型不需要按钮，且菜单类型是按钮的，直接过滤掉
-                    continue ;
-                }
-                if (sysMenu.getMenuId() != null && sysMenu.getMenuId().equals(menu.getParentId())) {
-                    menu.setParentName(sysMenu.getName());
-                    menu.setLevel(sysMenu.getLevel() + 1);
-                    if(exists(children, menu)) {
-                        children.add(menu);
-                    }
-                }
-            }
-            sysMenu.setChildren(children);
-            children.sort((o1, o2) -> o1.getSort().compareTo(o2.getSort()));
-            findChildren(children, menus, menuType);
-        }
-    }
-    private boolean exists(List<SysMenu> sysMenus, SysMenu sysMenu) {
-        boolean exist = false;
-        for(SysMenu menu:sysMenus) {
-            if(menu.getMenuId().equals(sysMenu.getMenuId())) {
-                exist = true;
-            }
-        }
-        return !exist;
+    @Override
+    public SysMenu getMenuById(Integer parentId) {
+        return baseMapper.selectOne(Wrappers.<SysMenu>lambdaQuery().select(SysMenu::getType).eq(SysMenu::getMenuId, parentId));
     }
 
     @Override
-    public boolean updateById(SysMenu entity) {
-        return super.updateById(entity);
+    public List<String> findPermsByUserId(Integer userId) {
+        return baseMapper.findPermsByUserId(userId);
     }
 
     @Override
     public R removeMenuById(Serializable id) {
-        List<Integer> idList = this.list(Wrappers.<SysMenu>query().lambda().eq(SysMenu::getParentId, id)).stream().map(SysMenu::getMenuId).collect(Collectors.toList());
-        if (!CollectionUtils.isEmpty(idList)){
+        List<Integer> idList =
+                this.list(Wrappers.<SysMenu>query().lambda().eq(SysMenu::getParentId, id)).stream().map(SysMenu::getMenuId).collect(Collectors.toList());
+        if (CollUtil.isNotEmpty(idList)) {
             return R.error("菜单含有下级不能删除");
         }
-        return R.ok(this.removeMenuById(id));
+        return R.ok(this.removeById(id));
+    }
+
+    /**
+     * 验证菜单参数是否正确
+     */
+    private void verifyForm(SysMenu menu) {
+        //上级菜单类型
+        int parentType = Constant.MenuType.CATALOG.getValue();
+        if (menu.getParentId() != 0) {
+            SysMenu parentMenu = getMenuById(menu.getParentId());
+            parentType = parentMenu.getType();
+        }
+
+        //目录、菜单
+        if (menu.getType() == Constant.MenuType.CATALOG.getValue() ||
+                menu.getType() == Constant.MenuType.MENU.getValue()) {
+            if (parentType != Constant.MenuType.CATALOG.getValue()) {
+                throw new BaseException("上级菜单只能为目录类型");
+            }
+            return;
+        }
+
+        //按钮
+        if (menu.getType() == Constant.MenuType.BUTTON.getValue()) {
+            if (parentType != Constant.MenuType.MENU.getValue()) {
+                throw new BaseException("上级菜单只能为菜单类型");
+            }
+        }
     }
 }

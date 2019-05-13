@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
-import java.io.Serializable;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
@@ -33,10 +32,16 @@ public class SysRole extends Model<SysRole> {
     @TableId(value = "role_id", type = IdType.AUTO)
     private Integer roleId;
 
+
     /**
      * 角色名称
      */
     private String roleName;
+
+    /**
+     * 角色标识
+     */
+    private String roleCode;
 
     /**
      * 角色描述

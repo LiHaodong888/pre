@@ -45,9 +45,14 @@ public class SysMenu extends Model<SysMenu> {
     private String perms;
 
     /**
-     * 前端URL
+     * 前端path / 即跳转路由
      */
-    private String url;
+    private String path;
+
+    /**
+     * 菜单组件
+     */
+    private String component;
 
     /**
      * 父菜单ID
@@ -58,6 +63,11 @@ public class SysMenu extends Model<SysMenu> {
      * 图标
      */
     private String icon;
+
+    /**
+     * 是否为外链
+     */
+    private Boolean isFrame;
 
     /**
      * 排序

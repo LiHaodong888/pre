@@ -1,13 +1,14 @@
 package com.xd.pre.controller;
 
 
+import com.xd.pre.dto.RoleDto;
+import com.xd.pre.log.SysLog;
 import com.xd.pre.service.ISysRoleService;
 import com.xd.pre.utils.R;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -21,11 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/role")
 public class SysRoleController {
 
-    @Autowired
+    @Resource
     private ISysRoleService roleService;
 
     /**
-     *
      * 获取角色列表
      *
      * @return
@@ -34,5 +34,58 @@ public class SysRoleController {
     public R getRoleList() {
         return R.ok(roleService.selectRoleList());
     }
+
+    /**
+     * 保存角色以及菜单权限
+     *
+     * @param roleDto
+     * @return
+     */
+    @SysLog(descrption = "保存角色以及菜单权限")
+    @PostMapping
+    @PreAuthorize("hasAuthority('sys:role:add')")
+    public R save(@RequestBody RoleDto roleDto) {
+        return R.ok(roleService.saveRoleMenu(roleDto));
+    }
+
+    /**
+     * 根据角色id获取菜单
+     *
+     * @param roleId
+     * @return
+     */
+    @SysLog(descrption = "据角色id获取菜单")
+    @GetMapping("/findRoleMenus/{roleId}")
+    public R findRoleMenus(@PathVariable("roleId") Integer roleId) {
+        return R.ok(roleService.findMenuListByRoleId(roleId));
+    }
+
+
+    /**
+     * 更新角色以及菜单权限
+     * @param roleDto
+     * @return
+     */
+    @SysLog(descrption = "更新角色以及菜单权限")
+    @PutMapping
+    @PreAuthorize("hasAuthority('sys:role:update')")
+    public R update(@RequestBody RoleDto roleDto) {
+        return R.ok(roleService.updateRoleMenu(roleDto));
+    }
+
+    /**
+     * 删除角色以及权限
+     * @param roleId
+     * @return
+     */
+    @SysLog(descrption = "删除角色以及权限")
+    @DeleteMapping("/{roleId}")
+    @PreAuthorize("hasAuthority('sys:role:delete')")
+    public R delete(@PathVariable("roleId") Integer roleId) {
+        return R.ok(roleService.removeById(roleId));
+    }
+
+
+
 }
 

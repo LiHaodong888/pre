@@ -67,15 +67,21 @@ public class SysDept extends Model<SysDept> {
 
     /**
      * 非数据库字段
+     * 上级部门
      */
     @TableField(exist = false)
     private String parentName;
     /**
      * 非数据库字段
+     * 等级
      */
     @TableField(exist = false)
     private Integer level;
 
+    /**
+     * 非数据库字段
+     * 子部门
+     */
     @TableField(exist = false)
     private List<SysDept> children;
 

@@ -1,10 +1,15 @@
 package com.xd.pre.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.xd.pre.domain.SysRoleMenu;
 import com.xd.pre.domain.SysUserRole;
 import com.xd.pre.mapper.SysUserRoleMapper;
 import com.xd.pre.service.ISysUserRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +22,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements ISysUserRoleService {
 
+
+    @Override
+    public boolean save(SysUserRole entity) {
+        return super.save(entity);
+    }
+
+
+    @Override
+    public List<SysUserRole> selectUserRoleListByUserId(Integer userId) {
+        return baseMapper.selectUserRoleListByUserId(userId);
+    }
 }

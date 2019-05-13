@@ -1,10 +1,14 @@
 package com.xd.pre.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -42,14 +46,19 @@ public class SysUser extends Model<SysUser> {
     private String password;
 
     /**
-     * 随机盐
-     */
-    private String salt;
-
-    /**
      * 部门ID
      */
     private Integer deptId;
+
+    /**
+     * 岗位ID
+     */
+    private Integer jobId;
+
+    /**
+     * 邮箱
+     */
+    private String email;
 
     /**
      * 手机号
@@ -80,6 +89,26 @@ public class SysUser extends Model<SysUser> {
      * 0-正常，1-删除
      */
     private String delFlag;
+
+
+    /**
+     * 非数据库字段
+     * 用户角色集合
+     */
+    @TableField(exist = false)
+    private List<SysUserRole> userRoles;
+    /**
+     * 非数据库字段
+     * 部门名称
+     */
+    @TableField(exist = false)
+    private String deptName;;
+    /**
+     * 非数据库字段
+     * 岗位名称
+     */
+    @TableField(exist = false)
+    private String jobName;;
 
 
 }

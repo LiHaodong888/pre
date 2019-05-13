@@ -1,8 +1,8 @@
 package com.xd.pre.utils;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.springframework.http.HttpStatus;
 
@@ -18,6 +18,7 @@ import java.io.Serializable;
  */
 @Setter
 @Getter
+@ToString
 @Accessors(chain = true)
 public class R implements Serializable {
 
@@ -28,20 +29,17 @@ public class R implements Serializable {
     private String msg;
     private Object data;
 
-    public static R ok(String msg) {
+    public static R ok() {
         R r = new R();
-        r.setMsg(msg);
+        r.setMsg("操作成功");
         return r;
     }
 
     public static R ok(Object data) {
         R r = new R();
+        r.setMsg("操作成功");
         r.setData(data);
         return r;
-    }
-
-    public static R ok() {
-        return new R();
     }
 
     public static R error() {
@@ -52,13 +50,12 @@ public class R implements Serializable {
         return error(HttpStatus.INTERNAL_SERVER_ERROR.value(), msg);
     }
 
-    private static R error(int code, String msg) {
+    public static R error(int code, String msg) {
         R r = new R();
         r.setCode(code);
         r.setMsg(msg);
         return r;
     }
-
 
 
 }

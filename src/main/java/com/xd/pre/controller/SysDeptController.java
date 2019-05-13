@@ -2,12 +2,13 @@ package com.xd.pre.controller;
 
 
 import com.xd.pre.domain.SysDept;
+import com.xd.pre.dto.DeptDto;
+import com.xd.pre.log.SysLog;
 import com.xd.pre.service.ISysDeptService;
 import com.xd.pre.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -30,8 +31,10 @@ public class SysDeptController {
      * @param sysDept
      * @return
      */
+    @SysLog(descrption = "保存部门信息")
     @PostMapping
-    public R save(SysDept sysDept) {
+    @PreAuthorize("hasAuthority('sys:dept:add')")
+    public R save(@RequestBody SysDept sysDept) {
         return R.ok(deptService.save(sysDept));
     }
 
@@ -46,22 +49,27 @@ public class SysDeptController {
     }
 
     /**
-     * 获取部门信息
+     * 更新部门信息
      *
      * @return
      */
+
+    @SysLog(descrption = "更新部门信息")
     @PutMapping
-    public R update(SysDept sysDept) {
-        sysDept.setUpdateTime(LocalDateTime.now());
-        return R.ok(deptService.updateById(sysDept));
+    @PreAuthorize("hasAuthority('sys:dept:update')")
+    public R update(@RequestBody DeptDto deptDto) {
+        return R.ok(deptService.updateDeptById(deptDto));
     }
 
     /**
-     * 删除部门信息
+     * 根据id删除部门信息
      *
      * @return
      */
+
+    @SysLog(descrption = "根据id删除部门信息")
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('sys:dept:delete')")
     public R delete(@PathVariable("id") Integer id) {
         return R.ok(deptService.removeById(id));
     }

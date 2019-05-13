@@ -1,5 +1,6 @@
 package com.xd.pre.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -41,6 +42,14 @@ public class SysUserRole extends Model<SysUserRole> {
      * 角色ID
      */
     private Integer roleId;
+
+
+    /**
+     * 非数据库字段
+     * 角色名称
+     */
+    @TableField(exist = false)
+    private String roleName;
 
 
 }

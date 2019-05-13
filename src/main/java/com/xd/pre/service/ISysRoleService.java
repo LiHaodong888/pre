@@ -1,8 +1,9 @@
 package com.xd.pre.service;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.xd.pre.domain.SysMenu;
 import com.xd.pre.domain.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.xd.pre.dto.RoleDto;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,20 +19,18 @@ import java.util.List;
 public interface ISysRoleService extends IService<SysRole> {
 
     /**
-     * 保存角色
-     * @param entity
+     * 保存角色和菜单
+     * @param roleDto
      * @return
      */
-    @Override
-    boolean save(SysRole entity);
+    boolean saveRoleMenu(RoleDto roleDto);
 
     /**
-     * 更新角色
-     * @param entity
+     * 更新角色和菜单
+     * @param roleDto
      * @return
      */
-    @Override
-    boolean updateById(SysRole entity);
+    boolean updateRoleMenu(RoleDto roleDto);
 
     /**
      * 根据主键删除角色
@@ -46,4 +45,11 @@ public interface ISysRoleService extends IService<SysRole> {
      * @return
      */
     List<SysRole> selectRoleList();
+
+    /**
+     * 根据角色id获取菜单
+     * @param roleId
+     * @return
+     */
+    List<SysMenu> findMenuListByRoleId(int roleId);
 }
