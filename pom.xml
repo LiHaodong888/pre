@@ -12,7 +12,7 @@
     <artifactId>pre</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>pre</name>
-    <description>Demo project for Spring Boot</description>
+    <description>pre基于spring security的RBAC权限管理系统</description>
 
     <properties>
         <java.version>1.8</java.version>
