@@ -44,7 +44,7 @@ public class IndexController {
 
 
     /**
-     * 生成二维码
+     * 生成验证码
      * @param response
      * @param request
      * @throws ServletException
