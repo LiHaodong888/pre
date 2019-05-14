@@ -142,6 +142,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public String login(String username, String password,String captcha,HttpServletRequest request) {
         // 验证验证码
         // 从session中获取之前保存的验证码跟前台传来的验证码进行匹配
+        // 线上可以存放在redis中
         Object kaptcha = request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
         if(kaptcha == null){
             throw new BaseException("验证码已失效");
