@@ -16,12 +16,31 @@ import java.io.Serializable;
  */
 public interface ISysLogService extends IService<SysLog> {
 
+    /**
+     * 保存日志
+     * @param entity
+     * @return
+     */
     @Override
     boolean save(SysLog entity);
 
+    /**
+     * 分页查询日志
+     * @param page
+     * @param pageSize
+     * @param type
+     * @return
+     */
     IPage<SysLog> selectLogList(Integer page, Integer pageSize,Integer type);
 
 
+    /**
+     * 根据id删除日志
+     * @param id
+     * @return
+     */
     @Override
     boolean removeById(Serializable id);
+
+
 }

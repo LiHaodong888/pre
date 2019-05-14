@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.code.kaptcha.Constants;
 import com.xd.pre.domain.SysUser;
 import com.xd.pre.domain.SysUserRole;
 import com.xd.pre.dto.UserDto;
@@ -138,7 +139,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public String login(String username, String password, HttpServletRequest request) {
+    public String login(String username, String password,String captcha,HttpServletRequest request) {
+        // 验证验证码
+        // 从session中获取之前保存的验证码跟前台传来的验证码进行匹配
+        Object kaptcha = request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+        if(kaptcha == null){
+            throw new BaseException("验证码已失效");
+        }
+        if (!captcha.toLowerCase().equals(kaptcha)){
+            throw new BaseException("验证码错误");
+        }
         //用户验证
         Authentication authentication = securityUtil.authenticate(username, password);
         //存储认证信息
