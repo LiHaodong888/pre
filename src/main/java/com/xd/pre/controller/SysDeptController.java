@@ -53,7 +53,6 @@ public class SysDeptController {
      *
      * @return
      */
-
     @SysLog(descrption = "更新部门信息")
     @PutMapping
     @PreAuthorize("hasAuthority('sys:dept:update')")
@@ -66,7 +65,6 @@ public class SysDeptController {
      *
      * @return
      */
-
     @SysLog(descrption = "根据id删除部门信息")
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('sys:dept:delete')")

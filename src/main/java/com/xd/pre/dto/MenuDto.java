@@ -4,8 +4,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * @author lihaodong
- * @since 2019-04-21
+ * @Classname UserDto
+ * @Description 菜单Dto
+ * @Author 李号东 lihaodongmail@163.com
+ * @Date 2019-04-23 21:26
+ * @Version 1.0
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
