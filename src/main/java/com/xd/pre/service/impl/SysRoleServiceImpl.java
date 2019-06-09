@@ -1,7 +1,6 @@
 package com.xd.pre.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.xd.pre.domain.SysMenu;
 import com.xd.pre.domain.SysRole;
@@ -18,11 +17,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -94,9 +91,9 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         if (CollectionUtil.isNotEmpty(roleMenus)) {
             roleMenuService.saveBatch(roleMenus);
         }
-
         // 根据数据权限范围查询部门ids
         List<Integer> ids = dataScopeContext.getDeptIdsForDataScope(roleDto, roleDto.getDataScope());
+
         if (CollectionUtil.isNotEmpty(ids)) {
             List<SysRoleDept> roleDepts = ids.stream().map(integer -> {
                 SysRoleDept sysRoleDept = new SysRoleDept();
@@ -113,13 +110,17 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @Override
     public boolean removeById(Serializable id) {
         roleMenuService.remove(Wrappers.<SysRoleMenu>query().lambda().eq(SysRoleMenu::getRoleId, id));
+        roleDeptService.remove(Wrappers.<SysRoleDept>query().lambda().eq(SysRoleDept::getRoleId, id));
         return super.removeById(id);
     }
 
     @Override
     public List<SysRole> selectRoleList() {
-        return super.list(new QueryWrapper<>());
+        return list().stream().peek(sysRole ->
+                sysRole.setRoleDepts(roleDeptService.getRoleDeptIds(sysRole.getRoleId()).stream().map(SysRoleDept::getDeptId).collect(Collectors.toList()))
+        ).collect(Collectors.toList());
     }
+
 
     @Override
     public List<SysMenu> findMenuListByRoleId(int roleId) {

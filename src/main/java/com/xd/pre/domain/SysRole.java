@@ -1,11 +1,14 @@
 package com.xd.pre.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.xd.pre.handler.DataScopeTypeEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -63,5 +66,17 @@ public class SysRole extends Model<SysRole> {
      */
     private String delFlag;
 
+    /**
+     * 数据权限 默认本级
+     */
+    private int dataScope;
+
+
+    /**
+     * 非数据库字段
+     * 部门ids
+     */
+    @TableField(exist = false)
+    private List<Integer> roleDepts;
 
 }

@@ -1,9 +1,13 @@
 package com.xd.pre.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.xd.pre.domain.SysRoleDept;
 import com.xd.pre.domain.SysRoleMenu;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
 /**
@@ -13,8 +17,8 @@ import java.util.List;
  * @Date 2019-04-23 21:26
  * @Version 1.0
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Setter
+@Getter
 public class RoleDto {
 
     private static final long serialVersionUID = 1L;
@@ -26,7 +30,7 @@ public class RoleDto {
     private String delFlag;
     private int dataScope;
     List<SysRoleMenu> roleMenus;
-    List<SysRoleDept> roleDepts;
+    List<Integer> roleDepts;
 
 
 

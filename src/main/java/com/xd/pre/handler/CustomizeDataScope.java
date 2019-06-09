@@ -26,11 +26,10 @@ public class CustomizeDataScope implements AbstractDataScopeHandler {
 
     @Override
     public List<Integer> getDeptIds(RoleDto roleDto, DataScopeTypeEnum dataScopeTypeEnum) {
-        List<SysRoleDept> roleDepts = roleDto.getRoleDepts();
+        List<Integer> roleDeptIds = roleDto.getRoleDepts();
         List<Integer> ids = new ArrayList<>();
-        for (SysRoleDept roleDept : roleDepts) {
-            List<Integer> integers = deptService.selectDeptIds(roleDept.getDeptId());
-            ids.addAll(integers);
+        for (Integer deptId : roleDeptIds) {
+            ids.addAll(deptService.selectDeptIds(deptId));
         }
         Set<Integer> set = new HashSet<>(ids);
         ids.clear();

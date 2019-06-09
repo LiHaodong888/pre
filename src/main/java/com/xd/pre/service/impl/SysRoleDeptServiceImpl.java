@@ -1,10 +1,13 @@
 package com.xd.pre.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.xd.pre.domain.SysRoleDept;
 import com.xd.pre.mapper.SysRoleDeptMapper;
 import com.xd.pre.service.ISysRoleDeptService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -18,4 +21,8 @@ import org.springframework.stereotype.Service;
 public class SysRoleDeptServiceImpl extends ServiceImpl<SysRoleDeptMapper, SysRoleDept> implements ISysRoleDeptService {
 
 
+    @Override
+    public List<SysRoleDept> getRoleDeptIds(int roleId) {
+        return baseMapper.selectList(Wrappers.<SysRoleDept>lambdaQuery().select(SysRoleDept::getDeptId).eq(SysRoleDept::getRoleId,roleId));
+    }
 }
