@@ -44,9 +44,20 @@ public class SysDeptController {
      * @return
      */
     @GetMapping
-    public R getDeptTree() {
+    @PreAuthorize("hasAuthority('sys:dept:view')")
+    public R getDepts() {
         return R.ok(deptService.selectDeptList());
     }
+
+    /**
+     * 获取部门树
+     * @return
+     */
+    @GetMapping("/tree")
+    public R getDeptTree() {
+        return R.ok(deptService.getDeptTree());
+    }
+
 
     /**
      * 更新部门信息

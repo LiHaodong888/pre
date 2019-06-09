@@ -3,6 +3,7 @@ package com.xd.pre.service;
 import com.xd.pre.domain.SysDept;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xd.pre.dto.DeptDto;
+import com.xd.pre.vo.DeptTreeVo;
 
 import java.io.Serializable;
 import java.util.List;
@@ -58,4 +59,19 @@ public interface ISysDeptService extends IService<SysDept> {
      * @return
      */
     List<SysDept> selectDeptListBydeptName(String deptName);
+
+    /**
+     * 通过此部门id查询于此相关的部门ids
+     * @param deptId
+     * @return
+     */
+    List<Integer> selectDeptIds(int deptId);
+
+    /**
+     * 获取部门树
+     * @return
+     */
+    List<DeptTreeVo> getDeptTree();
+
+
 }

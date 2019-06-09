@@ -36,6 +36,7 @@ public class SysLogController {
      * @return
      */
     @GetMapping
+    @PreAuthorize("hasAuthority('sys:log:view')")
     public R selectLog(@RequestParam("page") Integer page,@RequestParam("pageSize") Integer pageSize,@RequestParam("type") Integer type){
         Map<String, Object> map = new HashMap<>();
         IPage<SysLog> sysLogIPage = logService.selectLogList(page, pageSize,type);

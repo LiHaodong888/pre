@@ -1,5 +1,6 @@
 package com.xd.pre.dto;
 
+import com.xd.pre.domain.SysRoleDept;
 import com.xd.pre.domain.SysRoleMenu;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,7 +24,10 @@ public class RoleDto {
     private String roleCode;
     private String roleDesc;
     private String delFlag;
+    private int dataScope;
     List<SysRoleMenu> roleMenus;
+    List<SysRoleDept> roleDepts;
+
 
 
 }

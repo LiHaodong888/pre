@@ -76,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 // 过滤请求
                 .authorizeRequests()
-                // 对于登录login要允许匿名访问
+                // 对于登录login 图标 验证码 要允许匿名访问
                 .antMatchers("/login/**", "/favicon.ico","/captcha.jpg").permitAll()
                 // 访问/user 需要拥有admin权限
                 //  .antMatchers("/user").hasAuthority("ROLE_ADMIN")

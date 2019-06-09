@@ -1,16 +1,21 @@
 package com.xd.pre.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.xd.pre.domain.SysMenu;
 import com.xd.pre.domain.SysRole;
+import com.xd.pre.domain.SysRoleDept;
 import com.xd.pre.domain.SysRoleMenu;
 import com.xd.pre.dto.RoleDto;
+import com.xd.pre.handler.DataScopeContext;
 import com.xd.pre.mapper.SysRoleMapper;
+import com.xd.pre.service.ISysRoleDeptService;
 import com.xd.pre.service.ISysRoleMenuService;
 import com.xd.pre.service.ISysRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -19,6 +24,7 @@ import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -34,6 +40,12 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @Resource
     private ISysRoleMenuService roleMenuService;
 
+    @Resource
+    private ISysRoleDeptService roleDeptService;
+
+    @Autowired
+    private DataScopeContext dataScopeContext;
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean saveRoleMenu(RoleDto roleDto) {
@@ -41,18 +53,32 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         BeanUtils.copyProperties(roleDto, sysRole);
         baseMapper.insertRole(sysRole);
         Integer roleId = sysRole.getRoleId();
+        //维护角色菜单
         List<SysRoleMenu> roleMenus = roleDto.getRoleMenus();
-        List<SysRoleMenu> rms = new ArrayList<>();
-        if (!CollectionUtils.isEmpty(roleMenus)) {
-            roleMenus.forEach(item -> {
-                SysRoleMenu sysRoleMenu = new SysRoleMenu();
-                sysRoleMenu.setRoleId(roleId);
-                sysRoleMenu.setMenuId(item.getMenuId());
-                rms.add(sysRoleMenu);
-            });
-            return roleMenuService.saveBatch(rms);
+        if (CollectionUtil.isNotEmpty(roleMenus)) {
+            List<SysRoleMenu> rms = roleMenus.stream().map(sysRoleMenu -> {
+                SysRoleMenu roleMenu = new SysRoleMenu();
+                roleMenu.setRoleId(roleId);
+                roleMenu.setMenuId(sysRoleMenu.getMenuId());
+                return roleMenu;
+            }).collect(Collectors.toList());
+            roleMenuService.saveBatch(rms);
         }
-        return false;
+        // 维护角色部门权限
+//        DataScopeContext dataScopeContext = new DataScopeContext();
+        // 根据数据权限范围查询部门ids
+        List<Integer> ids = dataScopeContext.getDeptIdsForDataScope(roleDto, roleDto.getDataScope());
+        if (CollectionUtil.isNotEmpty(ids)) {
+            List<SysRoleDept> roleDepts = ids.stream().map(integer -> {
+                SysRoleDept sysRoleDept = new SysRoleDept();
+                sysRoleDept.setDeptId(integer);
+                sysRoleDept.setRoleId(roleId);
+                return sysRoleDept;
+            }).collect(Collectors.toList());
+
+            roleDeptService.saveBatch(roleDepts);
+        }
+        return true;
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -63,7 +89,24 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         baseMapper.updateById(sysRole);
         List<SysRoleMenu> roleMenus = roleDto.getRoleMenus();
         roleMenuService.remove(Wrappers.<SysRoleMenu>query().lambda().eq(SysRoleMenu::getRoleId, sysRole.getRoleId()));
-        return roleMenuService.saveBatch(roleMenus);
+        roleDeptService.remove(Wrappers.<SysRoleDept>query().lambda().eq(SysRoleDept::getRoleId, sysRole.getRoleId()));
+
+        if (CollectionUtil.isNotEmpty(roleMenus)) {
+            roleMenuService.saveBatch(roleMenus);
+        }
+
+        // 根据数据权限范围查询部门ids
+        List<Integer> ids = dataScopeContext.getDeptIdsForDataScope(roleDto, roleDto.getDataScope());
+        if (CollectionUtil.isNotEmpty(ids)) {
+            List<SysRoleDept> roleDepts = ids.stream().map(integer -> {
+                SysRoleDept sysRoleDept = new SysRoleDept();
+                sysRoleDept.setDeptId(integer);
+                sysRoleDept.setRoleId(roleDto.getRoleId());
+                return sysRoleDept;
+            }).collect(Collectors.toList());
+            roleDeptService.saveBatch(roleDepts);
+        }
+        return true;
     }
 
     @Transactional(rollbackFor = Exception.class)

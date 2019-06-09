@@ -11,7 +11,6 @@ import com.xd.pre.dto.UserDto;
 import com.xd.pre.exception.BaseException;
 import com.xd.pre.mapper.SysUserMapper;
 import com.xd.pre.security.SecurityUser;
-import com.xd.pre.security.UserDetailsServiceImpl;
 import com.xd.pre.security.util.JwtUtil;
 import com.xd.pre.security.util.SecurityUtil;
 import com.xd.pre.service.*;
@@ -19,15 +18,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,8 +59,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         Page<SysUser> userPage = new Page<>(page, pageSize);
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.select("user_id", "username", "dept_id", "job_id", "email", "phone", "avatar", "lock_flag");
+        //不为0 查询全部
         if (deptId != 0) {
-            queryWrapper.lambda().eq(SysUser::getDeptId, deptId);
+            // 判断部门是否有父级
+            queryWrapper.lambda().in(SysUser::getDeptId, deptService.selectDeptIds(deptId));
         }
         IPage<SysUser> sysUserIPage = baseMapper.selectPage(userPage, queryWrapper);
         List<SysUser> sysUserList = sysUserIPage.getRecords();
@@ -89,13 +86,17 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // 默认密码
         sysUser.setPassword("123456");
         baseMapper.insertUser(sysUser);
+
         List<SysUserRole> userRoles = new ArrayList<>();
+
         userDto.getUserRoles().forEach(item -> {
+
             SysUserRole sysUserRole = new SysUserRole();
             sysUserRole.setRoleId(item);
             sysUserRole.setUserId(sysUser.getUserId());
             userRoles.add(sysUserRole);
         });
+
         return userRoleService.saveBatch(userRoles);
     }
 
@@ -130,7 +131,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public SysUser findByUserName(String username) {
-        return baseMapper.selectOne(Wrappers.<SysUser>lambdaQuery().select(SysUser::getUserId,SysUser::getUsername,SysUser::getPassword).eq(SysUser::getUsername,username));
+        SysUser sysUser = baseMapper.selectOne(Wrappers.< SysUser>lambdaQuery()
+                .select(SysUser::getUserId, SysUser::getUsername,SysUser::getPhone,SysUser::getEmail ,SysUser::getPassword, SysUser::getDeptId, SysUser::getJobId)
+                .eq(SysUser::getUsername, username));
+        // 获取部门
+        sysUser.setDeptName(deptService.selectDeptNameByDeptId(sysUser.getDeptId()));
+        // 岗位
+        sysUser.setJobName(jobService.selectJobNameByJobId(sysUser.getJobId()));
+        return sysUser;
     }
 
     @Override
@@ -139,15 +147,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public String login(String username, String password,String captcha,HttpServletRequest request) {
+    public String login(String username, String password, String captcha, HttpServletRequest request) {
         // 验证验证码
         // 从session中获取之前保存的验证码跟前台传来的验证码进行匹配
         // 线上可以存放在redis中
         Object kaptcha = request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
-        if(kaptcha == null){
+        if (kaptcha == null) {
             throw new BaseException("验证码已失效");
         }
-        if (!captcha.toLowerCase().equals(kaptcha)){
+        if (!captcha.toLowerCase().equals(kaptcha)) {
             throw new BaseException("验证码错误");
         }
         //用户验证
@@ -158,7 +166,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SecurityUser userDetail = (SecurityUser) authentication.getPrincipal();
         return JwtUtil.generateToken(userDetail);
     }
-
 
 
 }

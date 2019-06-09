@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -81,7 +80,7 @@ public class SysUser extends Model<SysUser> {
     private LocalDateTime updateTime;
 
     /**
-     * 0-正常，9-锁定
+     * 0-正常，1-锁定
      */
     private String lockFlag;
 

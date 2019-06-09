@@ -64,8 +64,24 @@ public interface ISysUserService extends IService<SysUser> {
      */
     SysUser findByUserName(String username);
 
+    /**
+     * 根据用户id查询权限
+     * @param userId
+     * @return
+     */
     Set<String> findPermsByUserId(Integer userId);
 
 
+    /**
+     * 登录
+     * @param username
+     * @param password
+     * @param captcha
+     * @param request
+     * @return
+     */
     String login(String username, String password,String captcha,HttpServletRequest request);
+
+
+
 }

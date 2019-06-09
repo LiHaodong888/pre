@@ -17,4 +17,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysRoleDeptServiceImpl extends ServiceImpl<SysRoleDeptMapper, SysRoleDept> implements ISysRoleDeptService {
 
+
 }

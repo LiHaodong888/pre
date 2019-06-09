@@ -31,6 +31,7 @@ public class SysRoleController {
      * @return
      */
     @GetMapping
+    @PreAuthorize("hasAuthority('sys:role:view')")
     public R getRoleList() {
         return R.ok(roleService.selectRoleList());
     }

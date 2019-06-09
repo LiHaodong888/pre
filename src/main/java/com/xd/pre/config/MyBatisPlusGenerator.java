@@ -22,57 +22,10 @@ import java.util.Objects;
 public class MyBatisPlusGenerator {
 
     public static void main(String[] args) {
-        // 代码生成器
-//        AutoGenerator mpg = new AutoGenerator();
-////
-////        //1. 全局配置
-////        GlobalConfig gc = new GlobalConfig();
-////        gc.setOutputDir("/Users/lihaodong/Desktop/LiHaodong/pre/src/main/java/");
-////        gc.setOpen(false);
-////        gc.setFileOverride(true);
-////        //生成基本的resultMap
-////        gc.setBaseResultMap(true);
-////        //生成基本的SQL片段
-////        gc.setBaseColumnList(false);
-////        // 作者
-////        gc.setAuthor("lihaodong");
-////        mpg.setGlobalConfig(gc);
-////
-////        //2. 数据源配置
-////        DataSourceConfig dsc = new DataSourceConfig();
-////        dsc.setDbType(DbType.MYSQL);
-////        dsc.setDriverName("com.mysql.jdbc.Driver");
-////        dsc.setUsername("root");
-////        dsc.setPassword("root");
-////        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/pre");
-////        mpg.setDataSource(dsc);
-////
-////        //3. 策略配置globalConfiguration中
-////        StrategyConfig strategy = new StrategyConfig();
-////        // 此处可以修改为您的表前缀
-////        strategy.setTablePrefix("");
-////        // 表名生成策略
-////        strategy.setNaming(NamingStrategy.underline_to_camel);
-////        strategy.setSuperEntityClass("com.baomidou.mybatisplus.extension.activerecord.Model");
-////        // 需要生成的表
-////        strategy.setInclude("sys_log");
-////        strategy.setEntityLombokModel(true);
-////        strategy.setRestControllerStyle(true);
-////        strategy.setControllerMappingHyphenStyle(true);
-////        mpg.setStrategy(strategy);
-////        //4. 包名策略配置
-////        PackageConfig pc = new PackageConfig();
-////        pc.setParent("com.xd.pre");
-////        pc.setEntity("domain");
-////        mpg.setPackageInfo(pc);
-////        // 执行生成
-////        mpg.execute();
-
-
         //指定包名
         String packageName = "com.xd.pre";
         //指定生成的表名
-        String[] tableNames = new String[]{"sys_job"};
+        String[] tableNames = new String[]{"sys_dict"};
         new MyBatisPlusGenerator().generateByTables(packageName, tableNames);
 
     }

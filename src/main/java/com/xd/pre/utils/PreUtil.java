@@ -1,6 +1,8 @@
 package com.xd.pre.utils;
 
+import com.xd.pre.domain.SysDept;
 import com.xd.pre.domain.SysMenu;
+import com.xd.pre.vo.DeptTreeVo;
 import com.xd.pre.vo.MenuMetaVo;
 import com.xd.pre.vo.MenuVo;
 import org.apache.commons.lang3.StringUtils;
@@ -141,6 +143,60 @@ public class PreUtil {
             sysMenu.setChildren(children);
             children.sort((o1, o2) -> o1.getSort().compareTo(o2.getSort()));
             findChildren(children, menus, menuType);
+        }
+    }
+
+    /**
+     * 构建部门tree
+     * @param sysDepts
+     * @param depts
+     */
+    public static void findChildren(List<SysDept> sysDepts, List<SysDept> depts) {
+
+        for (SysDept sysDept : sysDepts) {
+            DeptTreeVo deptTreeVo = new DeptTreeVo();
+            deptTreeVo.setId(sysDept.getDeptId());
+            deptTreeVo.setLabel(sysDept.getName());
+            List<SysDept> children = new ArrayList<>();
+            List<DeptTreeVo> children1 = new ArrayList<>();
+            for (SysDept dept : depts) {
+                if (sysDept.getDeptId() != null && sysDept.getDeptId().equals(dept.getParentId())) {
+                    dept.setParentName(sysDept.getName());
+                    dept.setLevel(sysDept.getLevel() + 1);
+                    DeptTreeVo deptTreeVo1 = new DeptTreeVo();
+                    deptTreeVo1.setLabel(dept.getName());
+                    deptTreeVo1.setId(dept.getDeptId());
+                    children.add(dept);
+                    children1.add(deptTreeVo1);
+                }
+            }
+            sysDept.setChildren(children);
+            deptTreeVo.setChildren(children1);
+            findChildren(children, depts);
+            System.out.println("就结局:"+deptTreeVo);
+        }
+    }
+    /**
+     * 构建部门tree
+     * @param sysDepts
+     * @param depts
+     */
+    public static void findChildren1(List<DeptTreeVo> sysDepts, List<SysDept> depts) {
+
+        for (DeptTreeVo sysDept : sysDepts) {
+            sysDept.setId(sysDept.getId());
+            sysDept.setLabel(sysDept.getLabel());
+            List<DeptTreeVo> children = new ArrayList<>();
+            for (SysDept dept : depts) {
+                if (sysDept.getId() == dept.getParentId()) {
+                    DeptTreeVo deptTreeVo1 = new DeptTreeVo();
+                    deptTreeVo1.setLabel(dept.getName());
+                    deptTreeVo1.setId(dept.getDeptId());
+                    children.add(deptTreeVo1);
+                }
+            }
+            sysDept.setChildren(children);
+            findChildren1(children, depts);
         }
     }
 
