@@ -5,7 +5,7 @@ pre基于spring security的RBAC权限管理系统
 
 #### Pre
 
-- 基于 Spring Boot 2.1.4 、Spring Security 的RBAC权限管理系统
+- 基于 Spring Boot 2.1.5 、Spring Security 的RBAC权限管理系统
 - 基于 Vue UI框架 Element-ui
 - 作为 Mybatis Plus 学习与生产实践
 - 作为 lambda 、stream api 的学习与生产实践
