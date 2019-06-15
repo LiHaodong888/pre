@@ -21,7 +21,7 @@ import java.util.List;
 @Setter
 @Getter
 @Accessors(chain = true)
-public class SecurityUser extends SysUser implements UserDetails {
+public class PreUser implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
@@ -32,7 +32,7 @@ public class SecurityUser extends SysUser implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
 
-    public SecurityUser(Integer userId,String username, String password,Collection<? extends GrantedAuthority> authorities) {
+    public PreUser(Integer userId, String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -40,12 +40,12 @@ public class SecurityUser extends SysUser implements UserDetails {
 
     }
 
-    public SecurityUser(String username, String password, List<SysRole> role) {
+    public PreUser(String username, String password, List<SysRole> role) {
         this.username = username;
         this.password = password;
     }
 
-    public SecurityUser(String username, String password) {
+    public PreUser(String username, String password) {
         this.username = username;
         this.password = password;
     }

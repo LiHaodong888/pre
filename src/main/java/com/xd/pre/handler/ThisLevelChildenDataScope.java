@@ -4,6 +4,7 @@ import com.xd.pre.dto.RoleDto;
 import com.xd.pre.security.util.SecurityUtil;
 import com.xd.pre.service.ISysDeptService;
 import com.xd.pre.service.ISysUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,21 +19,16 @@ import java.util.List;
 @Component("3")
 public class ThisLevelChildenDataScope implements AbstractDataScopeHandler {
 
-    private final ISysUserService userService;
+    @Autowired
+    private ISysUserService userService;
 
-    private final SecurityUtil securityUtil;
+    @Autowired
+    private ISysDeptService deptService;
 
-    private final ISysDeptService deptService;
-
-    public ThisLevelChildenDataScope(ISysDeptService deptService, ISysUserService userService, SecurityUtil securityUtil) {
-        this.deptService = deptService;
-        this.userService = userService;
-        this.securityUtil = securityUtil;
-    }
 
     @Override
     public List<Integer> getDeptIds(RoleDto roleDto, DataScopeTypeEnum dataScopeTypeEnum) {
-        Integer deptId = userService.findByUserName(securityUtil.getSecurityUser().getUsername()).getDeptId();
+        Integer deptId = userService.findByUserName(SecurityUtil.getUser().getUsername()).getDeptId();
         return deptService.selectDeptIds(deptId);
     }
 }

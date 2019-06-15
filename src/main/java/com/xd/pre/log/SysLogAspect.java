@@ -3,7 +3,7 @@ package com.xd.pre.log;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.extra.servlet.ServletUtil;
-import com.xd.pre.security.SecurityUser;
+import com.xd.pre.security.PreUser;
 import com.xd.pre.security.util.SecurityUtil;
 import com.xd.pre.utils.LogUtil;
 import com.xd.pre.utils.R;
@@ -41,8 +41,8 @@ public class SysLogAspect {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @Autowired
-    private SecurityUtil securityUtil;
+//    @Autowired
+//    private SecurityUtil securityUtil;
 
     /***
      * 定义controller切入点拦截规则，拦截SysLog注解的方法
@@ -65,7 +65,7 @@ public class SysLogAspect {
         long beginTime = Instant.now().toEpochMilli();
         // 获取session中的用户
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-        SecurityUser securityUser = securityUtil.getSecurityUser();
+        PreUser securityUser = SecurityUtil.getUser();
         sysLog.setUserName(securityUser.getUsername());
         sysLog.setActionUrl(URLUtil.getPath(request.getRequestURI()));
         sysLog.setStartTime(LocalDateTime.now());

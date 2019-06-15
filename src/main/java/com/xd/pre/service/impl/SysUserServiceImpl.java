@@ -4,25 +4,27 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.google.code.kaptcha.Constants;
+import com.xd.pre.constant.PreConstant;
 import com.xd.pre.domain.SysUser;
 import com.xd.pre.domain.SysUserRole;
 import com.xd.pre.dto.UserDto;
 import com.xd.pre.exception.BaseException;
 import com.xd.pre.mapper.SysUserMapper;
-import com.xd.pre.security.SecurityUser;
+import com.xd.pre.security.PreUser;
 import com.xd.pre.security.util.JwtUtil;
-import com.xd.pre.security.util.SecurityUtil;
 import com.xd.pre.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.xd.pre.utils.PreUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +53,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Autowired
     private ISysMenuService menuService;
 
-    @Autowired
-    private SecurityUtil securityUtil;
+    @Resource
+    private AuthenticationManager authenticationManager;
 
     @Override
     public IPage<SysUser> selectUserList(int page, int pageSize, Integer deptId) {
@@ -84,19 +86,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUser sysUser = new SysUser();
         BeanUtils.copyProperties(userDto, sysUser);
         // 默认密码
-        sysUser.setPassword("123456");
+        sysUser.setPassword(PreUtil.encode("123456"));
         baseMapper.insertUser(sysUser);
-
-        List<SysUserRole> userRoles = new ArrayList<>();
-
-        userDto.getUserRoles().forEach(item -> {
-
+        List<SysUserRole> userRoles = userDto.getUserRoles().stream().map(item -> {
             SysUserRole sysUserRole = new SysUserRole();
             sysUserRole.setRoleId(item);
             sysUserRole.setUserId(sysUser.getUserId());
-            userRoles.add(sysUserRole);
-        });
-
+            return sysUserRole;
+        }).collect(Collectors.toList());
         return userRoleService.saveBatch(userRoles);
     }
 
@@ -131,12 +128,19 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public SysUser findByUserName(String username) {
-        SysUser sysUser = baseMapper.selectOne(Wrappers.< SysUser>lambdaQuery()
-                .select(SysUser::getUserId, SysUser::getUsername,SysUser::getPhone,SysUser::getEmail ,SysUser::getPassword, SysUser::getDeptId, SysUser::getJobId)
+        return baseMapper.selectOne(Wrappers.<SysUser>lambdaQuery()
+                .select(SysUser::getUserId, SysUser::getUsername, SysUser::getPassword)
+                .eq(SysUser::getUsername, username));
+    }
+
+    @Override
+    public SysUser findByUserInfoName(String username) {
+        SysUser sysUser = baseMapper.selectOne(Wrappers.<SysUser>lambdaQuery()
+                .select(SysUser::getUserId, SysUser::getUsername, SysUser::getPhone, SysUser::getEmail, SysUser::getPassword, SysUser::getDeptId, SysUser::getJobId,SysUser::getAvatar)
                 .eq(SysUser::getUsername, username));
         // 获取部门
         sysUser.setDeptName(deptService.selectDeptNameByDeptId(sysUser.getDeptId()));
-        // 岗位
+        // 获取岗位
         sysUser.setJobName(jobService.selectJobNameByJobId(sysUser.getJobId()));
         return sysUser;
     }
@@ -147,11 +151,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
+    public Set<String> findRoleIdByUserId(Integer userId) {
+        return userRoleService
+                .selectUserRoleListByUserId(userId)
+                .stream()
+                .map(sysUserRole -> "ROLE_" + sysUserRole.getRoleId())
+                .collect(Collectors.toSet());
+    }
+
+    @Override
     public String login(String username, String password, String captcha, HttpServletRequest request) {
         // 验证验证码
         // 从session中获取之前保存的验证码跟前台传来的验证码进行匹配
         // 线上可以存放在redis中
-        Object kaptcha = request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+        Object kaptcha = request.getSession().getAttribute(PreConstant.PRE_IMAGE_SESSION_KEY);
         if (kaptcha == null) {
             throw new BaseException("验证码已失效");
         }
@@ -159,13 +172,31 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             throw new BaseException("验证码错误");
         }
         //用户验证
-        Authentication authentication = securityUtil.authenticate(username, password);
+        Authentication authentication = null;
+        try {
+            // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername()去验证用户名和密码，
+            // 如果正确，则存储该用户名密码到security 的 context中
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        } catch (Exception e) {
+            if (e instanceof BadCredentialsException) {
+                throw new BaseException("用户名或密码错误", 402);
+            } else if (e instanceof DisabledException) {
+                throw new BaseException("账户被禁用", 402);
+            } else if (e instanceof AccountExpiredException) {
+                throw new BaseException("账户过期无法验证", 402);
+            } else {
+                throw new BaseException("账户被锁定,无法登录", 402);
+            }
+        }
         //存储认证信息
         SecurityContextHolder.getContext().setAuthentication(authentication);
         //生成token
-        SecurityUser userDetail = (SecurityUser) authentication.getPrincipal();
+        PreUser userDetail = (PreUser) authentication.getPrincipal();
         return JwtUtil.generateToken(userDetail);
     }
 
-
+    @Override
+    public boolean updateUserInfo(SysUser sysUser) {
+        return baseMapper.updateById(sysUser) > 0;
+    }
 }

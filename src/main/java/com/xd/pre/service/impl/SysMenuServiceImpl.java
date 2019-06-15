@@ -3,6 +3,7 @@ package com.xd.pre.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.xd.pre.constant.MenuConstant;
 import com.xd.pre.domain.SysMenu;
 import com.xd.pre.dto.MenuDto;
 import com.xd.pre.exception.BaseException;
@@ -10,7 +11,6 @@ import com.xd.pre.mapper.SysMenuMapper;
 import com.xd.pre.service.ISysMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xd.pre.service.ISysRoleMenuService;
-import com.xd.pre.utils.Constant;
 import com.xd.pre.utils.PreUtil;
 import com.xd.pre.utils.R;
 import org.springframework.beans.BeanUtils;
@@ -102,24 +102,24 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
      */
     private void verifyForm(SysMenu menu) {
         //上级菜单类型
-        int parentType = Constant.MenuType.CATALOG.getValue();
+        int parentType = MenuConstant.MenuType.CATALOG.getValue();
         if (menu.getParentId() != 0) {
             SysMenu parentMenu = getMenuById(menu.getParentId());
             parentType = parentMenu.getType();
         }
 
         //目录、菜单
-        if (menu.getType() == Constant.MenuType.CATALOG.getValue() ||
-                menu.getType() == Constant.MenuType.MENU.getValue()) {
-            if (parentType != Constant.MenuType.CATALOG.getValue()) {
+        if (menu.getType() == MenuConstant.MenuType.CATALOG.getValue() ||
+                menu.getType() == MenuConstant.MenuType.MENU.getValue()) {
+            if (parentType != MenuConstant.MenuType.CATALOG.getValue()) {
                 throw new BaseException("上级菜单只能为目录类型");
             }
             return;
         }
 
         //按钮
-        if (menu.getType() == Constant.MenuType.BUTTON.getValue()) {
-            if (parentType != Constant.MenuType.MENU.getValue()) {
+        if (menu.getType() == MenuConstant.MenuType.BUTTON.getValue()) {
+            if (parentType != MenuConstant.MenuType.MENU.getValue()) {
                 throw new BaseException("上级菜单只能为菜单类型");
             }
         }

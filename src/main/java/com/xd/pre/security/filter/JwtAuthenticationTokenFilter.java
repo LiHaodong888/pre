@@ -1,17 +1,15 @@
 package com.xd.pre.security.filter;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.xd.pre.security.SecurityUser;
+import com.xd.pre.security.PreUser;
 import com.xd.pre.security.util.JwtUtil;
 import com.xd.pre.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -21,9 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -46,7 +42,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
 
-        SecurityUser securityUser = jwtUtil.getUserFromToken(request);
+        PreUser securityUser = jwtUtil.getUserFromToken(request);
         if (ObjectUtil.isNotNull(securityUser)){
             Set<String> permissions = userService.findPermsByUserId(securityUser.getUserId());
             Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(permissions.toArray(new String[0]));

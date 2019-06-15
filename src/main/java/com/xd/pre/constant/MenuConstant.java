@@ -1,13 +1,13 @@
-package com.xd.pre.utils;
+package com.xd.pre.constant;
 
 /**
- * @Classname Constant
+ * @Classname MenuConstant
  * @Description 常量
  * @Author 李号东 lihaodongmail@163.com
  * @Date 2019-04-29 19:49
  * @Version 1.0
  */
-public class Constant {
+public class MenuConstant {
 
     /**
      * 菜单类型

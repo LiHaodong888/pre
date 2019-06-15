@@ -25,14 +25,11 @@ public class ThisLevelDataScope implements AbstractDataScopeHandler {
     @Autowired
     private ISysUserService userService;
 
-    @Autowired
-    private SecurityUtil securityUtil;
-
     @Override
     public List<Integer> getDeptIds(RoleDto roleDto, DataScopeTypeEnum dataScopeTypeEnum) {
         // 用于存储部门id
         List<Integer> deptIds = new ArrayList<>();
-        deptIds.add(userService.findByUserName(securityUtil.getSecurityUser().getUsername()).getDeptId());
+        deptIds.add(userService.findByUserName(SecurityUtil.getUser().getUsername()).getDeptId());
         return deptIds;
     }
 }

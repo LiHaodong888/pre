@@ -1,15 +1,10 @@
 package com.xd.pre.controller;
 
-import com.google.code.kaptcha.Constants;
-import com.google.code.kaptcha.Producer;
-import com.xd.pre.exception.BaseException;
+import com.xd.pre.constant.PreConstant;
 import com.xd.pre.service.ISysUserService;
+import com.xd.pre.utils.PreUtil;
 import com.xd.pre.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,56 +32,42 @@ import java.util.Map;
 public class IndexController {
 
     @Autowired
-    private Producer producer;
-
-    @Autowired
     private ISysUserService userService;
 
 
     /**
      * 生成验证码
+     *
      * @param response
      * @param request
      * @throws ServletException
      * @throws IOException
      */
     @GetMapping("captcha.jpg")
-    public void captcha(HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
+    public void captcha(HttpServletResponse response, HttpServletRequest request) throws IOException {
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");
-        // 生成文字验证码
-        String text = producer.createText();
         // 生成图片验证码
-        BufferedImage image = producer.createImage(text);
+        BufferedImage image = PreUtil.createImage();
+        // 生成文字验证码
+        String randomText = PreUtil.drawRandomText(image);
         // 保存到验证码到 session
-        request.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY, text);
+        request.getSession().setAttribute(PreConstant.PRE_IMAGE_SESSION_KEY, randomText.toLowerCase());
         ServletOutputStream out = response.getOutputStream();
         ImageIO.write(image, "jpg", out);
     }
 
     /**
      * 登录
+     *
      * @param username
      * @param password
      * @param request
      * @return
      */
     @RequestMapping(value = "/login")
-    public R login(String username,String password,String captcha, HttpServletRequest request) {
-        return R.ok(userService.login(username, password,captcha,request));
-    }
-
-
-    @GetMapping("/getuser")
-    @PreAuthorize("hasAuthority('sys:dept:update')")
-    public R getUserDetails() {
-        UserDetails userDetails = null;
-        try {
-            userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        } catch (Exception e) {
-            throw new BaseException("登录状态过期",HttpStatus.UNAUTHORIZED.value());
-        }
-        return R.ok(userDetails.getAuthorities());
+    public R login(String username, String password, String captcha, HttpServletRequest request) {
+        return R.ok(userService.login(username, password, captcha, request));
     }
 
     @RequestMapping("/info")

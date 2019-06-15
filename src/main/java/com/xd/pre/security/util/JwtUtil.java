@@ -1,6 +1,6 @@
 package com.xd.pre.security.util;
 
-import com.xd.pre.security.SecurityUser;
+import com.xd.pre.security.PreUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -60,7 +60,7 @@ public class JwtUtil {
      *
      * @return 令牌
      */
-    public static String generateToken(SecurityUser userDetail) {
+    public static String generateToken(PreUser userDetail) {
         Map<String, Object> claims = new HashMap<>(3);
         claims.put(USERID,userDetail.getUserId());
         claims.put(USERNAME, userDetail.getUsername());
@@ -96,7 +96,7 @@ public class JwtUtil {
      *
      * @return 用户名
      */
-    public SecurityUser getUserFromToken(HttpServletRequest request) {
+    public PreUser getUserFromToken(HttpServletRequest request) {
         // 获取请求携带的令牌
         String token = getToken(request);
         if (StringUtils.isNotEmpty(token)) {
@@ -122,7 +122,8 @@ public class JwtUtil {
             }
             Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(perms.toArray(new String[0]));
             if (validateToken(token, username)){
-                return new SecurityUser(userId,username,"",authorities);
+                // 未把密码放到jwt
+                return new PreUser(userId,username,"",authorities);
             }
         }
         return null;

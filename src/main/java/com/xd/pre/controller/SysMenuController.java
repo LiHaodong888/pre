@@ -1,21 +1,17 @@
 package com.xd.pre.controller;
 
 
-import com.alibaba.fastjson.JSON;
 import com.xd.pre.domain.SysMenu;
 import com.xd.pre.dto.MenuDto;
 import com.xd.pre.log.SysLog;
-import com.xd.pre.security.SecurityUser;
+import com.xd.pre.security.PreUser;
 import com.xd.pre.security.util.SecurityUtil;
 import com.xd.pre.service.ISysMenuService;
 import com.xd.pre.utils.PreUtil;
 import com.xd.pre.utils.R;
-import com.xd.pre.vo.MenuVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * <p>
@@ -32,8 +28,8 @@ public class SysMenuController {
     @Autowired
     private ISysMenuService menuService;
 
-    @Autowired
-    private SecurityUtil securityUtil;
+//    @Autowired
+//    private SecurityUtil securityUtil;
 
     /**
      * 添加菜单
@@ -55,7 +51,7 @@ public class SysMenuController {
      */
     @GetMapping
     public R getMenuTree() {
-        SecurityUser securityUser = securityUtil.getSecurityUser();
+        PreUser securityUser = SecurityUtil.getUser();
         return R.ok(menuService.selectMenuTree(securityUser.getUserId()));
     }
 
@@ -103,7 +99,7 @@ public class SysMenuController {
      */
     @GetMapping("/getRouters")
     public R getRouters() {
-        SecurityUser securityUser = securityUtil.getSecurityUser();
+        PreUser securityUser = SecurityUtil.getUser();
         return R.ok(PreUtil.buildMenus(menuService.selectMenuTree(securityUser.getUserId())));
     }
 

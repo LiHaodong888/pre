@@ -2,8 +2,9 @@ package com.xd.pre.security.util;
 
 import com.alibaba.fastjson.JSON;
 import com.xd.pre.exception.BaseException;
-import com.xd.pre.security.SecurityUser;
+import com.xd.pre.security.PreUser;
 import com.xd.pre.utils.R;
+import lombok.experimental.UtilityClass;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
@@ -22,39 +23,27 @@ import java.io.PrintWriter;
  * @Date 2019-05-08 10:12
  * @Version 1.0
  */
-@Component
+@UtilityClass
 public class SecurityUtil {
 
-
-    @Resource
-    private AuthenticationManager authenticationManager;
-
     /**
-     * 验证用户
-     * @param username
-     * @param password
-     * @return
+     * 获取用户
+     *
+     * @param authentication
+     * @return PigxUser
+     * <p>
+     * 获取当前用户的全部信息 EnablePigxResourceServer true
+     * 获取当前用户的用户名 EnablePigxResourceServer false
      */
-    public Authentication authenticate(String username, String password) {
-        try {
-            // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername()去验证用户名和密码，
-            // 如果正确，则存储该用户名密码到security 的 context中
-            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        } catch (Exception e ) {
-            if (e instanceof BadCredentialsException){
-                throw new BaseException("用户名或密码错误",402);
-            } else if (e instanceof DisabledException){
-                throw new BaseException("账户被禁用",402);
-            } else if (e instanceof AccountExpiredException){
-                throw new BaseException("账户过期无法验证",402);
-            } else {
-                throw new BaseException("账户被锁定,无法登录",402);
-            }
+    private PreUser getUser(Authentication authentication) {
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof PreUser) {
+            return (PreUser) principal;
         }
+        return null;
     }
 
-
-    public static void writeJavaScript(R r, HttpServletResponse response) throws IOException {
+    public void writeJavaScript(R r, HttpServletResponse response) throws IOException {
         response.setStatus(200);
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
@@ -75,9 +64,9 @@ public class SecurityUtil {
      * @Description 获取用户
      * @Date 11:29 2019-05-10
      **/
-    public SecurityUser getSecurityUser(){
+    public PreUser getUser(){
         try {
-            return (SecurityUser) getAuthentication().getPrincipal();
+            return (PreUser) getAuthentication().getPrincipal();
         } catch (Exception e) {
             throw new BaseException("登录状态过期", HttpStatus.UNAUTHORIZED.value());
         }

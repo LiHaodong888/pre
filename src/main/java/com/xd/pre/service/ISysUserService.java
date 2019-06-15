@@ -65,11 +65,26 @@ public interface ISysUserService extends IService<SysUser> {
     SysUser findByUserName(String username);
 
     /**
+     * 通过用户名查找用户个人信息
+     *
+     * @param username 用户名
+     * @return 用户信息
+     */
+    SysUser findByUserInfoName(String username);
+
+    /**
      * 根据用户id查询权限
      * @param userId
      * @return
      */
     Set<String> findPermsByUserId(Integer userId);
+
+    /**
+     * 通过用户id查询角色集合
+     * @param userId
+     * @return
+     */
+    Set<String> findRoleIdByUserId(Integer userId);
 
 
     /**
@@ -82,6 +97,13 @@ public interface ISysUserService extends IService<SysUser> {
      */
     String login(String username, String password,String captcha,HttpServletRequest request);
 
+
+    /**
+     * 修改用户信息
+     * @param sysUser
+     * @return
+     */
+    boolean updateUserInfo(SysUser sysUser);
 
 
 }

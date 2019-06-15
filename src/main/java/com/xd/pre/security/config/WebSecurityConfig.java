@@ -2,11 +2,9 @@ package com.xd.pre.security.config;
 
 import com.xd.pre.security.UserDetailsServiceImpl;
 import com.xd.pre.security.filter.JwtAuthenticationTokenFilter;
-import com.xd.pre.security.handle.AccessDeniedHandlerImpl;
 import com.xd.pre.security.handle.AuthenticationEntryPointImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

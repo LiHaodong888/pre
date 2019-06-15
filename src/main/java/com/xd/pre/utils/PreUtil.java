@@ -5,28 +5,30 @@ import com.xd.pre.domain.SysMenu;
 import com.xd.pre.vo.DeptTreeVo;
 import com.xd.pre.vo.MenuMetaVo;
 import com.xd.pre.vo.MenuVo;
+import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.*;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @Classname PreUtil
- * @Description TODO
+ * @Description pre系统用户工具类
  * @Author 李号东 lihaodongmail@163.com
  * @Date 2019-04-27 16:52
  * @Version 1.0
  */
+@UtilityClass
 public class PreUtil {
 
 
-    public static List<MenuVo> buildMenus(List<SysMenu> menuDTOS) {
+    public List<MenuVo> buildMenus(List<SysMenu> menuDTOS) {
         List<MenuVo> list = new LinkedList<>();
 
         menuDTOS.forEach(menuDTO -> {
@@ -83,12 +85,12 @@ public class PreUtil {
         return list;
     }
 
-    public static List<MenuVo> s(List<SysMenu> menuDTOs) {
+    public List<MenuVo> s(List<SysMenu> menuDTOs) {
         List<MenuVo> list = new LinkedList<>();
 
         menuDTOs.forEach(sysMenu -> {
             MenuVo menuVo = new MenuVo();
-            if (!sysMenu.getIsFrame()){
+            if (!sysMenu.getIsFrame()) {
                 // 父级菜单
                 if (sysMenu.getParentId() == 0) {
                     menuVo.setPath("/" + sysMenu.getPath());
@@ -107,7 +109,7 @@ public class PreUtil {
             menuVo.setName(sysMenu.getName());
             menuVo.setMeta(new MenuMetaVo(sysMenu.getName(), sysMenu.getIcon()));
             menuVo.setComponent(StringUtils.isEmpty(sysMenu.getComponent()) ? "Layout" : sysMenu.getComponent());
-            if (sysMenu.getType() == 0 && sysMenu.getChildren() != null && sysMenu.getChildren().size() != 0){
+            if (sysMenu.getType() == 0 && sysMenu.getChildren() != null && sysMenu.getChildren().size() != 0) {
                 menuVo.setChildren(s(sysMenu.getChildren()));
             } else {
                 menuVo.setChildren(new ArrayList<>());
@@ -120,11 +122,12 @@ public class PreUtil {
 
     /**
      * 遍历菜单
+     *
      * @param menuList
      * @param menus
      * @param menuType
      */
-    public static void findChildren(List<SysMenu> menuList, List<SysMenu> menus, int menuType) {
+    public void findChildren(List<SysMenu> menuList, List<SysMenu> menus, int menuType) {
         for (SysMenu sysMenu : menuList) {
             List<SysMenu> children = new ArrayList<>();
             for (SysMenu menu : menus) {
@@ -148,10 +151,11 @@ public class PreUtil {
 
     /**
      * 构建部门tree
+     *
      * @param sysDepts
      * @param depts
      */
-    public static void findChildren(List<SysDept> sysDepts, List<SysDept> depts) {
+    public void findChildren(List<SysDept> sysDepts, List<SysDept> depts) {
 
         for (SysDept sysDept : sysDepts) {
             DeptTreeVo deptTreeVo = new DeptTreeVo();
@@ -173,15 +177,16 @@ public class PreUtil {
             sysDept.setChildren(children);
             deptTreeVo.setChildren(children1);
             findChildren(children, depts);
-            System.out.println("就结局:"+deptTreeVo);
         }
     }
+
     /**
      * 构建部门tree
+     *
      * @param sysDepts
      * @param depts
      */
-    public static void findChildren1(List<DeptTreeVo> sysDepts, List<SysDept> depts) {
+    public void findChildren1(List<DeptTreeVo> sysDepts, List<SysDept> depts) {
 
         for (DeptTreeVo sysDept : sysDepts) {
             sysDept.setId(sysDept.getId());
@@ -202,11 +207,12 @@ public class PreUtil {
 
     /**
      * 判断菜单是否存在
+     *
      * @param sysMenus
      * @param sysMenu
      * @return
      */
-    public static boolean exists(List<SysMenu> sysMenus, SysMenu sysMenu) {
+    public boolean exists(List<SysMenu> sysMenus, SysMenu sysMenu) {
         boolean exist = false;
         for (SysMenu menu : sysMenus) {
             if (menu.getMenuId().equals(sysMenu.getMenuId())) {
@@ -217,42 +223,121 @@ public class PreUtil {
     }
 
     /**
-     * 获取加密盐
+     * 生成BCryptPasswordEncoder密码
+     *
+     * @param rawPass
      * @return
      */
-    public static String getSalt() {
-        return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 5);
-    }
-
-    public static String encode(String rawPass) {
+    public String encode(String rawPass) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.encode(rawPass);
     }
 
+
     /**
-     * 获取用户名
+     * 校验密码
+     *
+     * @param newPass
+     * @param passwordEncoderOldPass
      * @return
      */
-    public static String getUsername(Authentication authentication) {
-        String username = null;
-        if(authentication != null) {
-            Object principal = authentication.getPrincipal();
-            if(principal != null && principal instanceof UserDetails) {
-                username = ((UserDetails) principal).getUsername();
+    public boolean validatePass(String newPass, String passwordEncoderOldPass) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.matches(newPass, passwordEncoderOldPass);
+    }
+
+    /**
+     * 不重复的验证码
+     *
+     * @param i
+     * @return
+     */
+    public String codeGen(int i) {
+        char[] codeSequence = {'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I',
+                'O', 'P', 'L', 'K', 'J', 'H', 'G', 'F', 'D',
+                'S', 'A', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '1',
+                '2', '3', '4', '5', '6', '7', '8', '9', '0'};
+        Random random = new Random();
+        StringBuilder stringBuilder = new StringBuilder();
+        int count = 0;
+        while (true) {
+            // 随机产生一个下标，通过下标取出字符数组中对应的字符
+            char c = codeSequence[random.nextInt(codeSequence.length)];
+            // 假设取出来的字符在动态字符中不存在，代表没有重复的
+            if (stringBuilder.indexOf(c + "") == -1) {
+                stringBuilder.append(c);
+                count++;
+                //控制随机生成的个数
+                if (count == i) {
+                    break;
+                }
             }
         }
-        return username;
+        return stringBuilder.toString();
+    }
+
+
+    private int width = 200;
+    private int height = 50;
+
+    public BufferedImage createImage(){
+        //生成对应宽高的初始图片
+        return  new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+    }
+
+    public static String drawRandomText(BufferedImage verifyImg) {
+        Graphics2D graphics = (Graphics2D) verifyImg.getGraphics();
+        //设置画笔颜色-验证码背景色
+        graphics.setColor(Color.WHITE);
+        //填充背景
+        graphics.fillRect(0, 0, width, height);
+        graphics.setFont(new Font("微软雅黑", Font.PLAIN, 30));
+        //数字和字母的组合
+        String baseNumLetter = "123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
+        StringBuilder sBuffer = new StringBuilder();
+        //旋转原点的 x 坐标
+        int x = 10;
+        String ch = "";
+        Random random = new Random();
+        for (int i = 0; i < 4; i++) {
+            graphics.setColor(getRandomColor());
+            //设置字体旋转角度
+            //角度小于30度
+            int degree = random.nextInt() % 30;
+            int dot = random.nextInt(baseNumLetter.length());
+            ch = baseNumLetter.charAt(dot) + "";
+            sBuffer.append(ch);
+            //正向旋转
+            graphics.rotate(degree * Math.PI / 180, x, 45);
+            graphics.drawString(ch, x, 45);
+            //反向旋转
+            graphics.rotate(-degree * Math.PI / 180, x, 45);
+            x += 48;
+        }
+
+        //画干扰线
+        for (int i = 0; i < 6; i++) {
+            // 设置随机颜色
+            graphics.setColor(getRandomColor());
+            // 随机画线
+            graphics.drawLine(random.nextInt(width), random.nextInt(height), random.nextInt(width), random.nextInt(height));
+        }
+        //添加噪点
+        for (int i = 0; i < 30; i++) {
+            int x1 = random.nextInt(width);
+            int y1 = random.nextInt(height);
+            graphics.setColor(getRandomColor());
+            graphics.fillRect(x1, y1, 2, 1);
+        }
+        return sBuffer.toString();
     }
 
     /**
-     * 获取当前登录信息
-     * @return
+     * 随机取色
      */
-    public static Authentication getAuthentication() {
-        if(SecurityContextHolder.getContext() == null) {
-            return null;
-        }
-        return SecurityContextHolder.getContext().getAuthentication();
-    }
+    private static Color getRandomColor() {
+        Random ran = new Random();
+        return new Color(ran.nextInt(256), ran.nextInt(256), ran.nextInt(256));
 
+    }
 }
