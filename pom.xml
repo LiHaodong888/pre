@@ -12,16 +12,16 @@
     <artifactId>pre</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>pre</name>
-    <description>pre基于spring security的RBAC权限管理系统</description>
+    <description>Pre基于Spring Boot 、Spring Security的RBAC权限管理系统</description>
 
     <properties>
         <java.version>1.8</java.version>
         <mybatis-plus.version>3.1.1</mybatis-plus.version>
         <velocity.version>2.1</velocity.version>
         <hutool.version>4.5.6</hutool.version>
-        <kaptcha.version>0.0.9</kaptcha.version>
         <fastjson.version>1.2.56</fastjson.version>
         <jwt.version>0.9.0</jwt.version>
+        <joda-time.version>2.10.1</joda-time.version>
     </properties>
 
     <dependencies>
@@ -104,13 +104,12 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>2.10.1</version>
+            <version>${joda-time.version}</version>
         </dependency>
-        <!-- kaptcha依赖 -->
+        <!--mail-->
         <dependency>
-            <groupId>com.github.axet</groupId>
-            <artifactId>kaptcha</artifactId>
-            <version>${kaptcha.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
     </dependencies>
 
