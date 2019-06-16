@@ -10,7 +10,33 @@ Pre基于Spring Boot 、Spring Security的RBAC权限管理系统
 - 作为 Mybatis Plus 学习与生产实践
 - 作为 Lambda 、Stream Api 的学习与生产实践
 
-
+       
+<p align="center">
+    <br>      
+    <br>      
+    <p align="center">
+        Pre基于Spring Boot 、Spring Security的RBAC权限管理系统, 做更简洁的后台管理系统。包含系统管理，后面讲支持代码生成，多数据库适配，SSO单点登录，工作流，短信，邮件发送，任务调度，持续集成，docker部署等功能。版本迭代快，加群免费技术支持。
+        <br>      
+        <br>      
+        <span>
+            <span>
+                Pre官方交流群：
+            </span>
+        </span>
+        <br>
+        <br>
+        <p>
+        <a href="http://spring.io/projects/spring-boot">
+            <img src="https://img.shields.io/badge/spring--boot-2.1.5-green.svg" alt="spring-boot">
+        </a>
+        <a href="http://mp.baomidou.com">
+            <img src="https://img.shields.io/badge/mybatis--plus-3.1.1-blue.svg" alt="mybatis-plus">
+        </a>  
+        <a href="https://shiro.apache.org/">
+            <img src="https://img.shields.io/badge/security-5.1.5-blue.svg" alt="shiro">
+        </a>      
+    </p>
+</p>
 
 
 #### 安装教程
