@@ -1,7 +1,7 @@
 package com.xd.pre.controller;
 
 
-import com.xd.pre.dto.RoleDto;
+import com.xd.pre.dto.RoleDTO;
 import com.xd.pre.log.SysLog;
 import com.xd.pre.service.ISysRoleService;
 import com.xd.pre.utils.R;
@@ -45,7 +45,7 @@ public class SysRoleController {
     @SysLog(descrption = "保存角色以及菜单权限")
     @PostMapping
     @PreAuthorize("hasAuthority('sys:role:add')")
-    public R save(@RequestBody RoleDto roleDto) {
+    public R save(@RequestBody RoleDTO roleDto) {
         return R.ok(roleService.saveRoleMenu(roleDto));
     }
 
@@ -70,7 +70,7 @@ public class SysRoleController {
     @SysLog(descrption = "更新角色以及菜单权限")
     @PutMapping
     @PreAuthorize("hasAuthority('sys:role:update')")
-    public R update(@RequestBody RoleDto roleDto) {
+    public R update(@RequestBody RoleDTO roleDto) {
         return R.ok(roleService.updateRoleMenu(roleDto));
     }
 

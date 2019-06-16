@@ -89,13 +89,11 @@ public class SysUser extends Model<SysUser> {
      */
     private String delFlag;
 
-
     /**
-     * 非数据库字段
-     * 用户角色集合
+     * 角色列表
      */
     @TableField(exist = false)
-    private List<SysUserRole> userRoles;
+    private List<SysRole> roleList;
     /**
      * 非数据库字段
      * 部门名称
@@ -107,7 +105,7 @@ public class SysUser extends Model<SysUser> {
      * 岗位名称
      */
     @TableField(exist = false)
-    private String jobName;;
+    private String jobName;
 
 
 }

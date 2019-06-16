@@ -1,7 +1,6 @@
 package com.xd.pre.handler;
 
-import com.xd.pre.domain.SysRoleDept;
-import com.xd.pre.dto.RoleDto;
+import com.xd.pre.dto.RoleDTO;
 import com.xd.pre.service.ISysDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,7 +24,7 @@ public class CustomizeDataScope implements AbstractDataScopeHandler {
     private ISysDeptService deptService;
 
     @Override
-    public List<Integer> getDeptIds(RoleDto roleDto, DataScopeTypeEnum dataScopeTypeEnum) {
+    public List<Integer> getDeptIds(RoleDTO roleDto, DataScopeTypeEnum dataScopeTypeEnum) {
         List<Integer> roleDeptIds = roleDto.getRoleDepts();
         List<Integer> ids = new ArrayList<>();
         for (Integer deptId : roleDeptIds) {

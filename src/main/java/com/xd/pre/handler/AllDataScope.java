@@ -1,13 +1,11 @@
 package com.xd.pre.handler;
 
 import com.xd.pre.domain.SysDept;
-import com.xd.pre.dto.RoleDto;
+import com.xd.pre.dto.RoleDTO;
 import com.xd.pre.service.ISysDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +23,7 @@ public class AllDataScope implements AbstractDataScopeHandler {
     private ISysDeptService deptService;
 
     @Override
-    public List<Integer> getDeptIds(RoleDto roleDto, DataScopeTypeEnum dataScopeTypeEnum) {
+    public List<Integer> getDeptIds(RoleDTO roleDto, DataScopeTypeEnum dataScopeTypeEnum) {
         List<SysDept> sysDepts = deptService.list();
         return sysDepts.stream().map(SysDept::getDeptId).collect(Collectors.toList());
     }

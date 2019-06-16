@@ -1,18 +1,20 @@
 package com.xd.pre.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.xd.pre.domain.SysMenu;
 import com.xd.pre.domain.SysRole;
 import com.xd.pre.domain.SysRoleDept;
 import com.xd.pre.domain.SysRoleMenu;
-import com.xd.pre.dto.RoleDto;
+import com.xd.pre.dto.RoleDTO;
 import com.xd.pre.handler.DataScopeContext;
 import com.xd.pre.mapper.SysRoleMapper;
 import com.xd.pre.service.ISysRoleDeptService;
 import com.xd.pre.service.ISysRoleMenuService;
 import com.xd.pre.service.ISysRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 /**
@@ -45,9 +48,15 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean saveRoleMenu(RoleDto roleDto) {
+    public boolean saveRoleMenu(RoleDTO roleDto) {
         SysRole sysRole = new SysRole();
         BeanUtils.copyProperties(roleDto, sysRole);
+        List<Integer> ids = dataScopeContext.getDeptIdsForDataScope(roleDto, roleDto.getDsType());
+        StringJoiner dsScope = new StringJoiner(",");
+        ids.forEach(integer -> {
+            dsScope.add(Integer.toString(integer));
+        });
+        sysRole.setDsScope(dsScope.toString());
         baseMapper.insertRole(sysRole);
         Integer roleId = sysRole.getRoleId();
         //维护角色菜单
@@ -62,9 +71,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
             roleMenuService.saveBatch(rms);
         }
         // 维护角色部门权限
-//        DataScopeContext dataScopeContext = new DataScopeContext();
         // 根据数据权限范围查询部门ids
-        List<Integer> ids = dataScopeContext.getDeptIdsForDataScope(roleDto, roleDto.getDataScope());
         if (CollectionUtil.isNotEmpty(ids)) {
             List<SysRoleDept> roleDepts = ids.stream().map(integer -> {
                 SysRoleDept sysRoleDept = new SysRoleDept();
@@ -80,10 +87,10 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean updateRoleMenu(RoleDto roleDto) {
+    public boolean updateRoleMenu(RoleDTO roleDto) {
         SysRole sysRole = new SysRole();
         BeanUtils.copyProperties(roleDto, sysRole);
-        baseMapper.updateById(sysRole);
+
         List<SysRoleMenu> roleMenus = roleDto.getRoleMenus();
         roleMenuService.remove(Wrappers.<SysRoleMenu>query().lambda().eq(SysRoleMenu::getRoleId, sysRole.getRoleId()));
         roleDeptService.remove(Wrappers.<SysRoleDept>query().lambda().eq(SysRoleDept::getRoleId, sysRole.getRoleId()));
@@ -92,8 +99,12 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
             roleMenuService.saveBatch(roleMenus);
         }
         // 根据数据权限范围查询部门ids
-        List<Integer> ids = dataScopeContext.getDeptIdsForDataScope(roleDto, roleDto.getDataScope());
+        List<Integer> ids = dataScopeContext.getDeptIdsForDataScope(roleDto, roleDto.getDsType());
 
+        StringJoiner dsScope = new StringJoiner(",");
+        ids.forEach(integer -> {
+            dsScope.add(Integer.toString(integer));
+        });
         if (CollectionUtil.isNotEmpty(ids)) {
             List<SysRoleDept> roleDepts = ids.stream().map(integer -> {
                 SysRoleDept sysRoleDept = new SysRoleDept();
@@ -103,6 +114,8 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
             }).collect(Collectors.toList());
             roleDeptService.saveBatch(roleDepts);
         }
+        sysRole.setDsScope(dsScope.toString());
+        baseMapper.updateById(sysRole);
         return true;
     }
 
@@ -125,6 +138,11 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @Override
     public List<SysMenu> findMenuListByRoleId(int roleId) {
         return baseMapper.findMenuListByRoleId(roleId);
+    }
+
+    @Override
+    public List<SysRole> findRolesByUserId(Integer userId) {
+        return baseMapper.listRolesByUserId(userId);
     }
 
 }

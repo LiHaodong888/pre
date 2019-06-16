@@ -3,7 +3,7 @@ package com.xd.pre.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xd.pre.domain.SysDict;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.xd.pre.dto.DictDto;
+import com.xd.pre.dto.DictDTO;
 
 import java.io.Serializable;
 import java.util.List;
@@ -34,7 +34,7 @@ public interface ISysDictService extends IService<SysDict> {
      * @param dictDto
      * @return
      */
-    boolean updateDict(DictDto dictDto);
+    boolean updateDict(DictDTO dictDto);
 
 
     /**

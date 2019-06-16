@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,5 +38,17 @@ public class MyBatisPlusConfig {
         sqlParserList.add(new BlockAttackSqlParser());
         paginationInterceptor.setSqlParserList(sqlParserList);
         return paginationInterceptor;
+    }
+
+    /**
+     * 数据权限插件
+     *
+     * @param dataSource 数据源
+     * @return DataScopeInterceptor
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public DataScopeInterceptor dataScopeInterceptor(DataSource dataSource) {
+        return new DataScopeInterceptor(dataSource);
     }
 }

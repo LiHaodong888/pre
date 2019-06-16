@@ -2,7 +2,7 @@ package com.xd.pre.controller;
 
 
 import com.xd.pre.domain.SysDept;
-import com.xd.pre.dto.DeptDto;
+import com.xd.pre.dto.DeptDTO;
 import com.xd.pre.log.SysLog;
 import com.xd.pre.service.ISysDeptService;
 import com.xd.pre.utils.R;
@@ -67,7 +67,7 @@ public class SysDeptController {
     @SysLog(descrption = "更新部门信息")
     @PutMapping
     @PreAuthorize("hasAuthority('sys:dept:update')")
-    public R update(@RequestBody DeptDto deptDto) {
+    public R update(@RequestBody DeptDTO deptDto) {
         return R.ok(deptService.updateDeptById(deptDto));
     }
 

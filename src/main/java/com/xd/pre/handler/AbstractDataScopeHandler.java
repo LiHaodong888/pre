@@ -1,6 +1,6 @@
 package com.xd.pre.handler;
 
-import com.xd.pre.dto.RoleDto;
+import com.xd.pre.dto.RoleDTO;
 
 import java.util.List;
 
@@ -19,5 +19,5 @@ public interface AbstractDataScopeHandler {
      * @param dataScopeTypeEnum
      * @return
      */
-    List<Integer> getDeptIds(RoleDto roleDto, DataScopeTypeEnum dataScopeTypeEnum);
+    List<Integer> getDeptIds(RoleDTO roleDto, DataScopeTypeEnum dataScopeTypeEnum);
 }

@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.xd.pre.constant.MenuConstant;
 import com.xd.pre.domain.SysMenu;
-import com.xd.pre.dto.MenuDto;
+import com.xd.pre.dto.MenuDTO;
 import com.xd.pre.exception.BaseException;
 import com.xd.pre.mapper.SysMenuMapper;
 import com.xd.pre.service.ISysMenuService;
@@ -44,7 +44,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     }
 
     @Override
-    public boolean updateMenuById(MenuDto entity) {
+    public boolean updateMenuById(MenuDTO entity) {
         SysMenu sysMenu = new SysMenu();
         BeanUtils.copyProperties(entity, sysMenu);
         // 菜单校验

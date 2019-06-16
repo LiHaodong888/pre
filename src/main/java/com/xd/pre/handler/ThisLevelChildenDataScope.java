@@ -1,6 +1,6 @@
 package com.xd.pre.handler;
 
-import com.xd.pre.dto.RoleDto;
+import com.xd.pre.dto.RoleDTO;
 import com.xd.pre.security.util.SecurityUtil;
 import com.xd.pre.service.ISysDeptService;
 import com.xd.pre.service.ISysUserService;
@@ -27,8 +27,8 @@ public class ThisLevelChildenDataScope implements AbstractDataScopeHandler {
 
 
     @Override
-    public List<Integer> getDeptIds(RoleDto roleDto, DataScopeTypeEnum dataScopeTypeEnum) {
-        Integer deptId = userService.findByUserName(SecurityUtil.getUser().getUsername()).getDeptId();
+    public List<Integer> getDeptIds(RoleDTO roleDto, DataScopeTypeEnum dataScopeTypeEnum) {
+        Integer deptId = userService.findByUserInfoName(SecurityUtil.getUser().getUsername()).getDeptId();
         return deptService.selectDeptIds(deptId);
     }
 }

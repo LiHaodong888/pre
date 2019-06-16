@@ -2,7 +2,7 @@ package com.xd.pre.service;
 
 import com.xd.pre.domain.SysDept;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.xd.pre.dto.DeptDto;
+import com.xd.pre.dto.DeptDTO;
 import com.xd.pre.vo.DeptTreeVo;
 
 import java.io.Serializable;
@@ -36,7 +36,7 @@ public interface ISysDeptService extends IService<SysDept> {
      * @param entity
      * @return
      */
-    boolean updateDeptById(DeptDto entity);
+    boolean updateDeptById(DeptDTO entity);
 
     /**
      * 删除部门

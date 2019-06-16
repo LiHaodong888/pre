@@ -11,7 +11,7 @@ import lombok.Setter;
 import java.util.List;
 
 /**
- * @Classname UserDto
+ * @Classname UserDTO
  * @Description 角色Dto
  * @Author 李号东 lihaodongmail@163.com
  * @Date 2019-04-23 21:26
@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Setter
 @Getter
-public class RoleDto {
+public class RoleDTO {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,7 @@ public class RoleDto {
     private String roleCode;
     private String roleDesc;
     private String delFlag;
-    private int dataScope;
+    private int dsType;
     List<SysRoleMenu> roleMenus;
     List<Integer> roleDepts;
 

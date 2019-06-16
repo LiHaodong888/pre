@@ -1,9 +1,8 @@
 package com.xd.pre.service;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.xd.pre.domain.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.xd.pre.dto.MenuDto;
+import com.xd.pre.dto.MenuDTO;
 import com.xd.pre.utils.R;
 
 import java.io.Serializable;
@@ -32,7 +31,7 @@ public interface ISysMenuService extends IService<SysMenu> {
      * @param entity
      * @return
      */
-    boolean updateMenuById(MenuDto entity);
+    boolean updateMenuById(MenuDTO entity);
 
     /**
      * 删除菜单信息

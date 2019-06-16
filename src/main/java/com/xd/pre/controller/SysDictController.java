@@ -3,7 +3,7 @@ package com.xd.pre.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xd.pre.domain.SysDict;
-import com.xd.pre.dto.DictDto;
+import com.xd.pre.dto.DictDTO;
 import com.xd.pre.log.SysLog;
 import com.xd.pre.service.ISysDictService;
 import com.xd.pre.utils.R;
@@ -12,7 +12,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -79,7 +78,7 @@ public class SysDictController {
      */
     @SysLog(descrption = "更新字典")
     @PutMapping
-    public R update(@RequestBody DictDto dictDto) {
+    public R update(@RequestBody DictDTO dictDto) {
         return R.ok(dictService.updateDict(dictDto));
     }
 

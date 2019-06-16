@@ -1,13 +1,15 @@
 package com.xd.pre.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xd.pre.config.DataScope;
 import com.xd.pre.constant.PreConstant;
 import com.xd.pre.domain.SysUser;
 import com.xd.pre.domain.SysUserRole;
-import com.xd.pre.dto.UserDto;
+import com.xd.pre.dto.UserDTO;
 import com.xd.pre.exception.BaseException;
 import com.xd.pre.mapper.SysUserMapper;
 import com.xd.pre.security.PreUser;
@@ -57,38 +59,24 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     private AuthenticationManager authenticationManager;
 
     @Override
-    public IPage<SysUser> selectUserList(int page, int pageSize, Integer deptId) {
-        Page<SysUser> userPage = new Page<>(page, pageSize);
-        QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
-        queryWrapper.select("user_id", "username", "dept_id", "job_id", "email", "phone", "avatar", "lock_flag");
-        //不为0 查询全部
-        if (deptId != 0) {
-            // 判断部门是否有父级
-            queryWrapper.lambda().in(SysUser::getDeptId, deptService.selectDeptIds(deptId));
-        }
-        IPage<SysUser> sysUserIPage = baseMapper.selectPage(userPage, queryWrapper);
-        List<SysUser> sysUserList = sysUserIPage.getRecords();
+    public IPage<SysUser> getUsersWithRolePage(Page page, UserDTO userDTO) {
 
-        sysUserList.forEach(sysUser -> {
-            // 获取角色
-            sysUser.setUserRoles(userRoleService.selectUserRoleListByUserId(sysUser.getUserId()));
-            // 获取部门
-            sysUser.setDeptName(deptService.selectDeptNameByDeptId(sysUser.getDeptId()));
-            // 岗位
-            sysUser.setJobName(jobService.selectJobNameByJobId(sysUser.getJobId()));
-        });
-        return sysUserIPage.setRecords(sysUserList);
+        if (ObjectUtil.isNotNull(userDTO) && userDTO.getDeptId() != 0){
+            userDTO.setDeptList(deptService.selectDeptIds(userDTO.getDeptId()));
+        }
+        return baseMapper.getUserVosPage(page, userDTO, new DataScope());
     }
+
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean insertUser(UserDto userDto) {
+    public boolean insertUser(UserDTO userDto) {
         SysUser sysUser = new SysUser();
         BeanUtils.copyProperties(userDto, sysUser);
         // 默认密码
         sysUser.setPassword(PreUtil.encode("123456"));
         baseMapper.insertUser(sysUser);
-        List<SysUserRole> userRoles = userDto.getUserRoles().stream().map(item -> {
+        List<SysUserRole> userRoles = userDto.getRoleList().stream().map(item -> {
             SysUserRole sysUserRole = new SysUserRole();
             sysUserRole.setRoleId(item);
             sysUserRole.setUserId(sysUser.getUserId());
@@ -99,13 +87,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean updateUser(UserDto userDto) {
+    public boolean updateUser(UserDTO userDto) {
         SysUser sysUser = new SysUser();
         BeanUtils.copyProperties(userDto, sysUser);
         baseMapper.updateById(sysUser);
         userRoleService.remove(Wrappers.<SysUserRole>lambdaQuery().eq(SysUserRole::getUserId, sysUser.getUserId()));
         List<SysUserRole> userRoles = new ArrayList<>();
-        userDto.getUserRoles().forEach(item -> {
+        userDto.getRoleList().forEach(item -> {
             SysUserRole sysUserRole = new SysUserRole();
             sysUserRole.setRoleId(item);
             sysUserRole.setUserId(sysUser.getUserId());
@@ -136,7 +124,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public SysUser findByUserInfoName(String username) {
         SysUser sysUser = baseMapper.selectOne(Wrappers.<SysUser>lambdaQuery()
-                .select(SysUser::getUserId, SysUser::getUsername, SysUser::getPhone, SysUser::getEmail, SysUser::getPassword, SysUser::getDeptId, SysUser::getJobId,SysUser::getAvatar)
+                .select(SysUser::getUserId, SysUser::getUsername, SysUser::getPhone, SysUser::getEmail, SysUser::getPassword, SysUser::getDeptId, SysUser::getJobId, SysUser::getAvatar)
                 .eq(SysUser::getUsername, username));
         // 获取部门
         sysUser.setDeptName(deptService.selectDeptNameByDeptId(sysUser.getDeptId()));

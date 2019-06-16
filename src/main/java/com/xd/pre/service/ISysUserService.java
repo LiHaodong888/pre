@@ -1,9 +1,12 @@
 package com.xd.pre.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xd.pre.config.DataScope;
 import com.xd.pre.domain.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.xd.pre.dto.UserDto;
+import com.xd.pre.dto.UserDTO;
+import org.apache.ibatis.annotations.Param;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -19,28 +22,28 @@ import java.util.Set;
  */
 public interface ISysUserService extends IService<SysUser> {
 
-
     /**
-     * 分页查询用户
-     * @param page
-     * @param pageSize
+     * 分页查询用户信息（含有角色信息）
+     *
+     * @param page    分页对象
+     * @param userDTO 参数列表
      * @return
      */
-    IPage<SysUser> selectUserList(int page, int pageSize,Integer deptId);
+    IPage<SysUser> getUsersWithRolePage(Page page, UserDTO userDTO);
 
     /**
      * 保存用户以及角色部门等信息
      * @param userDto
      * @return
      */
-    boolean insertUser(UserDto userDto);
+    boolean insertUser(UserDTO userDto);
 
     /**
      * 更新用户以及角色部门等信息
      * @param userDto
      * @return
      */
-    boolean updateUser(UserDto userDto);
+    boolean updateUser(UserDTO userDto);
 
     /**
      * 删除用户信息

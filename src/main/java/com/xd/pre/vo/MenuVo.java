@@ -1,6 +1,7 @@
 package com.xd.pre.vo;
 
 import lombok.Data;
+import org.jasypt.util.text.BasicTextEncryptor;
 
 import java.util.List;
 
@@ -22,4 +23,13 @@ public class MenuVo {
     private MenuMetaVo meta;
     private List<MenuVo> children;
 
+    public static void main(String[] args) {
+        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+        textEncryptor.setPassword("EbfYkitulv73I2p0mXI50JMXoaxZTKJ1");
+        String password = textEncryptor.encrypt("pmdaipksolhhbegd");
+        String password1 = textEncryptor.encrypt("757479746@qq.com");
+        System.out.println(password);
+        System.out.println(password1);
+
+    }
 }

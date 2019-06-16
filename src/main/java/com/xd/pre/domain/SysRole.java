@@ -52,6 +52,16 @@ public class SysRole extends Model<SysRole> {
     private String roleDesc;
 
     /**
+     * 数据权限类型
+     */
+    private int dsType;
+
+    /**
+     * 数据权限范围
+     */
+    private String dsScope;
+
+    /**
      * 创建时间
      */
     private LocalDateTime createTime;
@@ -66,10 +76,6 @@ public class SysRole extends Model<SysRole> {
      */
     private String delFlag;
 
-    /**
-     * 数据权限 默认本级
-     */
-    private int dataScope;
 
 
     /**

@@ -3,7 +3,7 @@ package com.xd.pre.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.xd.pre.domain.SysDept;
-import com.xd.pre.dto.DeptDto;
+import com.xd.pre.dto.DeptDTO;
 import com.xd.pre.mapper.SysDeptMapper;
 import com.xd.pre.service.ISysDeptService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -49,7 +49,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
 
 
     @Override
-    public boolean updateDeptById(DeptDto entity) {
+    public boolean updateDeptById(DeptDTO entity) {
         SysDept sysDept = new SysDept();
         BeanUtils.copyProperties(entity, sysDept);
         sysDept.setUpdateTime(LocalDateTime.now());

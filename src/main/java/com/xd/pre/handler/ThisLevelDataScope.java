@@ -1,13 +1,10 @@
 package com.xd.pre.handler;
 
-import cn.hutool.core.util.ObjectUtil;
-import com.xd.pre.dto.RoleDto;
-import com.xd.pre.exception.BaseException;
+import com.xd.pre.dto.RoleDTO;
 import com.xd.pre.security.util.SecurityUtil;
 import com.xd.pre.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +23,10 @@ public class ThisLevelDataScope implements AbstractDataScopeHandler {
     private ISysUserService userService;
 
     @Override
-    public List<Integer> getDeptIds(RoleDto roleDto, DataScopeTypeEnum dataScopeTypeEnum) {
+    public List<Integer> getDeptIds(RoleDTO roleDto, DataScopeTypeEnum dataScopeTypeEnum) {
         // 用于存储部门id
         List<Integer> deptIds = new ArrayList<>();
-        deptIds.add(userService.findByUserName(SecurityUtil.getUser().getUsername()).getDeptId());
+        deptIds.add(userService.findByUserInfoName(SecurityUtil.getUser().getUsername()).getDeptId());
         return deptIds;
     }
 }

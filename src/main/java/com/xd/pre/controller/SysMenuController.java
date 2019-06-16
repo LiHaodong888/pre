@@ -2,7 +2,7 @@ package com.xd.pre.controller;
 
 
 import com.xd.pre.domain.SysMenu;
-import com.xd.pre.dto.MenuDto;
+import com.xd.pre.dto.MenuDTO;
 import com.xd.pre.log.SysLog;
 import com.xd.pre.security.PreUser;
 import com.xd.pre.security.util.SecurityUtil;
@@ -75,7 +75,7 @@ public class SysMenuController {
     @PreAuthorize("hasAuthority('sys:menu:update')")
     @SysLog(descrption = "修改菜单")
     @PutMapping
-    public R updateMenu(@RequestBody MenuDto menuDto) {
+    public R updateMenu(@RequestBody MenuDTO menuDto) {
         return R.ok(menuService.updateMenuById(menuDto));
     }
 

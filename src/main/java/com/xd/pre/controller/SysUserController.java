@@ -4,9 +4,10 @@ package com.xd.pre.controller;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xd.pre.constant.PreConstant;
 import com.xd.pre.domain.SysUser;
-import com.xd.pre.dto.UserDto;
+import com.xd.pre.dto.UserDTO;
 import com.xd.pre.exception.BaseException;
 import com.xd.pre.log.SysLog;
 import com.xd.pre.security.util.SecurityUtil;
@@ -49,7 +50,7 @@ public class SysUserController {
     @SysLog(descrption = "保存用户包括角色和部门")
     @PostMapping
     @PreAuthorize("hasAuthority('sys:user:add')")
-    public R insert(@RequestBody UserDto userDto) {
+    public R insert(@RequestBody UserDTO userDto) {
         return R.ok(userService.insertUser(userDto));
     }
 
@@ -58,18 +59,14 @@ public class SysUserController {
      * 获取用户列表集合
      *
      * @param page
-     * @param pageSize
+     * @param userDTO
      * @return
      */
     @SysLog(descrption = "查询用户集合")
     @GetMapping
     @PreAuthorize("hasAuthority('sys:user:view')")
-    public R getList(Integer page, Integer pageSize, Integer deptId) {
-        Map<String, Object> map = new HashMap<>();
-        IPage<SysUser> usersIPage = userService.selectUserList(page, pageSize, deptId);
-        map.put("userList", usersIPage.getRecords());
-        map.put("total", usersIPage.getTotal());
-        return R.ok(map);
+    public R getList(Page page, UserDTO userDTO) {
+        return R.ok(userService.getUsersWithRolePage(page, userDTO));
     }
 
     /**
@@ -81,7 +78,7 @@ public class SysUserController {
     @SysLog(descrption = "更新用户包括角色和部门")
     @PutMapping
     @PreAuthorize("hasAuthority('sys:user:update')")
-    public R update(@RequestBody UserDto userDto) {
+    public R update(@RequestBody UserDTO userDto) {
         return R.ok(userService.updateUser(userDto));
     }
 
@@ -143,8 +140,8 @@ public class SysUserController {
         }
         // 修改密码流程
         SysUser user = new SysUser();
-        sysUser.setUserId(sysUser.getUserId());
-        sysUser.setPassword(newPass);
+        user.setUserId(sysUser.getUserId());
+        user.setPassword(newPass);
         return R.ok(userService.updateUserInfo(user));
     }
 
@@ -184,6 +181,9 @@ public class SysUserController {
     public R updateEmail(@RequestParam String mail, @RequestParam String code, @RequestParam String pass, HttpServletRequest request) {
         // 校验验证码流程
         String ccode = (String) request.getSession().getAttribute(PreConstant.RESET_MAIL);
+        if (ObjectUtil.isNull(ccode)) {
+            throw new BaseException("验证码已过期");
+        }
         if (!StrUtil.equals(code.toLowerCase(), ccode)) {
             throw new BaseException("验证码错误");
         }
@@ -194,8 +194,8 @@ public class SysUserController {
         }
         // 修改邮箱流程
         SysUser user = new SysUser();
-        sysUser.setUserId(sysUser.getUserId());
-        sysUser.setEmail(mail);
+        user.setUserId(sysUser.getUserId());
+        user.setEmail(mail);
         return R.ok(userService.updateUserInfo(user));
     }
 

@@ -2,14 +2,11 @@ package com.xd.pre.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xd.pre.domain.SysDict;
-import com.xd.pre.domain.SysUser;
-import com.xd.pre.dto.DictDto;
+import com.xd.pre.dto.DictDTO;
 import com.xd.pre.mapper.SysDictMapper;
 import com.xd.pre.service.ISysDictService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -45,7 +42,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     }
 
     @Override
-    public boolean updateDict(DictDto dictDto) {
+    public boolean updateDict(DictDTO dictDto) {
         if (ObjectUtil.isNull(dictDto.getValue())) {
             // 先查询所有的含有的主键 然后批量修改
             List<SysDict> sysDicts = baseMapper.selectList(Wrappers.<SysDict>lambdaQuery().select(SysDict::getId).eq(SysDict::getName, baseMapper.selectById(dictDto.getId()).getName()));

@@ -1,6 +1,6 @@
 package com.xd.pre.handler;
 
-import com.xd.pre.dto.RoleDto;
+import com.xd.pre.dto.RoleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +29,7 @@ public class DataScopeContext {
         strategyMap.forEach(this.strategyMap::put);
     }
 
-    public List<Integer> getDeptIdsForDataScope(RoleDto roleDto, Integer type) {
+    public List<Integer> getDeptIdsForDataScope(RoleDTO roleDto, Integer type) {
         return strategyMap.get(String.valueOf(type)).getDeptIds(roleDto, DataScopeTypeEnum.valueOf(type));
     }
 }

@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import java.time.LocalDateTime;
 
 /**
- * @Classname DictDto
+ * @Classname DictDTO
  * @Description 字典dto
  * @Author 李号东 lihaodongmail@163.com
  * @Date 2019-06-02 09:36
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class DictDto {
+public class DictDTO {
 
 
     /**
