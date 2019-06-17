@@ -1,4 +1,16 @@
-# Pre
+
+
+<p align="center">
+    <a href="http://spring.io/projects/spring-boot">
+            <img src="https://img.shields.io/badge/spring--boot-2.1.5.RELEASE-green.svg" alt="spring-boot">
+        </a>
+        <a href="http://mp.baomidou.com">
+            <img src="https://img.shields.io/badge/mybatis--plus-3.1.1-blue.svg" alt="mybatis-plus">
+        </a>  
+        <a href="https://shiro.apache.org/">
+            <img src="https://img.shields.io/badge/security-5.1.5-blue.svg" alt="shiro">
+        </a> 
+</p>
 
 #### 介绍
 Pre基于Spring Boot 、Spring Security的RBAC权限管理系统
@@ -25,25 +37,20 @@ Pre基于Spring Boot 、Spring Security的RBAC权限管理系统
         </span>
         <br>
         <br>
-        <p>
-        <a href="http://spring.io/projects/spring-boot">
-            <img src="https://img.shields.io/badge/spring--boot-2.1.5-green.svg" alt="spring-boot">
-        </a>
-        <a href="http://mp.baomidou.com">
-            <img src="https://img.shields.io/badge/mybatis--plus-3.1.1-blue.svg" alt="mybatis-plus">
-        </a>  
-        <a href="https://shiro.apache.org/">
-            <img src="https://img.shields.io/badge/security-5.1.5-blue.svg" alt="shiro">
-        </a>      
-    </p>
+        
 </p>
 
 
-#### 安装教程
+#### 功能介绍
 
-1. xxxx
-2. xxxx
-3. xxxx
+完善登录：账号密码模式、短信验证码模式、社交账号模式均整合Spring security oAuth    
+用户管理：用户是系统操作者，该功能主要完成系统用户配置。  
+机构管理：配置系统组织机构，树结构展现，可随意调整上下级。  
+菜单管理：配置系统菜单，操作权限，按钮权限标识等。  
+角色管理：角色菜单权限分配、设置角色按机构进行数据范围权限划分。  
+岗位管理：岗位分配、根据部门的不同设置不同的岗位
+字典管理：对系统中经常使用的一些较为固定的数据进行维护，如：是否等。  
+操作日志：系统正常操作日志记录和查询；系统异常信息日志记录和查询。   
 
 #### 使用说明
 
