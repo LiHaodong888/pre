@@ -71,6 +71,7 @@ public class DataScopeInterceptor extends AbstractSqlParserHandler implements In
             if (user == null) {
                 throw new CheckedException("auto datascope, set up security details true");
             }
+            // 解析角色Id
             List<String> roleIdList = user.getAuthorities()
                     .stream().map(GrantedAuthority::getAuthority)
                     .filter(authority -> authority.startsWith("ROLE_"))
