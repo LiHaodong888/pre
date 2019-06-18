@@ -7,6 +7,7 @@ import com.xd.pre.dto.DictDTO;
 import com.xd.pre.log.SysLog;
 import com.xd.pre.service.ISysDictService;
 import com.xd.pre.utils.R;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ import java.util.Map;
  * @author lihaodong
  * @since 2019-05-17
  */
+@Api(value="字典模块")
 @RestController
 @RequestMapping("/dict")
 public class SysDictController {
@@ -65,7 +67,7 @@ public class SysDictController {
      * @Description 根据名称获取字典值详情
      * @Date 15:20 2019-05-26
      **/
-    @RequestMapping("/getDictDetailList")
+    @GetMapping("/getDictDetailList")
     public R selectDictDetailList(@RequestParam String name) {
         return R.ok(dictService.selectDictDetailList(name));
     }

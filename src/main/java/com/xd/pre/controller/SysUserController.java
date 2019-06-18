@@ -3,7 +3,6 @@ package com.xd.pre.controller;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xd.pre.constant.PreConstant;
 import com.xd.pre.domain.SysUser;
@@ -15,13 +14,12 @@ import com.xd.pre.service.ISysUserService;
 import com.xd.pre.utils.EmailUtil;
 import com.xd.pre.utils.PreUtil;
 import com.xd.pre.utils.R;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * <p>
@@ -31,6 +29,7 @@ import java.util.Map;
  * @author lihaodong
  * @since 2019-04-21
  */
+@Api(value="用户模块")
 @RestController
 @RequestMapping("/user")
 public class SysUserController {
@@ -88,7 +87,7 @@ public class SysUserController {
      * @param userId
      * @return
      */
-    @SysLog(descrption = "删除用户包括角色和部门")
+    @SysLog(descrption = "根据用户id删除用户包括角色和部门")
     @DeleteMapping("/{userId}")
     @PreAuthorize("hasAuthority('sys:user:delete')")
     public R delete(@PathVariable("userId") Integer userId) {

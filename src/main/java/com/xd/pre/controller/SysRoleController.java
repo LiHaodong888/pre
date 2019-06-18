@@ -5,6 +5,7 @@ import com.xd.pre.dto.RoleDTO;
 import com.xd.pre.log.SysLog;
 import com.xd.pre.service.ISysRoleService;
 import com.xd.pre.utils.R;
+import io.swagger.annotations.Api;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ import javax.annotation.Resource;
  * @author lihaodong
  * @since 2019-04-21
  */
+@Api(value="角色模块")
 @RestController
 @RequestMapping("/role")
 public class SysRoleController {

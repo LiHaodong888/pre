@@ -4,6 +4,7 @@ import com.xd.pre.constant.PreConstant;
 import com.xd.pre.service.ISysUserService;
 import com.xd.pre.utils.PreUtil;
 import com.xd.pre.utils.R;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,7 @@ import java.util.Map;
  * @Date 2019-05-07 12:38
  * @Version 1.0
  */
+@Api(value="主页模块")
 @RestController
 public class IndexController {
 

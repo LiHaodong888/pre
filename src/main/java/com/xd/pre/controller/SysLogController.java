@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xd.pre.domain.SysLog;
 import com.xd.pre.service.ISysLogService;
 import com.xd.pre.utils.R;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import java.util.Map;
  * @author lihaodong
  * @since 2019-04-27
  */
+@Api(value="日志模块")
 @RestController
 @RequestMapping("/log")
 public class SysLogController {

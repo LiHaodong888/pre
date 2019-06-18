@@ -7,6 +7,7 @@ import com.xd.pre.domain.SysUser;
 import com.xd.pre.log.SysLog;
 import com.xd.pre.service.ISysJobService;
 import com.xd.pre.utils.R;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ import java.util.Map;
  * @author lihaodong
  * @since 2019-05-01
  */
+@Api(value="岗位模块")
 @RestController
 @RequestMapping("/job")
 public class SysJobController {

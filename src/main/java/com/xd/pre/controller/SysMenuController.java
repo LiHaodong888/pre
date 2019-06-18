@@ -9,9 +9,13 @@ import com.xd.pre.security.util.SecurityUtil;
 import com.xd.pre.service.ISysMenuService;
 import com.xd.pre.utils.PreUtil;
 import com.xd.pre.utils.R;
+import com.xd.pre.vo.MenuVo;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -21,15 +25,13 @@ import org.springframework.web.bind.annotation.*;
  * @author lihaodong
  * @since 2019-04-21
  */
+@Api(value="菜单模块")
 @RestController
 @RequestMapping("/menu")
 public class SysMenuController {
 
     @Autowired
     private ISysMenuService menuService;
-
-//    @Autowired
-//    private SecurityUtil securityUtil;
 
     /**
      * 添加菜单
@@ -100,6 +102,8 @@ public class SysMenuController {
     @GetMapping("/getRouters")
     public R getRouters() {
         PreUser securityUser = SecurityUtil.getUser();
+        List<MenuVo> menuVos = PreUtil.buildMenus(menuService.selectMenuTree(securityUser.getUserId()));
+        System.out.println(menuVos);
         return R.ok(PreUtil.buildMenus(menuService.selectMenuTree(securityUser.getUserId())));
     }
 
