@@ -1,5 +1,6 @@
-package com.xd.pre.handler;
+package com.xd.pre.strategy;
 
+import com.xd.pre.constant.DataScopeTypeEnum;
 import com.xd.pre.dto.RoleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class DataScopeContext {
     private final Map<String, AbstractDataScopeHandler> strategyMap = new ConcurrentHashMap<>();
 
     /**
-     * Component里边的1是指定其名字，这个会作为key放到Map strategys里边。
+     * Component里边的1是指定其名字，这个会作为key放到strategyMap里
      * @param strategyMap
      */
     public DataScopeContext(Map<String, AbstractDataScopeHandler> strategyMap) {

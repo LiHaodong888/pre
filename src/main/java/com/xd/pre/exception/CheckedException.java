@@ -4,13 +4,14 @@ import lombok.NoArgsConstructor;
 
 /**
  * @Classname CheckedException
- * @Description TODO
+ * @Description 自定义检查异常
  * @Author Created by Lihaodong (alias:小东啊) lihaodongmail@163.com
  * @Date 2019-06-14 15:42
  * @Version 1.0
  */
 @NoArgsConstructor
 public class CheckedException extends RuntimeException {
+
     private static final long serialVersionUID = 1L;
 
     public CheckedException(String message) {

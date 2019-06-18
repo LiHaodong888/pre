@@ -1,5 +1,6 @@
-package com.xd.pre.handler;
+package com.xd.pre.strategy;
 
+import com.xd.pre.constant.DataScopeTypeEnum;
 import com.xd.pre.dto.RoleDTO;
 import com.xd.pre.service.ISysDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import java.util.Set;
 
 /**
  * @Classname CustomizeDataScope
- * @Description TODO
+ * @Description 自定义
  * @Author Created by Lihaodong (alias:小东啊) lihaodongmail@163.com
  * @Date 2019-06-08 16:31
  * @Version 1.0

@@ -56,6 +56,4 @@ public class R implements Serializable {
         r.setMsg(msg);
         return r;
     }
-
-
 }

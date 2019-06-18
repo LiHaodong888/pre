@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.xd.pre.handler.DataScopeTypeEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

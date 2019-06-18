@@ -1,5 +1,6 @@
-package com.xd.pre.handler;
+package com.xd.pre.strategy;
 
+import com.xd.pre.constant.DataScopeTypeEnum;
 import com.xd.pre.dto.RoleDTO;
 import com.xd.pre.security.util.SecurityUtil;
 import com.xd.pre.service.ISysDeptService;
@@ -11,7 +12,7 @@ import java.util.List;
 
 /**
  * @Classname ThisLevelChildenDataScope
- * @Description TODO
+ * @Description 本级以及子级
  * @Author Created by Lihaodong (alias:小东啊) lihaodongmail@163.com
  * @Date 2019-06-08 16:30
  * @Version 1.0

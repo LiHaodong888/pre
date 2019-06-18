@@ -1,20 +1,18 @@
 package com.xd.pre.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.xd.pre.domain.SysMenu;
 import com.xd.pre.domain.SysRole;
 import com.xd.pre.domain.SysRoleDept;
 import com.xd.pre.domain.SysRoleMenu;
 import com.xd.pre.dto.RoleDTO;
-import com.xd.pre.handler.DataScopeContext;
+import com.xd.pre.strategy.DataScopeContext;
 import com.xd.pre.mapper.SysRoleMapper;
 import com.xd.pre.service.ISysRoleDeptService;
 import com.xd.pre.service.ISysRoleMenuService;
 import com.xd.pre.service.ISysRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -26,10 +26,9 @@ public class MenuVo {
     public static void main(String[] args) {
         BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
         textEncryptor.setPassword("EbfYkitulv73I2p0mXI50JMXoaxZTKJ1");
-        String password = textEncryptor.encrypt("pmdaipksolhhbegd");
-        String password1 = textEncryptor.encrypt("757479746@qq.com");
+
+        String password = textEncryptor.encrypt("jdbc:mysql://101.132.64.80:3306/pre?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai");
         System.out.println(password);
-        System.out.println(password1);
 
     }
 }
