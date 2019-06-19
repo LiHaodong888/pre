@@ -23,6 +23,7 @@
         <jwt.version>0.9.0</jwt.version>
         <joda-time.version>2.10.1</joda-time.version>
         <jasypt.version>2.1.0</jasypt.version>
+        <swagger2.version>2.8.0</swagger2.version>
     </properties>
 
     <dependencies>
@@ -118,7 +119,22 @@
             <artifactId>jasypt-spring-boot-starter</artifactId>
             <version>${jasypt.version}</version>
         </dependency>
-
+        <!--swagger2 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger2.version}</version>
+        </dependency>
+        <!--redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
