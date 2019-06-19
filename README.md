@@ -17,9 +17,6 @@
     <a href="https://shiro.apache.org/">
             <img src="https://img.shields.io/badge/security-5.1.5-blue.svg" alt="shiro">
     </a>
-    <a href="https://shiro.apache.org/">
-           <img src="https://gitee.com/li_haodong/pre/badge/star.svg?theme=white" alt="shiro">
-    </a> 
 </div>
 
 #### 介绍
