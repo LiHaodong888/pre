@@ -1,6 +1,6 @@
 
 
-<p align="center">
+<div align="center">
 <div style="height:256px; width:256px; text-align: center;">
 
 <img src="https://images.gitee.com/uploads/images/2019/0619/152102_90c67e77_1758995.png" height="256" width="256">
@@ -15,7 +15,7 @@
     <a href="https://shiro.apache.org/">
             <img src="https://img.shields.io/badge/security-5.1.5-blue.svg" alt="shiro">
     </a> 
-</p>
+</div>
 
 #### 介绍
 Pre基于Spring Boot 、Spring Security的RBAC权限管理系统, 做更简洁的后台管理系统。
