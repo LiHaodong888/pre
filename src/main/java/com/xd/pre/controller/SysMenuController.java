@@ -103,7 +103,6 @@ public class SysMenuController {
     public R getRouters() {
         PreUser securityUser = SecurityUtil.getUser();
         List<MenuVo> menuVos = PreUtil.buildMenus(menuService.selectMenuTree(securityUser.getUserId()));
-        System.out.println(menuVos);
         return R.ok(PreUtil.buildMenus(menuService.selectMenuTree(securityUser.getUserId())));
     }
 

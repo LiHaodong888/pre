@@ -6,6 +6,7 @@ import com.xd.pre.utils.PreUtil;
 import com.xd.pre.utils.R;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Classname IndexController
@@ -36,6 +38,8 @@ public class IndexController {
     @Autowired
     private ISysUserService userService;
 
+    @Autowired
+    private RedisTemplate<Object, Object> redisTemplate;
 
     /**
      * 生成验证码
@@ -53,10 +57,10 @@ public class IndexController {
         BufferedImage image = PreUtil.createImage();
         // 生成文字验证码
         String randomText = PreUtil.drawRandomText(image);
-        // 保存到验证码到 session
-        request.getSession().setAttribute(PreConstant.PRE_IMAGE_SESSION_KEY, randomText.toLowerCase());
+        // 保存到验证码到 redis 有效期两分钟
+        redisTemplate.opsForValue().set(PreConstant.PRE_IMAGE_SESSION_KEY, randomText.toLowerCase(),2, TimeUnit.MINUTES);
         ServletOutputStream out = response.getOutputStream();
-        ImageIO.write(image, "jpg", out);
+        ImageIO.write(image, "jpeg", out);
     }
 
     /**
