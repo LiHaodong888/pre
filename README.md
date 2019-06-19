@@ -1,7 +1,7 @@
 
 
 <p align="center">
-<div style="height:256px; width:256px" text-align="center">
+<div style="height:256px; width:256px;text-align:center">
 <img src="https://images.gitee.com/uploads/images/2019/0619/152102_90c67e77_1758995.png" height="256" width="256">
 </div>
  <a href="http://spring.io/projects/spring-boot">
