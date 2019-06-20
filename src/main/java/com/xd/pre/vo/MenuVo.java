@@ -1,5 +1,6 @@
 package com.xd.pre.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import org.jasypt.util.text.BasicTextEncryptor;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @Version 1.0
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class MenuVo {
 
     private String name;
@@ -26,8 +28,7 @@ public class MenuVo {
     public static void main(String[] args) {
         BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
         textEncryptor.setPassword("EbfYkitulv73I2p0mXI50JMXoaxZTKJ1");
-
-        String password = textEncryptor.encrypt("jdbc:mysql://101.132.64.80:3306/pre?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai");
+        String password = textEncryptor.encrypt("101.132.64.80");
         System.out.println(password);
 
     }

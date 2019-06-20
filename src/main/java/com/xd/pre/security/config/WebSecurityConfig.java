@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -74,8 +75,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 // 过滤请求
                 .authorizeRequests()
-                // 对于登录login 图标 验证码 要允许匿名访问
-                .antMatchers("/login/**", "/favicon.ico","/captcha.jpg").permitAll()
+                // 对于登录login 图标 要允许匿名访问
+                .antMatchers("/login/**", "/favicon.ico").anonymous()
+                .antMatchers(
+                        HttpMethod.GET,
+                        "/*.html",
+                        "/**/*.html",
+                        "/**/*.css",
+                        "/**/*.js"
+                ).permitAll()
+                // swagger start
+                .antMatchers("/swagger-ui.html").anonymous()
+                .antMatchers("/swagger-resources/**").anonymous()
+                .antMatchers("/webjars/**").anonymous()
+                .antMatchers("/*/api-docs").anonymous()
+                // swagger end
+                .antMatchers("/captcha.jpg")
+                .permitAll()
                 // 访问/user 需要拥有admin权限
                 //  .antMatchers("/user").hasAuthority("ROLE_ADMIN")
                 // 除上面外的所有请求全部需要鉴权认证

@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * @Classname MenuMetaVo
- * @Description TODO
+ * @Description
  * @Author 李号东 lihaodongmail@163.com
  * @Date 2019-05-05 16:39
  * @Version 1.0

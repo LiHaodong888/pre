@@ -87,4 +87,9 @@ public class IndexController {
         map.put("name", "Super Admin");
         return R.ok(map);
     }
+
+    @RequestMapping("/logout")
+    public String logout(){
+        return "success";
+    }
 }

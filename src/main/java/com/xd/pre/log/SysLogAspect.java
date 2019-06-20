@@ -41,9 +41,6 @@ public class SysLogAspect {
     @Autowired
     private ApplicationContext applicationContext;
 
-//    @Autowired
-//    private SecurityUtil securityUtil;
-
     /***
      * 定义controller切入点拦截规则，拦截SysLog注解的方法
      */
@@ -63,7 +60,6 @@ public class SysLogAspect {
 
         // 开始时间
         long beginTime = Instant.now().toEpochMilli();
-        // 获取session中的用户
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         PreUser securityUser = SecurityUtil.getUser();
         sysLog.setUserName(securityUser.getUsername());
