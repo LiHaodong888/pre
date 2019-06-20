@@ -29,7 +29,13 @@ Pre基于Spring Boot 、Spring Security的RBAC权限管理系统, 做更简洁�
 - 作为 Mybatis Plus 学习与生产实践
 - 作为 Lambda 、Stream Api 的学习与生产实践
 
-       
+#### 项目特点
+- 代码注释丰富，极其简洁风格，上手快易理解
+- 采用Restfull API 规范开发
+- 统一异常拦截，友好的错误提示
+- 基于注解 + Aop切面实现全方位日记记录系统
+- 基于Mybatis拦截器 + 策略模式实现数据权限控制
+- Jwt Token 鉴权机制       
 
 
 #### 基本功能
