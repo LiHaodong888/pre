@@ -66,7 +66,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         menus.forEach(menu -> {
             if (menu.getParentId() == null || menu.getParentId() == 0) {
                 menu.setLevel(0);
-
                 if (PreUtil.exists(sysMenus, menu)) {
                     sysMenus.add(menu);
                 }
@@ -107,7 +106,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             SysMenu parentMenu = getMenuById(menu.getParentId());
             parentType = parentMenu.getType();
         }
-
         //目录、菜单
         if (menu.getType() == MenuConstant.MenuType.CATALOG.getValue() ||
                 menu.getType() == MenuConstant.MenuType.MENU.getValue()) {
@@ -116,7 +114,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             }
             return;
         }
-
         //按钮
         if (menu.getType() == MenuConstant.MenuType.BUTTON.getValue()) {
             if (parentType != MenuConstant.MenuType.MENU.getValue()) {

@@ -20,6 +20,7 @@ import com.xd.pre.utils.PreUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -57,6 +58,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Resource
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    RedisTemplate redisTemplate;
 
     @Override
     public IPage<SysUser> getUsersWithRolePage(Page page, UserDTO userDTO) {
@@ -152,7 +156,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // 验证验证码
         // 从session中获取之前保存的验证码跟前台传来的验证码进行匹配
         // 线上可以存放在redis中
-        Object kaptcha = request.getSession().getAttribute(PreConstant.PRE_IMAGE_SESSION_KEY);
+//        Object kaptcha = request.getSession().getAttribute(PreConstant.PRE_IMAGE_SESSION_KEY);
+        Object kaptcha = redisTemplate.opsForValue().get(PreConstant.PRE_IMAGE_SESSION_KEY);
         if (kaptcha == null) {
             throw new BaseException("验证码已失效");
         }
