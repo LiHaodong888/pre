@@ -1,16 +1,23 @@
 
 
-<p align="center">
-    <a href="http://spring.io/projects/spring-boot">
+<div align="center">
+<div style="height:256px; width:256px; text-align: center;">
+<img src="https://images.gitee.com/uploads/images/2019/0619/152102_90c67e77_1758995.png" height="256" width="256">
+</div>
+
+ <a href="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg">
+            <img src="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg" alt="Apache License">
+    </a>
+ <a href="http://spring.io/projects/spring-boot">
             <img src="https://img.shields.io/badge/spring--boot-2.1.5.RELEASE-green.svg" alt="spring-boot">
-        </a>
-        <a href="http://mp.baomidou.com">
+       </a>
+    <a href="http://mp.baomidou.com">
             <img src="https://img.shields.io/badge/mybatis--plus-3.1.1-blue.svg" alt="mybatis-plus">
-        </a>  
-        <a href="https://shiro.apache.org/">
+    </a>  
+    <a href="https://shiro.apache.org/">
             <img src="https://img.shields.io/badge/security-5.1.5-blue.svg" alt="shiro">
-        </a> 
-</p>
+    </a>
+</div>
 
 #### 介绍
 Pre基于Spring Boot 、Spring Security的RBAC权限管理系统, 做更简洁的后台管理系统。
@@ -45,7 +52,6 @@ Pre基于Spring Boot 、Spring Security的RBAC权限管理系统, 做更简洁�
 - 免费图床
 - 七牛云存储
 - 支付宝支付
-- 高并发秒杀
 - 持续集成
 
 #### 使用说明
@@ -60,13 +66,3 @@ Pre基于Spring Boot 、Spring Security的RBAC权限管理系统, 做更简洁�
 2. 新建 Feat_xxx 分支
 3. 提交代码
 4. 新建 Pull Request
-
-
-#### 码云特技
-
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
