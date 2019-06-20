@@ -1,6 +1,7 @@
 package com.xd.pre.controller;
 
 import com.xd.pre.constant.PreConstant;
+import com.xd.pre.limit.RateLimit;
 import com.xd.pre.service.ISysUserService;
 import com.xd.pre.utils.PreUtil;
 import com.xd.pre.utils.R;
@@ -26,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @Classname IndexController
- * @Description TODO
+ * @Description 主页模块
  * @Author 李号东 lihaodongmail@163.com
  * @Date 2019-05-07 12:38
  * @Version 1.0
@@ -71,6 +72,7 @@ public class IndexController {
      * @param request
      * @return
      */
+    @RateLimit(key = "login", time = 10, count = 5)
     @RequestMapping(value = "/login")
     public R login(String username, String password, String captcha, HttpServletRequest request) {
         return R.ok(userService.login(username, password, captcha, request));
