@@ -9,6 +9,8 @@ ENV TIMEZONE Asia/Shanghai
 #alpine自带的包含dl-cdn的域名非常慢，需要修改后才能下载数据。
 RUN apk add -U tzdata && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo "${TIMEZONE}" > /etc/timezone
 RUN sed -i -e 's/dl-cdn/dl-4/g' /etc/apk/repositories && apk add -U tzdata && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo "${TIMEZONE}" > /etc/timezone
+#解决验证码问题
+RUN apk add fontconfig && apk add --update ttf-dejavu && fc-cache --force
 #添加应用
 ADD pre-1.0.0-SNAPSHOT.jar pre-1.0.0-SNAPSHOT.jar
 #参数
