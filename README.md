@@ -30,6 +30,7 @@ Pre基于Spring Boot 、Spring Security的RBAC权限管理系统, 做更简洁�
 - 作为 Lambda 、Stream Api 的学习与生产实践
 
 #### 项目特点
+- 前后端分离架构
 - 代码注释丰富，极其简洁风格，上手快易理解
 - 采用Restfull API 规范开发
 - 统一异常拦截，友好的错误提示
