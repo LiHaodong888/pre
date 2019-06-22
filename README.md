@@ -20,7 +20,7 @@
 </div>
 
 #### 介绍
-Pre基于Spring Boot 、Spring Security的RBAC权限管理系统, 做更简洁的后台管理系统。
+Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限管理系统，项目支持数据权限管理，支持后端配置菜单动态路由, 努力做最简洁的后台管理系统。
 
 #### Pre
 
