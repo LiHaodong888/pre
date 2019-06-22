@@ -29,6 +29,7 @@ Pre基于Spring Boot 、Spring Security的RBAC权限管理系统, 做更简洁�
 - 作为 Mybatis Plus 学习与生产实践
 - 作为 Lambda 、Stream Api 的学习与生产实践
 
+#### 系统体验
 **体验地址**  [https://pre.52lhd.com/](https://pre.52lhd.com/)
 
 **账号密码** ```admin/123456```
@@ -50,20 +51,15 @@ Pre基于Spring Boot 、Spring Security的RBAC权限管理系统, 做更简洁�
 - 菜单管理：后端配置实现菜单动态路由，支持多级菜单，操作权限，按钮权限标识等
 - 部门管理：配置系统组织架构，树形表格展示，可随意调整上下级
 - 岗位管理：根据部门配置所属职位
-- 字典管理：对系统中经常使用的一些较为固定的数据进行维护，如：状态，性别等
+- 字典管理：对系统中经常使用的一些较为固定的数据进行维护，如：状态(正常/异常)，性别(男/女)等
 - 操作日志：记录用户操作的日志
 - 异常日志：记录异常日志，方便开发人员定位错误 
 
 #### 功能预告
-- 系统缓存
-- 任务调度
-- 代码生成
-- 短信工具
-- 邮件工具
-- 免费图床
-- 七牛云存储
-- 支付宝支付
-- 持续集成
+系统缓存 、任务调度 、代码生成 、短信工具 、邮件工具 、免费图床 、七牛云存储 、支付宝支付 、持续集成
+
+#### Pre Cloud微服务架构
+Pre微服务版本Spring Cloud Alibaba 目前处于开发阶段 敬请期待
 
 #### 使用说明
 
@@ -71,9 +67,10 @@ Pre基于Spring Boot 、Spring Security的RBAC权限管理系统, 做更简洁�
 2. xxxx
 3. xxxx
 
-#### 参与贡献
-
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
+#### 系统预览
+![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561164203948.jpg)
+![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561164256836.jpg)
+![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561164281334.jpg)
+![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561164316223.jpg)
+![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561164341280.jpg)
+![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561164361365.jpg)
