@@ -89,7 +89,7 @@ public class IndexController {
         List<String> list = new ArrayList<>();
         list.add("admin");
         map.put("roles", list);
-        map.put("avatar", "http://file.52lhd.com/pre_red.png");
+        map.put("avatar", "https://gitee.com/li_haodong/picture_management/raw/master/pic/pre_red.png");
         map.put("name", "Super Admin");
         return R.ok(map);
     }
