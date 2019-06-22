@@ -29,6 +29,10 @@ Pre基于Spring Boot 、Spring Security的RBAC权限管理系统, 做更简洁�
 - 作为 Mybatis Plus 学习与生产实践
 - 作为 Lambda 、Stream Api 的学习与生产实践
 
+**体验地址**  [https://pre.52lhd.com/](https://pre.52lhd.com/)
+
+**账号密码** ```admin/123456```
+
 #### 项目特点
 - 前后端分离架构
 - 代码注释丰富，极其简洁风格，上手快易理解
