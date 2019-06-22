@@ -34,6 +34,13 @@ Pre基于Spring Boot 、Spring Security的RBAC权限管理系统, 做更简洁�
 
 **账号密码** ```admin/123456```
 
+#### 项目源码
+
+|     |   后端源码  |   前端源码  |
+|---  |--- | --- |
+|  github   |  https://github.com/LiHaodong888/pre   |  https://github.com/LiHaodong888/pre-ui   |
+|  码云   |  https://gitee.com/li_haodong/pre   |  https://gitee.com/li_haodong/pre-ui   |
+
 #### 项目特点
 - 前后端分离架构
 - 代码注释丰富，极其简洁风格，上手快易理解
