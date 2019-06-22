@@ -1,7 +1,6 @@
 package com.xd.pre.controller;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xd.pre.domain.SysDict;
 import com.xd.pre.dto.DictDTO;
 import com.xd.pre.log.SysLog;
@@ -11,9 +10,6 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * <p>
