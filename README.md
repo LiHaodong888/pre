@@ -81,6 +81,7 @@ Pre微服务版本Spring Cloud Alibaba 目前处于开发阶段 敬请期待
 3、导入项目：直接导入开发工具，打开项目，安装依赖后，在application-dev.properties，修改数据库和redis的连接配置 然后直接启动项目
 
 #### 系统预览
+![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561181393915.jpg)
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561164203948.jpg)
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561164256836.jpg)
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561164281334.jpg)
