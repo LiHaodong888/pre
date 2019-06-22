@@ -47,7 +47,7 @@ public class SysDeptController {
      */
     @GetMapping
     @PreAuthorize("hasAuthority('sys:dept:view')")
-    public R getDepts() {
+    public R getDeptList() {
         return R.ok(deptService.selectDeptList());
     }
 

@@ -76,8 +76,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public boolean insertUser(UserDTO userDto) {
         SysUser sysUser = new SysUser();
+
         BeanUtils.copyProperties(userDto, sysUser);
-        // 默认密码
+        // 默认密码 123456
         sysUser.setPassword(PreUtil.encode("123456"));
         baseMapper.insertUser(sysUser);
         List<SysUserRole> userRoles = userDto.getRoleList().stream().map(item -> {
@@ -96,13 +97,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         BeanUtils.copyProperties(userDto, sysUser);
         baseMapper.updateById(sysUser);
         userRoleService.remove(Wrappers.<SysUserRole>lambdaQuery().eq(SysUserRole::getUserId, sysUser.getUserId()));
-        List<SysUserRole> userRoles = new ArrayList<>();
-        userDto.getRoleList().forEach(item -> {
+        List<SysUserRole> userRoles = userDto.getRoleList().stream().map(item -> {
             SysUserRole sysUserRole = new SysUserRole();
             sysUserRole.setRoleId(item);
             sysUserRole.setUserId(sysUser.getUserId());
-            userRoles.add(sysUserRole);
-        });
+            return sysUserRole;
+        }).collect(Collectors.toList());
         return userRoleService.saveBatch(userRoles);
     }
 
@@ -115,7 +115,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public boolean restPass(Integer userId) {
-        return baseMapper.updateById(new SysUser().setPassword("12345678").setUserId(userId)) > 0;
+        return baseMapper.updateById(new SysUser().setPassword("123456").setUserId(userId)) > 0;
     }
 
     @Override
@@ -150,13 +150,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                 .map(sysUserRole -> "ROLE_" + sysUserRole.getRoleId())
                 .collect(Collectors.toSet());
     }
-
     @Override
     public String login(String username, String password, String captcha, HttpServletRequest request) {
         // 验证验证码
-        // 从session中获取之前保存的验证码跟前台传来的验证码进行匹配
-        // 线上可以存放在redis中
-//        Object kaptcha = request.getSession().getAttribute(PreConstant.PRE_IMAGE_SESSION_KEY);
+        // 从redis中获取之前保存的验证码跟前台传来的验证码进行匹配
         Object kaptcha = redisTemplate.opsForValue().get(PreConstant.PRE_IMAGE_SESSION_KEY);
         if (kaptcha == null) {
             throw new BaseException("验证码已失效");

@@ -31,7 +31,7 @@ public interface ISysLogService extends IService<SysLog> {
      * @param type
      * @return
      */
-    IPage<SysLog> selectLogList(Integer page, Integer pageSize,Integer type);
+    IPage<SysLog> selectLogList(Integer page, Integer pageSize,Integer type,String userName);
 
 
     /**

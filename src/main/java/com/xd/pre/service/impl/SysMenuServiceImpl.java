@@ -57,10 +57,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
         LambdaQueryWrapper<SysMenu> sysMenuLambdaQueryWrapper = Wrappers.<SysMenu>query().lambda();
         sysMenuLambdaQueryWrapper.select(SysMenu::getMenuId, SysMenu::getName, SysMenu::getPerms, SysMenu::getPath, SysMenu::getParentId, SysMenu::getComponent, SysMenu::getIsFrame, SysMenu::getIcon, SysMenu::getSort, SysMenu::getType, SysMenu::getDelFlag);
-        if (uid != 0) {
-            List<Integer> menuIdList = roleMenuService.getMenuIdByUserId(uid);
-            sysMenuLambdaQueryWrapper.in(SysMenu::getMenuId, menuIdList);
-        }
+        // 所有人有权限看到 只是没有权限操作而已 暂定这样
+//        if (uid != 0) {
+//            List<Integer> menuIdList = roleMenuService.getMenuIdByUserId(uid);
+//            sysMenuLambdaQueryWrapper.in(SysMenu::getMenuId, menuIdList);
+//        }
         List<SysMenu> sysMenus = new ArrayList<>();
         List<SysMenu> menus = baseMapper.selectList(sysMenuLambdaQueryWrapper);
         menus.forEach(menu -> {

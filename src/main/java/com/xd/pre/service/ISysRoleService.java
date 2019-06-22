@@ -44,7 +44,7 @@ public interface ISysRoleService extends IService<SysRole> {
      * 获取角色列表
      * @return
      */
-    List<SysRole> selectRoleList();
+    List<SysRole> selectRoleList(String roleName);
 
     /**
      * 根据角色id获取菜单

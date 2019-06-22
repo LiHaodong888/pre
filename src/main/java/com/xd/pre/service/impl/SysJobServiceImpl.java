@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -56,12 +57,8 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
         }
         IPage<SysJob> sysJobIPage = baseMapper.selectPage(new Page<>(page, pageSize), jobLambdaQueryWrapper);
         List<SysJob> sysJobList = sysJobIPage.getRecords();
-        sysJobList.forEach(sysJob -> {
-            Consumer<SysJob> addDeptName = job -> job.setDeptName(deptService.selectDeptNameByDeptId(sysJob.getDeptId()));
-            sysJobList.forEach(addDeptName);
-        });
-        sysJobList.sort((SysJob o1, SysJob o2) -> (o1.getSort() - o2.getSort()));
-        return sysJobIPage.setRecords(sysJobList);
+        List<SysJob> collect = sysJobList.stream().peek(sysJob -> sysJob.setDeptName(deptService.selectDeptNameByDeptId(sysJob.getDeptId()))).sorted((SysJob o1, SysJob o2) -> (o1.getSort() - o2.getSort())).collect(Collectors.toList());
+        return sysJobIPage.setRecords(collect);
     }
 
     @Override

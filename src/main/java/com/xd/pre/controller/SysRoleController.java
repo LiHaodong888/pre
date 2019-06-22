@@ -34,8 +34,8 @@ public class SysRoleController {
      */
     @GetMapping
     @PreAuthorize("hasAuthority('sys:role:view')")
-    public R getRoleList() {
-        return R.ok(roleService.selectRoleList());
+    public R getRoleList(@RequestParam String roleName) {
+        return R.ok(roleService.selectRoleList(roleName));
     }
 
     /**

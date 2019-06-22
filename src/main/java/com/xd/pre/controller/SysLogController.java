@@ -6,7 +6,6 @@ import com.xd.pre.domain.SysLog;
 import com.xd.pre.service.ISysLogService;
 import com.xd.pre.utils.R;
 import io.swagger.annotations.Api;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,9 +38,9 @@ public class SysLogController {
      */
     @GetMapping
     @PreAuthorize("hasAuthority('sys:log:view')")
-    public R selectLog(@RequestParam("page") Integer page,@RequestParam("pageSize") Integer pageSize,@RequestParam("type") Integer type){
+    public R selectLog(@RequestParam("page") Integer page,@RequestParam("pageSize") Integer pageSize,@RequestParam("type") Integer type,@RequestParam String userName){
         Map<String, Object> map = new HashMap<>();
-        IPage<SysLog> sysLogIPage = logService.selectLogList(page, pageSize,type);
+        IPage<SysLog> sysLogIPage = logService.selectLogList(page, pageSize,type,userName);
         map.put("logList", sysLogIPage.getRecords());
         map.put("total", sysLogIPage.getTotal());
         return R.ok(map);

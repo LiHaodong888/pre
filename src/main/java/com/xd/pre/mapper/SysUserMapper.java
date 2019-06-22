@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
-    @Insert("insert into sys_user (username,password,dept_id,phone,email,avatar,lock_flag) values (#{username},#{password},#{deptId},#{phone},#{email},#{avatar},#{lockFlag})")
+    @Insert("insert into sys_user (username,password,dept_id,job_id,phone,email,avatar,lock_flag) values (#{username},#{password},#{deptId},#{jobId},#{phone},#{email},#{avatar},#{lockFlag})")
     @Options(useGeneratedKeys = true, keyProperty = "userId", keyColumn = "user_id")
     boolean insertUser(SysUser sysUser);
 

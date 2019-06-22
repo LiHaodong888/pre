@@ -1,6 +1,8 @@
 package com.xd.pre.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.xd.pre.domain.SysMenu;
 import com.xd.pre.domain.SysRole;
@@ -126,8 +128,13 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     }
 
     @Override
-    public List<SysRole> selectRoleList() {
-        return list().stream().peek(sysRole ->
+    public List<SysRole> selectRoleList(String roleName) {
+        LambdaQueryWrapper<SysRole> sysRoleLambdaQueryWrapper = Wrappers.<SysRole>lambdaQuery();
+        if (StrUtil.isNotEmpty(roleName)){
+            sysRoleLambdaQueryWrapper.like(SysRole::getRoleName,roleName);
+        }
+        List<SysRole> sysRoles = baseMapper.selectList(sysRoleLambdaQueryWrapper);
+        return sysRoles.stream().peek(sysRole ->
                 sysRole.setRoleDepts(roleDeptService.getRoleDeptIds(sysRole.getRoleId()).stream().map(SysRoleDept::getDeptId).collect(Collectors.toList()))
         ).collect(Collectors.toList());
     }

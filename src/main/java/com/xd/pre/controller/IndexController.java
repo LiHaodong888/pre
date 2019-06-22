@@ -3,7 +3,7 @@ package com.xd.pre.controller;
 import com.xd.pre.constant.PreConstant;
 import com.xd.pre.limit.RateLimit;
 import com.xd.pre.service.ISysUserService;
-import com.xd.pre.utils.PreUtil;
+import com.xd.pre.utils.CaptchaUtil;
 import com.xd.pre.utils.R;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,14 +50,14 @@ public class IndexController {
      * @throws ServletException
      * @throws IOException
      */
-    @GetMapping("captcha.jpg")
+    @GetMapping("/captcha.jpg")
     public void captcha(HttpServletResponse response, HttpServletRequest request) throws IOException {
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");
         // 生成图片验证码
-        BufferedImage image = PreUtil.createImage();
+        BufferedImage image = CaptchaUtil.createImage();
         // 生成文字验证码
-        String randomText = PreUtil.drawRandomText(image);
+        String randomText = CaptchaUtil.drawRandomText(image);
         // 保存到验证码到 redis 有效期两分钟
         redisTemplate.opsForValue().set(PreConstant.PRE_IMAGE_SESSION_KEY, randomText.toLowerCase(),2, TimeUnit.MINUTES);
         ServletOutputStream out = response.getOutputStream();
@@ -72,24 +72,33 @@ public class IndexController {
      * @param request
      * @return
      */
-    @RateLimit(key = "login", time = 10, count = 5)
+    @RateLimit(key = "login", time = 10, count = 10)
     @RequestMapping(value = "/login")
     public R login(String username, String password, String captcha, HttpServletRequest request) {
         return R.ok(userService.login(username, password, captcha, request));
     }
 
+    /**
+     * @Author 李号东
+     * @Description 暂时这样写
+     * @Date 08:12 2019-06-22
+     **/
     @RequestMapping("/info")
     public R info() {
         Map<String, Object> map = new HashMap<>();
         List<String> list = new ArrayList<>();
         list.add("admin");
         map.put("roles", list);
-        map.put("token", "admin");
-        map.put("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+        map.put("avatar", "http://file.52lhd.com/pre_red.png");
         map.put("name", "Super Admin");
         return R.ok(map);
     }
 
+    /**
+     * @Author 李号东
+     * @Description 使用jwt前后分离 只需要前端清除token即可 暂时返回success
+     * @Date 08:13 2019-06-22
+     **/
     @RequestMapping("/logout")
     public String logout(){
         return "success";

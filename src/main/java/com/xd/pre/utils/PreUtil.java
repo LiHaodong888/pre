@@ -1,7 +1,5 @@
 package com.xd.pre.utils;
 
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.util.StrUtil;
 import com.xd.pre.domain.SysDept;
 import com.xd.pre.domain.SysMenu;
 import com.xd.pre.vo.DeptTreeVo;
@@ -9,13 +7,8 @@ import com.xd.pre.vo.MenuMetaVo;
 import com.xd.pre.vo.MenuVo;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.*;
 import java.util.List;
 
@@ -79,60 +72,6 @@ public class PreUtil {
         );
         return list;
     }
-
-
-//    public List<MenuVo> buildMenus(List<SysMenu> menuDTOS) {
-//        List<MenuVo> list = new LinkedList<>();
-//        menuDTOS.forEach(menuDTO -> {
-//                    if (menuDTO!=null){
-//                        List<SysMenu> menuDTOList = menuDTO.getChildren();
-//                        MenuVo menuVo = new MenuVo();
-//                        menuVo.setName(menuDTO.getName());
-//                        menuVo.setPath(menuDTO.getPath());
-//
-//                        // 如果不是外链
-//                        if(menuDTO.getIsFrame()){
-//                            if(menuDTO.getParentId().equals(0L)){
-//                                //一级目录需要加斜杠，不然访问 会跳转404页面
-//                                menuVo.setPath("/" + menuDTO.getPath());
-//                                menuVo.setComponent(StrUtil.isEmpty(menuDTO.getComponent())?"Layout":menuDTO.getComponent());
-//                            }else if(!StrUtil.isEmpty(menuDTO.getComponent())){
-//                                menuVo.setComponent(menuDTO.getComponent());
-//                            }
-//                        }
-//
-//                        menuVo.setMeta(new MenuMetaVo(menuDTO.getName(),menuDTO.getIcon()));
-//
-//                        if(CollectionUtil.isNotEmpty(menuDTOList)){
-//                            menuVo.setAlwaysShow(true);
-//                            menuVo.setRedirect("noredirect");
-//                            menuVo.setChildren(buildMenus(menuDTOList));
-//                            // 处理是一级菜单并且没有子菜单的情况
-//                        } else if(menuDTO.getParentId().equals(0L)){
-//                            MenuVo menuVo1 = new MenuVo();
-//                            menuVo1.setMeta(menuVo.getMeta());
-//                            // 非外链
-//                            if(menuDTO.getIsFrame()){
-//                                menuVo1.setPath("index");
-//                                menuVo1.setName(menuVo.getName());
-//                                menuVo1.setComponent(menuVo.getComponent());
-//                            } else {
-//                                menuVo1.setPath(menuDTO.getPath());
-//                            }
-//                            menuVo.setName(null);
-//                            menuVo.setMeta(null);
-//                            menuVo.setComponent("Layout");
-//                            List<MenuVo> list1 = new ArrayList<>();
-//                            list1.add(menuVo1);
-//                            menuVo.setChildren(list1);
-//                        }
-//                        list.add(menuVo);
-//                    }
-//                }
-//        );
-//        return list;
-//    }
-
 
     /**
      * 遍历菜单
@@ -290,68 +229,8 @@ public class PreUtil {
         return stringBuilder.toString();
     }
 
-
-    private int width = 200;
-    private int height = 50;
-
-    public BufferedImage createImage(){
-        //生成对应宽高的初始图片
-        return  new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-    }
-
-    public static String drawRandomText(BufferedImage verifyImg) {
-        Graphics2D graphics = (Graphics2D) verifyImg.getGraphics();
-        //设置画笔颜色-验证码背景色
-        graphics.setColor(Color.WHITE);
-        //填充背景
-        graphics.fillRect(0, 0, width, height);
-        graphics.setFont(new Font("微软雅黑", Font.PLAIN, 30));
-        //数字和字母的组合
-        String baseNumLetter = "123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
-        StringBuilder sBuffer = new StringBuilder();
-        //旋转原点的 x 坐标
-        int x = 10;
-        String ch = "";
-        Random random = new Random();
-        for (int i = 0; i < 4; i++) {
-            graphics.setColor(getRandomColor());
-            //设置字体旋转角度
-            //角度小于30度
-            int degree = random.nextInt() % 30;
-            int dot = random.nextInt(baseNumLetter.length());
-            ch = baseNumLetter.charAt(dot) + "";
-            sBuffer.append(ch);
-            //正向旋转
-            graphics.rotate(degree * Math.PI / 180, x, 45);
-            graphics.drawString(ch, x, 45);
-            //反向旋转
-            graphics.rotate(-degree * Math.PI / 180, x, 45);
-            x += 48;
-        }
-
-        //画干扰线
-        for (int i = 0; i < 6; i++) {
-            // 设置随机颜色
-            graphics.setColor(getRandomColor());
-            // 随机画线
-            graphics.drawLine(random.nextInt(width), random.nextInt(height), random.nextInt(width), random.nextInt(height));
-        }
-        //添加噪点
-        for (int i = 0; i < 30; i++) {
-            int x1 = random.nextInt(width);
-            int y1 = random.nextInt(height);
-            graphics.setColor(getRandomColor());
-            graphics.fillRect(x1, y1, 2, 1);
-        }
-        return sBuffer.toString();
-    }
-
-    /**
-     * 随机取色
-     */
-    private static Color getRandomColor() {
-        Random ran = new Random();
-        return new Color(ran.nextInt(256), ran.nextInt(256), ran.nextInt(256));
-
+    public static void main(String[] args) {
+        String aa123456 = encode("Aa123456");
+        System.out.println(aa123456);
     }
 }

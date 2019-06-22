@@ -140,7 +140,7 @@ public class SysUserController {
         // 修改密码流程
         SysUser user = new SysUser();
         user.setUserId(sysUser.getUserId());
-        user.setPassword(newPass);
+        user.setPassword(PreUtil.encode(newPass));
         return R.ok(userService.updateUserInfo(user));
     }
 
@@ -197,6 +197,7 @@ public class SysUserController {
         user.setEmail(mail);
         return R.ok(userService.updateUserInfo(user));
     }
+
 
 
 }
