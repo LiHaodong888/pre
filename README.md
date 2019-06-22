@@ -77,6 +77,7 @@ Pre微服务版本Spring Cloud Alibaba 目前处于开发阶段 敬请期待
 
 #### 关于作者
 有问题可以加我
-<div style="height:256px; width:256px;">
-<img src="https://gitee.com/li_haodong/picture_management/raw/master/pic/WechatIMG2.jpeg" height="256" width="256">
+<div style="height:300px; width:256px;">
+<img src="https://gitee.com/li_haodong/picture_management/raw/master/pic/qrcode.png" height="300" width="256">
+<img src="https://gitee.com/li_haodong/picture_management/raw/master/pic/WechatIMG2.jpeg" height="300" width="256">
 </div>
