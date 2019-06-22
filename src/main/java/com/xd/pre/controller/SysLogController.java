@@ -1,8 +1,6 @@
 package com.xd.pre.controller;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.xd.pre.domain.SysLog;
 import com.xd.pre.service.ISysLogService;
 import com.xd.pre.utils.R;
 import io.swagger.annotations.Api;
@@ -10,8 +8,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * <p>
@@ -39,11 +35,7 @@ public class SysLogController {
     @GetMapping
     @PreAuthorize("hasAuthority('sys:log:view')")
     public R selectLog(@RequestParam("page") Integer page,@RequestParam("pageSize") Integer pageSize,@RequestParam("type") Integer type,@RequestParam String userName){
-        Map<String, Object> map = new HashMap<>();
-        IPage<SysLog> sysLogIPage = logService.selectLogList(page, pageSize,type,userName);
-        map.put("logList", sysLogIPage.getRecords());
-        map.put("total", sysLogIPage.getTotal());
-        return R.ok(map);
+        return R.ok(logService.selectLogList(page, pageSize,type,userName));
     }
 
 

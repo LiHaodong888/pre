@@ -1,9 +1,7 @@
 package com.xd.pre.controller;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xd.pre.domain.SysJob;
-import com.xd.pre.domain.SysUser;
 import com.xd.pre.log.SysLog;
 import com.xd.pre.service.ISysJobService;
 import com.xd.pre.utils.R;
@@ -11,9 +9,6 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * <p>
@@ -42,11 +37,7 @@ public class SysJobController {
     @GetMapping
     @PreAuthorize("hasAuthority('sys:job:view')")
     public R getList(Integer page, Integer pageSize,@RequestParam(defaultValue = "") String jobName) {
-        Map<String, Object> map = new HashMap<>();
-        IPage<SysJob> sysJobIPage = jobService.selectJobList(page, pageSize, jobName);
-        map.put("jobList", sysJobIPage.getRecords());
-        map.put("total", sysJobIPage.getTotal());
-        return R.ok(map);
+        return R.ok(jobService.selectJobList(page, pageSize, jobName));
     }
 
     /**

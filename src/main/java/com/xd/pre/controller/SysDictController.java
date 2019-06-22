@@ -54,11 +54,7 @@ public class SysDictController {
     @GetMapping
     @PreAuthorize("hasAuthority('sys:dipt:view')")
     public R getList(Integer page, Integer pageSize) {
-        Map<String, Object> map = new HashMap<>();
-        IPage<SysDict> sysDictIPage = dictService.selectDictList(page, pageSize);
-        map.put("dictList", sysDictIPage.getRecords());
-        map.put("total", sysDictIPage.getTotal());
-        return R.ok(map);
+        return R.ok(dictService.selectDictList(page, pageSize));
     }
 
 
