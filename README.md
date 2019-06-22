@@ -62,10 +62,16 @@ Pre基于Spring Boot 、Spring Security的RBAC权限管理系统, 做更简洁�
 Pre微服务版本Spring Cloud Alibaba 目前处于开发阶段 敬请期待
 
 #### 使用说明
-
-1. xxxx
-2. xxxx
-3. xxxx
+##### 安装环境
+- JDK：8+
+- Redis 3.0+
+- Maven 3.0+
+- MYSQL 5.5.0+
+- Node v10+
+##### 运行系统
+1、克隆项目：git clone https://gitee.com/li_haodong/pre.git   
+2、导入数据：打开数据库，创建一个新库 [pre]，导入sql文件夹中的初始化脚本  
+3、导入项目：直接导入开发工具，打开项目，安装依赖后，在application-dev.properties，修改数据库和redis的连接配置 然后直接启动项目
 
 #### 系统预览
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561164203948.jpg)
