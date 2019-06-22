@@ -72,7 +72,6 @@ public class IndexController {
      * @param request
      * @return
      */
-    @RateLimit(key = "login", time = 10, count = 10)
     @RequestMapping(value = "/login")
     public R login(String username, String password, String captcha, HttpServletRequest request) {
         return R.ok(userService.login(username, password, captcha, request));
