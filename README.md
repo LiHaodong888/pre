@@ -1,9 +1,6 @@
 
 
 <div align="center">
-<div style="height:256px; width:256px; text-align: center;">
-<img src="https://images.gitee.com/uploads/images/2019/0619/152102_90c67e77_1758995.png" height="256" width="256">
-</div>
 
  <a href="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg">
             <img src="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg" alt="Apache License">
@@ -20,7 +17,7 @@
 </div>
 
 #### 介绍
-Pre基于Spring Boot 、Spring Security的RBAC权限管理系统, 做更简洁的后台管理系统。
+Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限管理系统，项目支持数据权限管理，支持后端配置菜单动态路由, 努力做最简洁的后台管理系统。
 
 #### Pre
 
@@ -81,6 +78,7 @@ Pre微服务版本Spring Cloud Alibaba 目前处于开发阶段 敬请期待
 3、导入项目：直接导入开发工具，打开项目，安装依赖后，在application-dev.properties，修改数据库和redis的连接配置 然后直接启动项目
 
 #### 系统预览
+![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561181393915.jpg)
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561164203948.jpg)
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561164256836.jpg)
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561164281334.jpg)
