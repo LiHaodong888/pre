@@ -1,7 +1,9 @@
 
 
 <div align="center">
-
+<div style="height:256px; width:256px; text-align: center;">
+<img src="https://gitee.com/li_haodong/picture_management/raw/master/pic/WechatIMG9.png" height="256" width="256">
+</div>
  <a href="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg">
             <img src="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg" alt="Apache License">
     </a>
