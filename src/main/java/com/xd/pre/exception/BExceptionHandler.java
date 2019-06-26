@@ -46,7 +46,7 @@ public class BExceptionHandler {
 
     @ExceptionHandler(AccessDeniedException.class)
     public R handleAuthorizationException(AccessDeniedException e) {
-        log.error(e.getMessage(), e);
+        log.error(e.getMessage());
         return R.error(403, "没有权限，请联系管理员授权");
     }
 

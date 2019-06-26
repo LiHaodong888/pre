@@ -51,7 +51,9 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     public boolean saveRoleMenu(RoleDTO roleDto) {
         SysRole sysRole = new SysRole();
         BeanUtils.copyProperties(roleDto, sysRole);
+        // 根据数据权限范围查询部门ids
         List<Integer> ids = dataScopeContext.getDeptIdsForDataScope(roleDto, roleDto.getDsType());
+
         StringJoiner dsScope = new StringJoiner(",");
         ids.forEach(integer -> {
             dsScope.add(Integer.toString(integer));

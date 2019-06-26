@@ -3,7 +3,6 @@ package com.xd.pre.domain;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,7 +35,7 @@ public class SysLog implements Serializable {
     private String requestIp;
 
     /**
-     * 操作类型 1 操作记录2异常记录
+     * 操作类型 1 操作记录 2异常记录
      */
     private Integer type;
 

@@ -88,7 +88,7 @@ public class IndexController {
         List<String> list = new ArrayList<>();
         list.add("admin");
         map.put("roles", list);
-        map.put("avatar", "https://gitee.com/li_haodong/picture_management/raw/master/pic/pre_red.png");
+        map.put("avatar", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1561394014552&di=17b6c1233048e5276f48309b306c7699&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201804%2F29%2F20180429210111_gtsnf.jpg");
         map.put("name", "Super Admin");
         return R.ok(map);
     }

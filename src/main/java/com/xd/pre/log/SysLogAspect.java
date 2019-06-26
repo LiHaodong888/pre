@@ -36,8 +36,14 @@ import java.util.Objects;
 public class SysLogAspect {
 
 
+    /**
+     *log实体类
+     **/
     private com.xd.pre.domain.SysLog sysLog = new com.xd.pre.domain.SysLog();
 
+    /**
+     * 事件发布是由ApplicationContext对象管控的，我们发布事件前需要注入ApplicationContext对象调用publishEvent方法完成事件发布
+     **/
     @Autowired
     private ApplicationContext applicationContext;
 
