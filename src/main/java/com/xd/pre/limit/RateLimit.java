@@ -4,7 +4,7 @@ package com.xd.pre.limit;
 import java.lang.annotation.*;
 
 /**
- * @Classname DataScopeInterceptor
+ * @Classname RateLimit
  * @Description 限流注解
  * @Author Created by LiHaodong (alias:小东啊) lihaodongmail@163.com
  * @Date 2019-06-20 10:29

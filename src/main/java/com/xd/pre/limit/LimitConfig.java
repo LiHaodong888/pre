@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 
 /**
- * @Classname DataScopeInterceptor
+ * @Classname LimitConfig
  * @Description 限流配置
  * @Author Created by LiHaodong (alias:小东啊) lihaodongmail@163.com
  * @Date 2019-06-20 10:29

@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @Classname DataScopeInterceptor
+ * @Classname LimitAspect
  * @Description 注解拦截
  * @Author Created by LiHaodong (alias:小东啊) lihaodongmail@163.com
  * @Date 2019-06-08 10:29
