@@ -38,9 +38,10 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
     </tr>
 </table>
 
-**开发文档**  [https://docs.52lhd.com/](https://docs.52lhd.com)
 
 #### 系统体验
+**开发文档**  [https://docs.52lhd.com/](https://docs.52lhd.com)
+
 **体验地址**  [https://pre.52lhd.com/](https://pre.52lhd.com/)
 
 **账号密码** ```admin/123456```
