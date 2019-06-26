@@ -28,6 +28,16 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 - 作为 Mybatis Plus 学习与生产实践
 - 作为 Lambda 、Stream Api 的学习与生产实践
 
+### 扫码关注我的公众号和微信技术交流群
+<table>
+    <tr>
+        <td>我的公众号</td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0415/104911_9bc924a5_551203.png" width="120"/></td>
+        <td>扫码邀请入群</td>
+        <td><img src="https://gitee.com/li_haodong/picture_management/raw/master/pic/WechatIMG320.jpeg" width="120"/></td>
+    </tr>
+</table>
+
 #### 系统体验
 **体验地址**  [https://pre.52lhd.com/](https://pre.52lhd.com/)
 
