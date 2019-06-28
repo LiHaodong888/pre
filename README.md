@@ -31,6 +31,8 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 ### 扫码关注我的公众号和微信技术交流群
 <table>
     <tr>
+        <td>扫码添加作者</td>
+        <td><img src="https://gitee.com/li_haodong/picture_management/raw/master/pic/WechatIMG2.jpeg" width="120"/></td>
         <td>我的公众号</td>
         <td><img src="https://gitee.com/li_haodong/picture_management/raw/master/pic/qrcode_for_gh_99ee464aac4f_258.jpg" width="120"/></td>
         <td>扫码邀请入群</td>
@@ -38,7 +40,10 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
     </tr>
 </table>
 
+
 #### 系统体验
+**开发文档**  [https://docs.52lhd.com/](https://docs.52lhd.com)
+
 **体验地址**  [https://pre.52lhd.com/](https://pre.52lhd.com/)
 
 **账号密码** ```admin/123456```
