@@ -30,10 +30,8 @@ public class SecurityUtil {
      * 获取用户
      *
      * @param authentication
-     * @return PigxUser
+     * @return PreUser
      * <p>
-     * 获取当前用户的全部信息 EnablePigxResourceServer true
-     * 获取当前用户的用户名 EnablePigxResourceServer false
      */
     private PreUser getUser(Authentication authentication) {
         Object principal = authentication.getPrincipal();
