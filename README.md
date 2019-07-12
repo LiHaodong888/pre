@@ -18,10 +18,8 @@
     </a>
 </div>
 
-#### 介绍
+#### 系统介绍
 Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限管理系统，项目支持数据权限管理，支持后端配置菜单动态路由, 努力做最简洁的后台管理系统。
-
-#### Pre
 
 - 基于 Spring Boot 2.1.5 、Spring Security 的RBAC权限管理系统
 - 基于 Vue UI框架 Element-ui
@@ -52,7 +50,7 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 
 |     |   后端源码  |   前端源码  |
 |---  |--- | --- |
-|  github   |  https://github.com/LiHaodong888/pre   |  https://github.com/LiHaodong888/pre-ui   |
+|  GitHub   |  https://github.com/LiHaodong888/pre   |  https://github.com/LiHaodong888/pre-ui   |
 |  码云   |  https://gitee.com/li_haodong/pre   |  https://gitee.com/li_haodong/pre-ui   |
 
 #### 项目特点
@@ -67,8 +65,8 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 
 #### 基本功能
 
-- 用户管理：该功能主要完成系统用户配置，提供用户的相关配置
-- 角色管理：权限菜单进行权限分配，根据部门设置角色的数据权限范围
+- 用户管理：该功能主要完成系统用户配置，提供用户基础配置(用户名、手机号邮箱等)以及部门角色等
+- 角色管理：权限菜单分配，以部门基础设置角色的数据权限范围
 - 菜单管理：后端配置实现菜单动态路由，支持多级菜单，操作权限，按钮权限标识等
 - 部门管理：配置系统组织架构，树形表格展示，可随意调整上下级
 - 岗位管理：根据部门配置所属职位
