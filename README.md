@@ -75,22 +75,10 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 - 异常日志：记录异常日志，方便开发人员定位错误 
 
 #### 功能预告
-系统缓存 、任务调度 、代码生成 、短信工具 、邮件工具 、免费图床 、七牛云存储 、支付宝支付 、持续集成
+系统缓存 、任务调度 、代码生成 、邮件工具 、免费图床 、七牛云存储 、持续集成、多租户
 
 #### Pre Cloud微服务架构
 Pre微服务版本Spring Cloud Alibaba 目前处于开发阶段 敬请期待
-
-#### 使用说明
-##### 安装环境
-- JDK：8+
-- Redis 3.0+
-- Maven 3.0+
-- MYSQL 5.5.0+
-- Node v10+
-##### 运行系统
-1、克隆项目：git clone https://gitee.com/li_haodong/pre.git   
-2、导入数据：打开数据库，创建一个新库 [pre]，导入sql文件夹中的初始化脚本  
-3、导入项目：直接导入开发工具，打开项目，安装依赖后，在application-dev.properties，修改数据库和redis的连接配置 然后直接启动项目
 
 #### 系统预览
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561385077990.jpg)
