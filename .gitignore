@@ -2,7 +2,7 @@
 HELP.md
 /target/
 .mvn/wrapper/maven-wrapper.jar
-.DS_Store src
+.DS_Store src/
 
 ### STS ###
 .apt_generated

@@ -2,10 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.5.RELEASE</version>
+        <version>2.1.6.RELEASE</version>
         <relativePath/>
     </parent>
     <groupId>com.xd</groupId>
@@ -14,12 +16,17 @@
     <name>pre</name>
     <description>Pre基于Spring Boot 、Spring Security的RBAC权限管理系统</description>
 
+    <modules>
+        <module>pre-common</module>
+        <module>pre-admin</module>
+    </modules>
+
     <properties>
         <java.version>1.8</java.version>
-        <mybatis-plus.version>3.1.1</mybatis-plus.version>
+        <mybatis-plus.version>3.1.2</mybatis-plus.version>
         <velocity.version>2.1</velocity.version>
         <hutool.version>4.5.6</hutool.version>
-        <fastjson.version>1.2.56</fastjson.version>
+        <fastjson.version>1.2.58</fastjson.version>
         <jwt.version>0.9.0</jwt.version>
         <joda-time.version>2.10.1</joda-time.version>
         <jasypt.version>2.1.0</jasypt.version>
@@ -72,6 +79,7 @@
             <artifactId>velocity-engine-core</artifactId>
             <version>${velocity.version}</version>
         </dependency>
+        <!--切面-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
@@ -135,6 +143,32 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-security</artifactId>
+            <version>1.1.6.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-core</artifactId>
+            <version>1.1.6.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-config</artifactId>
+            <version>1.1.6.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-web</artifactId>
+            <version>1.1.6.RELEASE</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.social</groupId>-->
+<!--            <artifactId>spring-social-autoconfigure</artifactId>-->
+<!--            <version>2.0.0.BUILD-SNAPSHOT</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -142,52 +176,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/pre-alpine</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/docker</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- copy文件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks> <!-- 你将要拷贝的位置 -->
-                                <copy todir="${project.build.directory}/pre-alpine">
-                                    <!-- 从哪里拷贝 -->
-                                    <fileset dir="${project.build.directory}">
-                                        <!-- 拷贝内容 -->
-                                        <include name="*.jar"/>
-                                    </fileset>
-                                </copy>
-                            </tasks>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
