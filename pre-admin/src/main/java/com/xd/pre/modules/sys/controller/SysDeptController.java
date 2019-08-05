@@ -6,7 +6,6 @@ import com.xd.pre.modules.sys.domain.SysDept;
 import com.xd.pre.modules.sys.dto.DeptDTO;
 import com.xd.pre.modules.sys.service.ISysDeptService;
 import com.xd.pre.common.utils.R;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
  * @author lihaodong
  * @since 2019-04-21
  */
-@Api(value="字典模块")
 @RestController
 @RequestMapping("/dept")
 public class SysDeptController {

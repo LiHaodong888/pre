@@ -8,40 +8,21 @@ import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.zip.ZipOutputStream;
 
 
 /**
  * @Author 李号东
- * @Description mybatis-plus自动生成
+ * @Description 代码生成工具类
  * @Date 08:07 2019-03-17
  * @Param
  * @return
  **/
 public class CodeGenUtil {
-
-    public static void main(String[] args) {
-        //指定包名
-        String packageName = "com.xd.pre.modules.codegen";
-        //指定生成的表名
-        String[] tableNames = new String[]{"qwe"};
-        new CodeGenUtil().generateByTables(packageName, "li", "pre-admin", tableNames);
-        // 1. 表名称
-        // 2. 包名
-        // 3. 作者
-        // 4. 表前缀
-        // 5. 注释
-//        System.out.println(new CodeGenUtil().getOutputDir("pre-admin"));
-    }
-
 
     /**
      * 根据表自动生成
@@ -51,9 +32,7 @@ public class CodeGenUtil {
      * @param moduleName  模块名
      * @param tableNames  表名
      */
-    private void generateByTables(String packageName, String author, String moduleName, String... tableNames) {
-        // 配置数据源
-        DataSourceConfig dataSourceConfig = getDataSourceConfig();
+    public boolean generateByTables(DataSourceConfig dataSourceConfig,String packageName, String author, String moduleName, String... tableNames) {
         // 策略配置
         StrategyConfig strategyConfig = getStrategyConfig(tableNames);
         // 全局变量配置
@@ -61,7 +40,8 @@ public class CodeGenUtil {
         // 包名配置
         PackageConfig packageConfig = getPackageConfig(packageName);
         // 自动生成
-        atuoGenerator(dataSourceConfig, strategyConfig, globalConfig, packageConfig,moduleName);
+        atuoGenerator(dataSourceConfig, strategyConfig, globalConfig, packageConfig, moduleName);
+        return true;
     }
 
     /**
@@ -72,7 +52,7 @@ public class CodeGenUtil {
      * @param config           全局变量配置
      * @param packageConfig    包名配置
      */
-    private void atuoGenerator(DataSourceConfig dataSourceConfig, StrategyConfig strategyConfig, GlobalConfig config, PackageConfig packageConfig,String moduleName) {
+    private void atuoGenerator(DataSourceConfig dataSourceConfig, StrategyConfig strategyConfig, GlobalConfig config, PackageConfig packageConfig, String moduleName) {
         // 自定义配置
         InjectionConfig cfg = new InjectionConfig() {
             @Override

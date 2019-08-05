@@ -14,7 +14,6 @@ import com.xd.pre.modules.sys.service.ISysUserService;
 import com.xd.pre.modules.sys.util.EmailUtil;
 import com.xd.pre.common.utils.R;
 import com.xd.pre.modules.sys.util.PreUtil;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +28,6 @@ import javax.servlet.http.HttpServletRequest;
  * @author lihaodong
  * @since 2019-04-21
  */
-@Api(value="用户模块")
 @RestController
 @RequestMapping("/user")
 public class SysUserController {

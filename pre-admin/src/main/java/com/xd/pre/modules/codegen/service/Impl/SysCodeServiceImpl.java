@@ -1,10 +1,14 @@
 package com.xd.pre.modules.codegen.service.Impl;
 
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.xd.pre.modules.codegen.domain.CodeGenConfig;
 import com.xd.pre.modules.codegen.domain.SysColumnEntity;
+import com.xd.pre.modules.codegen.domain.SysDatasource;
 import com.xd.pre.modules.codegen.domain.SysTableEntity;
 import com.xd.pre.modules.codegen.mapper.SysCodeMapper;
 import com.xd.pre.modules.codegen.service.SysCodeService;
+import com.xd.pre.modules.codegen.util.CodeGenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -37,8 +41,6 @@ public class SysCodeServiceImpl implements SysCodeService {
     private String driverName;
 
 
-
-
     @Override
     public List<SysTableEntity> findTableList(String tableSchema) {
         return sysCodeMapper.findTableList(tableSchema);
@@ -51,7 +53,14 @@ public class SysCodeServiceImpl implements SysCodeService {
 
     @Override
     public boolean generatorCode(CodeGenConfig codeGenConfig) {
-
-        return false;
+        DataSourceConfig dataSourceConfig = new DataSourceConfig()
+                .setDbType(DbType.MYSQL)
+                .setUrl(url)
+                .setUsername(username)
+                .setPassword(password)
+                .setDriverName(driverName);
+        CodeGenUtil codeGenUtil = new CodeGenUtil();
+        codeGenUtil.generateByTables(dataSourceConfig,codeGenConfig.getPackageName(),codeGenConfig.getAuthor(),codeGenConfig.getModuleName(),codeGenConfig.getTableName());
+        return true;
     }
 }

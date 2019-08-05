@@ -14,8 +14,8 @@ import com.xd.pre.modules.sys.domain.SysUser;
 import com.xd.pre.modules.sys.dto.UserDTO;
 import com.xd.pre.modules.sys.service.ISysUserService;
 import com.xd.pre.common.utils.R;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionData;
@@ -44,7 +44,6 @@ import java.util.concurrent.TimeUnit;
  * @Date 2019-05-07 12:38
  * @Version 1.0
  */
-@Api(value = "主页模块")
 @RestController
 public class IndexController {
 
@@ -62,6 +61,9 @@ public class IndexController {
 
     @Autowired
     private SocialRedisHelper socialRedisHelper;
+
+    @Value("${pre.url.address}")
+    private String url;
 
 
     /**
@@ -159,7 +161,7 @@ public class IndexController {
         BeanUtil.copyProperties(data, preConnectionData);
         socialRedisHelper.saveConnectionData(uuid, preConnectionData);
         // 跳转到用户绑定页面
-        response.sendRedirect("http://localhost:9528/bind?key=" + uuid);
+        response.sendRedirect(url+"/bind?key=" + uuid);
     }
 
     /**

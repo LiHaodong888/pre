@@ -4,7 +4,6 @@ package com.xd.pre.modules.sys.controller;
 import com.xd.pre.modules.log.annotation.SysLog;
 import com.xd.pre.modules.sys.service.ISysLogService;
 import com.xd.pre.common.utils.R;
-import io.swagger.annotations.Api;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +17,6 @@ import javax.annotation.Resource;
  * @author lihaodong
  * @since 2019-04-27
  */
-@Api(value="日志模块")
 @RestController
 @RequestMapping("/log")
 public class SysLogController {

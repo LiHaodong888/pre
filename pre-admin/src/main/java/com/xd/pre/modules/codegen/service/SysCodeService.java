@@ -2,6 +2,7 @@ package com.xd.pre.modules.codegen.service;
 
 import com.xd.pre.modules.codegen.domain.CodeGenConfig;
 import com.xd.pre.modules.codegen.domain.SysColumnEntity;
+import com.xd.pre.modules.codegen.domain.SysDatasource;
 import com.xd.pre.modules.codegen.domain.SysTableEntity;
 
 import java.util.List;
@@ -20,5 +21,10 @@ public interface SysCodeService {
 
     List<SysColumnEntity> findColumnList(String tableName, String tableSchema);
 
+    /**
+     * 代码生成
+     * @param codeGenConfig
+     * @return
+     */
     boolean generatorCode(CodeGenConfig codeGenConfig);;
 }

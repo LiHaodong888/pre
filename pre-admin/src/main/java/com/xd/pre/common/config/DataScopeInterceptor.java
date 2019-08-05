@@ -2,9 +2,11 @@ package com.xd.pre.common.config;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.db.Db;
 import cn.hutool.db.Entity;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
 import com.baomidou.mybatisplus.extension.handlers.AbstractSqlParserHandler;
 import com.xd.pre.common.exception.CheckedException;
@@ -20,10 +22,14 @@ import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -41,7 +47,13 @@ import java.util.stream.Collectors;
 @Component
 public class DataScopeInterceptor extends AbstractSqlParserHandler implements Interceptor {
 
-    private final DataSource dataSource;
+    @Lazy
+    @Resource
+    private DataSource dataSource;
+
+    @Lazy
+    @Resource
+    private HttpServletRequest request;
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -58,6 +70,7 @@ public class DataScopeInterceptor extends AbstractSqlParserHandler implements In
         String originalSql = boundSql.getSql();
         // SQL语句的参数
         Object parameterObject = boundSql.getParameterObject();
+
         //查找参数中包含DataScope类型的参数
         DataScope dataScope = findDataScopeObject(parameterObject);
         if (ObjectUtil.isNull(dataScope)) {

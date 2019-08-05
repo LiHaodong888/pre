@@ -1,12 +1,10 @@
 package com.xd.pre.modules.codegen.controller;
 
 import com.xd.pre.common.utils.R;
+import com.xd.pre.modules.codegen.domain.CodeGenConfig;
 import com.xd.pre.modules.codegen.service.SysCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Classname SysCodeGenController
@@ -42,6 +40,11 @@ public class SysCodeGenController {
     @GetMapping("/getTableColumnList")
     public R getTableColumnList(@RequestParam String tableName,@RequestParam String tableSchema) {
         return R.ok(sysCodeService.findColumnList(tableName, tableSchema));
+    }
+
+    @PostMapping("/codegen")
+    public R generatorCode(@RequestBody CodeGenConfig codeGenConfig){
+        return R.ok(sysCodeService.generatorCode(codeGenConfig));
     }
 
 
