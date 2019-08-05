@@ -8,10 +8,10 @@
             <img src="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg" alt="Apache License">
     </a>
  <a href="http://spring.io/projects/spring-boot">
-            <img src="https://img.shields.io/badge/spring--boot-2.1.5.RELEASE-green.svg" alt="spring-boot">
+            <img src="https://img.shields.io/badge/spring--boot-2.1.6.RELEASE-green.svg" alt="spring-boot">
        </a>
     <a href="http://mp.baomidou.com">
-            <img src="https://img.shields.io/badge/mybatis--plus-3.1.1-blue.svg" alt="mybatis-plus">
+            <img src="https://img.shields.io/badge/mybatis--plus-3.1.2-blue.svg" alt="mybatis-plus">
     </a>  
     <a href="https://shiro.apache.org/">
             <img src="https://img.shields.io/badge/security-5.1.5-blue.svg" alt="shiro">
@@ -19,9 +19,9 @@
 </div>
 
 #### 系统介绍
-Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限管理系统，项目支持数据权限管理，支持后端配置菜单动态路由, 努力做最简洁的后台管理系统。
+Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限管理系统，项目支持数据权限管理，支持后端配置菜单动态路由, 第三方社交登录,努力做最简洁的后台管理系统。
 
-- 基于 Spring Boot 2.1.5 、Spring Security 的RBAC权限管理系统
+- 基于 Spring Boot 2.1.6 、Spring Security 的RBAC权限管理系统
 - 基于 Vue UI框架 Element-ui
 - 作为 Mybatis Plus 学习与生产实践
 - 作为 Lambda 、Stream Api 的学习与生产实践
@@ -60,7 +60,8 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 - 统一异常拦截，友好的错误提示
 - 基于注解 + Aop切面实现全方位日记记录系统
 - 基于Mybatis拦截器 + 策略模式实现数据权限控制
-- Jwt Token 鉴权机制       
+- Jwt Token 鉴权机制 
+- 提供解决前后分离第三方社交登录方案      
 
 
 #### 基本功能
@@ -73,9 +74,10 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 - 字典管理：对系统中经常使用的一些较为固定的数据进行维护，如：状态(正常/异常)，性别(男/女)等
 - 操作日志：记录用户操作的日志
 - 异常日志：记录异常日志，方便开发人员定位错误 
+- 代码生成：根据数据库快速生成增删改查基础代码
 
 #### 功能预告
-系统缓存 、任务调度 、代码生成 、邮件工具 、免费图床 、七牛云存储 、持续集成、多租户
+任务调度 、邮件工具 、免费图床 、七牛云存储 、持续集成、多租户
 
 #### Pre Cloud微服务架构
 Pre微服务版本Spring Cloud Alibaba 目前处于开发阶段 敬请期待
