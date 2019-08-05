@@ -6,6 +6,7 @@ import com.xd.pre.modules.security.PreSocialUser;
 import com.xd.pre.modules.security.util.JwtUtil;
 import com.xd.pre.modules.security.util.SecurityUtil;
 import com.xd.pre.common.utils.R;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -26,6 +27,8 @@ import java.io.IOException;
 @Component
 public class PreAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
+    @Value("${pre.url.address}")
+    private String url;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -47,7 +50,7 @@ public class PreAuthenticationSuccessHandler implements AuthenticationSuccessHan
             SecurityContextHolder.getContext().setAuthentication(authentication);
             //生成token
             String token = JwtUtil.generateToken(preSecurityUser);
-            response.sendRedirect("http://localhost:9528/login?token=" + token);
+            response.sendRedirect(url + "/login?token=" + token);
         }
 
     }

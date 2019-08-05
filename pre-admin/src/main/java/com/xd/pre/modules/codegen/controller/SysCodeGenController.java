@@ -4,6 +4,7 @@ import com.xd.pre.common.utils.R;
 import com.xd.pre.modules.codegen.domain.CodeGenConfig;
 import com.xd.pre.modules.codegen.service.SysCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -42,6 +43,7 @@ public class SysCodeGenController {
         return R.ok(sysCodeService.findColumnList(tableName, tableSchema));
     }
 
+    @PreAuthorize("hasAuthority('sys:codegen:codegen')")
     @PostMapping("/codegen")
     public R generatorCode(@RequestBody CodeGenConfig codeGenConfig){
         return R.ok(sysCodeService.generatorCode(codeGenConfig));

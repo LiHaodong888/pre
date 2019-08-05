@@ -47,13 +47,7 @@ import java.util.stream.Collectors;
 @Component
 public class DataScopeInterceptor extends AbstractSqlParserHandler implements Interceptor {
 
-    @Lazy
-    @Resource
     private DataSource dataSource;
-
-    @Lazy
-    @Resource
-    private HttpServletRequest request;
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {

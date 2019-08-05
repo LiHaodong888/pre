@@ -16,5 +16,7 @@ import org.springframework.social.autoconfigure.SocialProperties;
 @Getter
 public class QQProperties extends SocialProperties {
 
+    private String appId;
+    private String appSecret;
     private String providerId = "qq";
 }

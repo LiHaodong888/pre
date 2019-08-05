@@ -46,9 +46,9 @@ public class MyBatisPlusConfig {
      * @param dataSource 数据源
      * @return DataScopeInterceptor
      */
-//    @Bean
-//    @ConditionalOnMissingBean
-//    public DataScopeInterceptor dataScopeInterceptor(DataSource dataSource) {
-//        return new DataScopeInterceptor(dataSource);
-//    }
+    @Bean
+    @ConditionalOnMissingBean
+    public DataScopeInterceptor dataScopeInterceptor(DataSource dataSource) {
+        return new DataScopeInterceptor(dataSource);
+    }
 }

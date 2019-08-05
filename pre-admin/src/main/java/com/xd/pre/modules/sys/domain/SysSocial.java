@@ -31,6 +31,7 @@ public class SysSocial implements Serializable {
     @TableField("providerUserId")
     private String providerUserId;
 
+    @TableField("`rank`")
     private int rank;
 
     @TableField("displayName")
