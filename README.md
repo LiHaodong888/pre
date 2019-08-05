@@ -83,15 +83,15 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 Pre微服务版本Spring Cloud Alibaba 目前处于开发阶段 敬请期待
 
 #### 系统预览
-![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561385077990.jpg)
-![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_854a5005-05d1-44a9-b414-e5e0f2cb0e40.png)
+![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1565014094683.jpg)
+![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1565014790417.jpg)
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561385170695.jpg)
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561385201508.jpg)
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561385224488.jpg)
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561385241925.jpg)
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561385273370.jpg)
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561385291674.jpg)
-
+![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1565014818254.jpg)
 #### 关于作者
 有问题可以加我
 <div style="height:300px; width:256px;">
