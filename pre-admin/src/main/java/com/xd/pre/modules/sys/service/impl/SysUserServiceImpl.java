@@ -193,7 +193,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         sysUser.setPassword(PreUtil.encode(userDTO.getPassword()));
         baseMapper.insertUser(sysUser);
         SysUserRole sysUserRole = new SysUserRole();
-        sysUserRole.setRoleId(8);
+        sysUserRole.setRoleId(14);
         sysUserRole.setUserId(sysUser.getUserId());
         return userRoleService.save(sysUserRole);
     }
