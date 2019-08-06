@@ -5,7 +5,7 @@
 <img src="https://gitee.com/li_haodong/picture_management/raw/master/pic/WechatIMG9.png" height="256" width="256">
 </div>
  <a href="https://img.shields.io/badge/license-GPL-3.0-blue.svg">
-            <img src="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg" alt="Apache License">
+            <img src="https://img.shields.io/badge/license-GPL-3.0-blue.svg" alt="Apache License">
     </a>
  <a href="http://spring.io/projects/spring-boot">
             <img src="https://img.shields.io/badge/spring--boot-2.1.6.RELEASE-green.svg" alt="spring-boot">
