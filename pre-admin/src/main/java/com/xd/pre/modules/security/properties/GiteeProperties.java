@@ -1,7 +1,6 @@
 package com.xd.pre.modules.security.properties;
 
 import lombok.Data;
-import org.springframework.social.autoconfigure.SocialProperties;
 
 /**
  * @Classname GithubProperties

@@ -2,11 +2,12 @@ package com.xd.pre.modules.security.social.qq.config;
 
 import com.xd.pre.modules.security.properties.PreSecurityProperties;
 import com.xd.pre.modules.security.properties.QQProperties;
+import com.xd.pre.modules.security.social.SocialAutoConfigurerAdapter;
 import com.xd.pre.modules.security.social.qq.connection.QQConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.social.autoconfigure.SocialAutoConfigurerAdapter;
+//import org.springframework.social.autoconfigure.SocialAutoConfigurerAdapter;
 import org.springframework.social.connect.ConnectionFactory;
 
 /**

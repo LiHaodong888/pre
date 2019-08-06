@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "pre.security")
 public class PreSecurityProperties {
 
-    private SocialProperties social = new SocialProperties();
+    private PreSocialProperties social = new PreSocialProperties();
 
 }
 

@@ -1,21 +1,32 @@
 package com.xd.pre.modules.security.properties;
 
-import lombok.Data;
-
 /**
- * @author zhailiang
- *
+ * @Classname SocialProperties
+ * @Description TODO
+ * @Author Created by Lihaodong (alias:小东啊) lihaodongmail@163.com
+ * @Date 2019-08-06 14:50
+ * @Version 1.0
  */
-@Data
-public class SocialProperties {
+public abstract class SocialProperties {
+    private String appId;
+    private String appSecret;
 
-	/**
-	 * 默认认证页面
-	 */
-	private String filterProcessesUrl = "/auth";
-	private QQProperties qq = new QQProperties();
-	private GithubProperties github = new GithubProperties();
-	private GiteeProperties gitee = new GiteeProperties();
+    public SocialProperties() {
+    }
 
+    public String getAppId() {
+        return this.appId;
+    }
 
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
+    public String getAppSecret() {
+        return this.appSecret;
+    }
+
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret;
+    }
 }

@@ -3,7 +3,6 @@ package com.xd.pre.modules.security.properties;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.social.autoconfigure.SocialProperties;
 
 /**
  * @Classname QQProperties
@@ -14,9 +13,7 @@ import org.springframework.social.autoconfigure.SocialProperties;
  */
 @Setter
 @Getter
-public class QQProperties extends SocialProperties {
+public class QQProperties extends SocialProperties{
 
-    private String appId;
-    private String appSecret;
     private String providerId = "qq";
 }
