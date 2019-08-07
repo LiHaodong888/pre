@@ -19,33 +19,27 @@ public class QQOAuth2Template extends OAuth2Template {
 
     public QQOAuth2Template(String clientId, String clientSecret, String authorizeUrl, String accessTokenUrl) {
         super(clientId, clientSecret, authorizeUrl, accessTokenUrl);
+        setUseParametersForClientAuthentication(true);
     }
 
-    /**
-     * 往RestTemplate中加入String类型的解析器
-     */
-    @Override
-    protected RestTemplate createRestTemplate() {
-        RestTemplate restTemplate = super.createRestTemplate();
-        restTemplate.getMessageConverters()
-                .add(new StringHttpMessageConverter(Charset.forName("UTF-8")));
-        return restTemplate;
-    }
-
-    /**
-     * 自定义授权成功返回结果的解析逻辑
-     */
     @Override
     protected AccessGrant postForAccessGrant(String accessTokenUrl, MultiValueMap<String, String> parameters) {
         String responseStr = getRestTemplate().postForObject(accessTokenUrl, parameters, String.class);
-        log.info("从QQ获取accessToken的响应：" + responseStr);
-        // 相邻的分隔符被视为空标记的分隔符
-        String[] items = StringUtils.splitByWholeSeparatorPreserveAllTokens(responseStr, "&");
-        // 获取返回结果的各个字段 并传给security
-        String accessToken = StringUtils.substringAfterLast(items[0], "=");
-        String refreshToken = StringUtils.substringAfterLast(items[1], "=");
-        Long expiresIn = Long.parseLong(StringUtils.substringAfterLast(items[2], "="));
+        log.info("获取accessToke的响应："+responseStr);
 
-        return new AccessGrant(accessToken, null,refreshToken,expiresIn);
+        String[] items = StringUtils.splitByWholeSeparatorPreserveAllTokens(responseStr, "&");
+
+        String accessToken = StringUtils.substringAfterLast(items[0], "=");
+        Long expiresIn = new Long(StringUtils.substringAfterLast(items[1], "="));
+        String refreshToken = StringUtils.substringAfterLast(items[2], "=");
+
+        return new AccessGrant(accessToken, null, refreshToken, expiresIn);
+    }
+
+    @Override
+    protected RestTemplate createRestTemplate() {
+        RestTemplate restTemplate = super.createRestTemplate();
+        restTemplate.getMessageConverters().add(new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        return restTemplate;
     }
 }

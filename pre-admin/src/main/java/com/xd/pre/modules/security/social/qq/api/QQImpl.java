@@ -1,9 +1,8 @@
 package com.xd.pre.modules.security.social.qq.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.TokenStrategy;
 
@@ -15,48 +14,47 @@ import org.springframework.social.oauth2.TokenStrategy;
 @Slf4j
 public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
 
-    // 根据access_token获取openId的url
+    /**
+     * 获取openid的请求地址
+     */
     private static final String URL_GET_OPENID = "https://graph.qq.com/oauth2.0/me?access_token=%s";
-    // oauth_consumer_key应填写appId（access_token已经由父类的restTemplate帮我们带上了所以此处去掉）
+    /**
+     * 获取用户信息的请求地址
+     */
     private static final String URL_GET_USERINFO = "https://graph.qq.com/user/get_user_info?oauth_consumer_key=%s&openid=%s";
 
-    private String appId;
-    private String openId;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
     /**
-     * 构造函数，获取openId
+     * 申请QQ登录成功后 分配给应用的appid
      */
-    public QQImpl(String accessToken, String openId) {
-        // 1 把accessToken存储到父类中，TokenStrategy默认是使用父类的restTemplate发请求时把accessToken放入请求头
-        super(accessToken, TokenStrategy.ACCESS_TOKEN_PARAMETER); // 把accessToken放入请求参数
-        this.openId = openId;
-        // 2 发请求获取openId
-        String jsonString = getRestTemplate()
-                .getForObject(String.format(URL_GET_OPENID, accessToken), String.class);
-        // 截取返回的json字符串中openId的值 TODO 待优化
-        this.openId = StringUtils.substringBetween(jsonString, "\"openid\":\"", "\"}");
+    private String appid;
+    /**
+     * 用户的ID，与QQ号码一一对应
+     */
+    private String openid;
+
+    public QQImpl(String accessToken, String appid) {
+        //将token作为查询参数
+        super(accessToken, TokenStrategy.ACCESS_TOKEN_PARAMETER);
+        this.appid = appid;
+
+        //拼接成最终的openid的请求地址
+        String url = String.format(URL_GET_OPENID, accessToken);
+        String result = getRestTemplate().getForObject(url, String.class);
+        this.openid = StringUtils.substringBetween(result, "\"openid\":\"", "\"}");
     }
 
-
-    /**
-     * 根据accessToken、appId、openid发请求，获取用户信息
-     */
     @Override
-    public QQUserInfo getUserInfo(){
-        String jsonString = getRestTemplate()
-                .getForObject(String.format(URL_GET_USERINFO, appId, openId), String.class);
+    public QQUserInfo getUserInfo() {
+        //拼接成最终的获取用户信息的请求地址
+        String url = String.format(URL_GET_USERINFO, appid, openid);
+        String result = getRestTemplate().getForObject(url, String.class);
+        QQUserInfo userInfo = null;
         try {
-            // 把openId设置到userInfo中
-            QQUserInfo qqUserInfo = objectMapper.readValue(jsonString, QQUserInfo.class);
-            qqUserInfo.setOpenId(openId);
-            return qqUserInfo;
+            userInfo = JSON.parseObject(result, QQUserInfo.class);
+            userInfo.setOpenId(openid);
+            return userInfo;
         } catch (Exception e) {
-            log.error("QQImpl.getUserInfo()：获取QQ用户信息失败",e);
-            return null;
+            throw new RuntimeException("获取用户信息失败", e);
         }
     }
-
 }

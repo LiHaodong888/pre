@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * @Classname PreConnectionData
- * @Description TODO
+ * @Description 第三方数据类
  * @Author Created by Lihaodong (alias:小东啊) lihaodongmail@163.com
  * @Date 2019-07-19 09:18
  * @Version 1.0

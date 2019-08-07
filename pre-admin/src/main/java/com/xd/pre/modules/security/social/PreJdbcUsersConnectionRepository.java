@@ -18,7 +18,7 @@ import java.util.Set;
 
 /**
  * @Classname PreJdbcUsersConnectionRepository
- * @Description TODO
+ * @Description jdbc连接
  * @Author Created by Lihaodong (alias:小东啊) lihaodongmail@163.com
  * @Date 2019-07-19 13:09
  * @Version 1.0
