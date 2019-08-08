@@ -1,8 +1,7 @@
 package com.xd.pre.modules.security.properties;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * @Classname QQProperties
@@ -11,8 +10,7 @@ import lombok.Setter;
  * @Date 2019-07-08 20:16
  * @Version 1.0
  */
-@Setter
-@Getter
+@Data
 public class QQProperties extends SocialProperties{
 
     private String providerId = "qq";

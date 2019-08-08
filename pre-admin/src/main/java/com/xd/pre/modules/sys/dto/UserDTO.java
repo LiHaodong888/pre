@@ -2,6 +2,7 @@ package com.xd.pre.modules.sys.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  * @Version 1.0
  */
 @Data
-public class UserDTO {
+public class UserDTO implements Serializable {
 
     private Integer userId;
     private String username;

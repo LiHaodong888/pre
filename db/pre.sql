@@ -422,4 +422,26 @@ INSERT INTO `sys_user_role` VALUES (40, 4, 5);
 INSERT INTO `sys_user_role` VALUES (53, 6, 7);
 COMMIT;
 
+
+-- ----------------------------
+-- Table structure for social_UserConnection
+-- ----------------------------
+DROP TABLE IF EXISTS `social_UserConnection`;
+CREATE TABLE `social_UserConnection` (
+                                       `userId` varchar(255) NOT NULL,
+                                       `providerId` varchar(255) NOT NULL,
+                                       `providerUserId` varchar(255) NOT NULL,
+                                       `rank` int(11) NOT NULL,
+                                       `displayName` varchar(255) DEFAULT NULL,
+                                       `profileUrl` varchar(512) DEFAULT NULL,
+                                       `imageUrl` varchar(512) DEFAULT NULL,
+                                       `accessToken` varchar(512) NOT NULL,
+                                       `secret` varchar(512) DEFAULT NULL,
+                                       `refreshToken` varchar(512) DEFAULT NULL,
+                                       `expireTime` bigint(20) DEFAULT NULL,
+                                       `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                       PRIMARY KEY (`userId`,`providerId`,`providerUserId`) USING BTREE,
+                                       UNIQUE KEY `UserConnectionRank` (`userId`,`providerId`,`rank`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='社交登录表';
+
 SET FOREIGN_KEY_CHECKS = 1;
