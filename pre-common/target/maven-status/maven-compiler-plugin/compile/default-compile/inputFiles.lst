@@ -1,3 +1,7 @@
-/Users/lihaodong/Desktop/LiHaodong/pre/pre-common/src/main/java/com/xd/pre/common/config/MyBatisPlusGenerator.java
+/Users/lihaodong/Desktop/LiHaodong/pre/pre-common/src/main/java/com/xd/pre/common/utils/PrePageUtil.java
 /Users/lihaodong/Desktop/LiHaodong/pre/pre-common/src/main/java/com/xd/pre/common/config/RedisConfig.java
-/Users/lihaodong/Desktop/LiHaodong/pre/pre-common/src/main/java/com/xd/pre/common/config/Swagger2Config.java
+/Users/lihaodong/Desktop/LiHaodong/pre/pre-common/src/main/java/com/xd/pre/common/constant/DataScopeTypeEnum.java
+/Users/lihaodong/Desktop/LiHaodong/pre/pre-common/src/main/java/com/xd/pre/common/constant/PreConstant.java
+/Users/lihaodong/Desktop/LiHaodong/pre/pre-common/src/main/java/com/xd/pre/common/constant/MenuConstant.java
+/Users/lihaodong/Desktop/LiHaodong/pre/pre-common/src/main/java/com/xd/pre/common/config/FastJsonRedisSerializer.java
+/Users/lihaodong/Desktop/LiHaodong/pre/pre-common/src/main/java/com/xd/pre/common/utils/R.java
