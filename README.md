@@ -25,6 +25,7 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 - 基于 Vue UI框架 Element-ui
 - 作为 Mybatis Plus 学习与生产实践
 - 作为 Lambda 、Stream Api 的学习与生产实践
+- 作为 Spring Social 的学习与生产实践
 
 ### 扫码关注我的公众号和微信技术交流群
 <table>
