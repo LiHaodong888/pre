@@ -63,7 +63,8 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 - 基于Mybatis拦截器 + 策略模式实现数据权限控制
 - Jwt Token 鉴权机制 
 - 提供解决前后分离第三方社交登录方案 
-- Spring Social集成Security实现第三方社交登录     
+- Spring Social集成Security实现第三方社交登录   
+- 基于Mybatis-Plus实现多租户功能  
 
 
 #### 基本功能
