@@ -25,6 +25,7 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 - 基于 Vue UI框架 Element-ui
 - 作为 Mybatis Plus 学习与生产实践
 - 作为 Lambda 、Stream Api 的学习与生产实践
+- 作为 Spring Social 的学习与生产实践
 
 ### 扫码关注我的公众号和微信技术交流群
 <table>
@@ -61,7 +62,8 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 - 基于注解 + Aop切面实现全方位日记记录系统
 - 基于Mybatis拦截器 + 策略模式实现数据权限控制
 - Jwt Token 鉴权机制 
-- 提供解决前后分离第三方社交登录方案      
+- 提供解决前后分离第三方社交登录方案 
+- Spring Social集成Security实现第三方社交登录     
 
 
 #### 基本功能
@@ -78,6 +80,21 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 
 #### 功能预告
 任务调度 、邮件工具 、免费图床 、七牛云存储 、持续集成、多租户
+
+#### 更新日志
+2019年8月5日更新  
+修复bug  
+1.修复点击异常日志LOGO以及图片变大  
+2.菜单修改URL不成功  
+3.登录图片验证码不支持多人登录  
+新增功能  
+1.项目重构 分包合理  
+2.提供前后分离第三方登录解决方案  
+3.第三方登录  
+4.手机号登录  
+5.社交账号管理  
+6.代码生成(初版)  
+
 
 #### Pre Cloud微服务架构
 Pre微服务版本Spring Cloud Alibaba 目前处于开发阶段 敬请期待
