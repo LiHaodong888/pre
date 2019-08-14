@@ -56,7 +56,7 @@ public class SysTenant implements Serializable {
     /**
      * 0正常 9-冻结
      */
-    private String status;
+    private int status;
 
     /**
      * 删除标记
