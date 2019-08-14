@@ -1,9 +1,11 @@
 package com.xd.pre.modules.sys.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.xd.pre.modules.sys.domain.SysLog;
 import com.xd.pre.modules.sys.domain.SysSocial;
+
+import java.util.List;
 
 /**
  * <p>
@@ -18,9 +20,8 @@ public interface ISysSocialService extends IService<SysSocial> {
     /**
      * 分页查询社区账号绑定集合
      * @param page
-     * @param pageSize
      * @return
      */
-    IPage<SysSocial> selectSocialList(Integer page, Integer pageSize);
+    IPage<SysSocial> selectSocialList(Page page, SysSocial sysSocial);
 
 }

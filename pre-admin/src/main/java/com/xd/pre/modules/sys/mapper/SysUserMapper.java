@@ -3,7 +3,7 @@ package com.xd.pre.modules.sys.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.xd.pre.common.config.DataScope;
+import com.xd.pre.modules.data.datascope.DataScope;
 import com.xd.pre.modules.sys.domain.SysUser;
 import com.xd.pre.modules.sys.dto.UserDTO;
 import org.apache.ibatis.annotations.Insert;

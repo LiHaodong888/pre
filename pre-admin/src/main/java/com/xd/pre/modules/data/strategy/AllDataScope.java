@@ -1,6 +1,6 @@
-package com.xd.pre.modules.sys.strategy;
+package com.xd.pre.modules.data.strategy;
 
-import com.xd.pre.common.constant.DataScopeTypeEnum;
+import com.xd.pre.modules.data.enums.DataScopeTypeEnum;
 import com.xd.pre.modules.sys.domain.SysDept;
 import com.xd.pre.modules.sys.dto.RoleDTO;
 import com.xd.pre.modules.sys.service.ISysDeptService;
@@ -22,6 +22,7 @@ public class AllDataScope implements AbstractDataScopeHandler {
 
     @Autowired
     private ISysDeptService deptService;
+
 
     @Override
     public List<Integer> getDeptIds(RoleDTO roleDto, DataScopeTypeEnum dataScopeTypeEnum) {

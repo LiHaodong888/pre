@@ -1,4 +1,4 @@
-package com.xd.pre.common.config;
+package com.xd.pre.modules.data.datascope;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

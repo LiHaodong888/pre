@@ -1,5 +1,6 @@
 package com.xd.pre.modules.security.social;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -49,6 +50,12 @@ public class PreJdbcUsersConnectionRepository implements UsersConnectionReposito
         this.tablePrefix = tablePrefix;
     }
 
+    /**
+     * 1.获取到第三用户信息后调用这个api向数据库查询 看有没有绑定 需要再此加上租户id
+     *
+     * @param connection
+     * @return
+     */
     @Override
     public List<String> findUserIdsWithConnection(Connection<?> connection) {
         ConnectionKey key = connection.getKey();
@@ -60,6 +67,7 @@ public class PreJdbcUsersConnectionRepository implements UsersConnectionReposito
                 return Arrays.asList(newUserId);
             }
         }
+
         return localUserIds;
     }
 

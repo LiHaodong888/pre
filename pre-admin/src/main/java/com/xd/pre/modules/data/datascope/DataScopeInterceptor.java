@@ -1,18 +1,16 @@
-package com.xd.pre.common.config;
+package com.xd.pre.modules.data.datascope;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.db.Db;
 import cn.hutool.db.Entity;
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
 import com.baomidou.mybatisplus.extension.handlers.AbstractSqlParserHandler;
 import com.xd.pre.common.exception.CheckedException;
 import com.xd.pre.modules.security.PreSecurityUser;
 import com.xd.pre.modules.security.util.SecurityUtil;
-import com.xd.pre.common.constant.DataScopeTypeEnum;
+import com.xd.pre.modules.data.enums.DataScopeTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.statement.StatementHandler;
@@ -22,14 +20,10 @@ import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
-import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.util.*;
 import java.util.stream.Collectors;

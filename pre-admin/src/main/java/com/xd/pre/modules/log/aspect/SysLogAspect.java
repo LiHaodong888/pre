@@ -8,6 +8,7 @@ import com.xd.pre.modules.log.util.LogUtil;
 import com.xd.pre.modules.security.PreSecurityUser;
 import com.xd.pre.modules.security.util.SecurityUtil;
 import com.xd.pre.common.utils.R;
+import com.xd.pre.modules.sys.domain.SysLog;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -26,7 +27,7 @@ import java.util.Objects;
 /**
  * @Classname SysLogAspect
  * @Description 系统日志切面
- * @Author 李号东 lihaodongmail@163.comgit reset --merge
+ * @Author 李号东 lihaodongmail@163.com
  * @Date 2019-04-22 23:52
  * @Version 1.0
  * ①切面注解得到请求数据 -> ②发布监听事件 -> ③异步监听日志入库
@@ -36,11 +37,7 @@ import java.util.Objects;
 @Component
 public class SysLogAspect {
 
-
-    /**
-     *log实体类
-     **/
-    private com.xd.pre.modules.sys.domain.SysLog sysLog = new com.xd.pre.modules.sys.domain.SysLog();
+    private ThreadLocal<SysLog> sysLogThreadLocal = new ThreadLocal<>();
 
     /**
      * 事件发布是由ApplicationContext对象管控的，我们发布事件前需要注入ApplicationContext对象调用publishEvent方法完成事件发布
@@ -64,7 +61,9 @@ public class SysLogAspect {
      */
     @Before(value = "sysLogAspect()")
     public void recordLog(JoinPoint joinPoint) throws Throwable {
-
+        SysLog sysLog = new SysLog();
+        //将当前实体保存到threadLocal
+        sysLogThreadLocal.set(sysLog);
         // 开始时间
         long beginTime = Instant.now().toEpochMilli();
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
@@ -97,6 +96,8 @@ public class SysLogAspect {
      */
     @AfterReturning(returning = "ret", pointcut = "sysLogAspect()")
     public void doAfterReturning(Object ret) {
+        //得到当前线程的log对象
+        SysLog sysLog = sysLogThreadLocal.get();
         // 处理完请求，返回内容
         R r = Convert.convert(R.class, ret);
         if (r.getCode() == 200){
@@ -108,6 +109,8 @@ public class SysLogAspect {
         }
         // 发布事件
         applicationContext.publishEvent(new SysLogEvent(sysLog));
+        //移除当前log实体
+        sysLogThreadLocal.remove();
     }
 
     /**
@@ -116,6 +119,7 @@ public class SysLogAspect {
      */
     @AfterThrowing(pointcut = "sysLogAspect()",throwing = "e")
     public void doAfterThrowable(Throwable e){
+        SysLog sysLog = sysLogThreadLocal.get();
         // 异常
         sysLog.setType(2);
         // 异常对象
@@ -124,6 +128,8 @@ public class SysLogAspect {
         sysLog.setExDesc(e.getMessage());
         // 发布事件
         applicationContext.publishEvent(new SysLogEvent(sysLog));
+        //移除当前log实体
+        sysLogThreadLocal.remove();
     }
 
 }

@@ -87,7 +87,8 @@ public class PreWebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 // 由于使用的是JWT，我们这里不需要csrf
                 .csrf().disable()
-                .apply(smsCodeAuthenticationSecurityConfig).and() // 短信登录配置
+                // 短信登录配置
+                .apply(smsCodeAuthenticationSecurityConfig).and()
                 .apply(springSocialConfigurer).and()
                 // 认证失败处理类
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
@@ -97,21 +98,12 @@ public class PreWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 对于登录login 图标 要允许匿名访问
                 .antMatchers("/login/**", "/mobile/login/**", "/favicon.ico","/socialSignUp","/bind","/register/**").anonymous()
-                .antMatchers(
-                        HttpMethod.GET,
-                        "/*.html",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js"
-                ).permitAll()
-                // swagger start
-                .antMatchers("/swagger-ui.html").anonymous()
-                .antMatchers("/swagger-resources/**").anonymous()
-                .antMatchers("/webjars/**").anonymous()
-                .antMatchers("/*/api-docs").anonymous()
-                // swagger end
+                .antMatchers(HttpMethod.GET,"/*.html","/**/*.html","/**/*.css","/**/*.js")
+                .permitAll()
                 .antMatchers("/captcha.jpg").anonymous()
-                .antMatchers("/sendCode/**")
+                .antMatchers("/sendCode/**").anonymous()
+                .antMatchers("/tenant/list").anonymous()
+                .antMatchers("/tenant/setting/**")
                 .permitAll()
                 // 访问/user 需要拥有admin权限
                 //  .antMatchers("/user").hasAuthority("ROLE_ADMIN")

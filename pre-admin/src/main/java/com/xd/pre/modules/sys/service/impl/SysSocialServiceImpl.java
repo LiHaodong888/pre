@@ -1,5 +1,6 @@
 package com.xd.pre.modules.sys.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -30,9 +31,8 @@ public class SysSocialServiceImpl extends ServiceImpl<SysSocialMapper, SysSocial
     private ISysUserService sysUserService;
 
     @Override
-    public IPage<SysSocial> selectSocialList(Integer page, Integer pageSize) {
-        Page<SysSocial> socialPage = new Page<>(page, pageSize);
-        IPage<SysSocial> socialIPage = baseMapper.selectPage(socialPage, Wrappers.<SysSocial>lambdaQuery());
+    public IPage<SysSocial> selectSocialList(Page page, SysSocial social) {
+        IPage<SysSocial> socialIPage = baseMapper.selectPage(page, Wrappers.query(social));
         socialIPage.setRecords(socialIPage.getRecords().stream().peek(sysSocial -> sysSocial.setUserName(sysUserService.findSecurityUserByUser(new SysUser().setUserId(Integer.valueOf(sysSocial.getUserId()))).getUsername())).collect(Collectors.toList()));
         return socialIPage;
     }

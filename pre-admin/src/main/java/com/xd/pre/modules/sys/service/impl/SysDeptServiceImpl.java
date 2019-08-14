@@ -120,7 +120,6 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
     }
     private void addDeptIdList(List<Integer> deptIdList, SysDept department) {
         List<SysDept> children = department.getChildren();
-
         if (children != null) {
             for (SysDept d : children) {
                 deptIdList.add(d.getDeptId());

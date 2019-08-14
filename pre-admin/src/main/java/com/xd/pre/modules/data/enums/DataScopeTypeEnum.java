@@ -1,4 +1,4 @@
-package com.xd.pre.common.constant;
+package com.xd.pre.modules.data.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

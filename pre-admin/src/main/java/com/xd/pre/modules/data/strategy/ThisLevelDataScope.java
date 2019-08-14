@@ -1,7 +1,7 @@
-package com.xd.pre.modules.sys.strategy;
+package com.xd.pre.modules.data.strategy;
 
+import com.xd.pre.modules.data.enums.DataScopeTypeEnum;
 import com.xd.pre.modules.security.util.SecurityUtil;
-import com.xd.pre.common.constant.DataScopeTypeEnum;
 import com.xd.pre.modules.sys.dto.RoleDTO;
 import com.xd.pre.modules.sys.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;

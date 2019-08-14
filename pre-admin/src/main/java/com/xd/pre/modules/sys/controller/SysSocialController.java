@@ -1,8 +1,10 @@
 package com.xd.pre.modules.sys.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xd.pre.common.utils.R;
 import com.xd.pre.modules.log.annotation.SysLog;
 import com.xd.pre.modules.security.social.SocialRedisHelper;
+import com.xd.pre.modules.sys.domain.SysSocial;
 import com.xd.pre.modules.sys.service.ISysSocialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,16 +27,15 @@ public class SysSocialController {
 
 
     /**
-     * 社交查询日志列表
+     * 社交查询列表
      *
      * @param page
-     * @param pageSize
      * @return
      */
     @PreAuthorize("hasAuthority('sys:social:view')")
     @GetMapping
-    public R selectSocial(@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize) {
-        return R.ok(socialService.selectSocialList(page, pageSize));
+    public R selectSocial(Page page, SysSocial sysSocial) {
+        return R.ok(socialService.selectSocialList(page,sysSocial));
     }
 
     /**

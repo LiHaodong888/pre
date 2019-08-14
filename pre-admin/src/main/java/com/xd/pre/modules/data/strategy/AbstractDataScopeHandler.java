@@ -1,6 +1,6 @@
-package com.xd.pre.modules.sys.strategy;
+package com.xd.pre.modules.data.strategy;
 
-import com.xd.pre.common.constant.DataScopeTypeEnum;
+import com.xd.pre.modules.data.enums.DataScopeTypeEnum;
 import com.xd.pre.modules.sys.dto.RoleDTO;
 
 import java.util.List;
