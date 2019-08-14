@@ -4,9 +4,6 @@
 <div style="height:256px; width:256px; text-align: center;">
 <img src="https://gitee.com/li_haodong/picture_management/raw/master/pic/WechatIMG9.png" height="256" width="256">
 </div>
- <a href="https://img.shields.io/badge/license-GPL-3.0-blue.svg">
-            <img src="https://img.shields.io/badge/license-GPL-3.0-blue.svg" alt="Apache License">
-    </a>
  <a href="http://spring.io/projects/spring-boot">
             <img src="https://img.shields.io/badge/spring--boot-2.1.7.RELEASE-green.svg" alt="spring-boot">
        </a>
@@ -97,7 +94,7 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 6.代码生成(初版)   
 
 2019年8月14日更新  
-1. 新增多租户功能  
+1.新增多租户功能  
 2.前端社交搜索功能完善  
 3.修复后端记录日志并发问题  
 4.后端内部包做整理  
