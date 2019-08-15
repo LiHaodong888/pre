@@ -5,4 +5,3 @@ com/xd/pre/common/utils/PrePageUtil.class
 com/xd/pre/common/constant/MenuConstant.class
 com/xd/pre/common/utils/R.class
 com/xd/pre/common/config/FastJsonRedisSerializer.class
-com/xd/pre/common/constant/DataScopeTypeEnum.class

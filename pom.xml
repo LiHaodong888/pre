@@ -12,7 +12,7 @@
     </parent>
     <groupId>com.xd</groupId>
     <artifactId>pre</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>1.2.0-SNAPSHOT</version>
     <name>pre</name>
     <description>Pre基于Spring Boot 、Spring Security的RBAC权限管理系统</description>
 
@@ -152,6 +152,11 @@
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-web</artifactId>
             <version>${spring-social.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>19.0</version>
         </dependency>
     </dependencies>
 
