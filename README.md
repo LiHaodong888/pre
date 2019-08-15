@@ -4,9 +4,6 @@
 <div style="height:256px; width:256px; text-align: center;">
 <img src="https://gitee.com/li_haodong/picture_management/raw/master/pic/WechatIMG9.png" height="256" width="256">
 </div>
- <a href="https://img.shields.io/badge/license-GPL-3.0-blue.svg">
-            <img src="https://img.shields.io/badge/license-GPL-3.0-blue.svg" alt="Apache License">
-    </a>
  <a href="http://spring.io/projects/spring-boot">
             <img src="https://img.shields.io/badge/spring--boot-2.1.7.RELEASE-green.svg" alt="spring-boot">
        </a>
@@ -64,7 +61,7 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 - Jwt Token 鉴权机制 
 - 提供解决前后分离第三方社交登录方案 
 - Spring Social集成Security实现第三方社交登录   
-- 基于Mybatis-Plus实现多租户功能  
+- 基于Mybatis-Plus实现SaaS多租户功能  
 
 
 #### 基本功能
@@ -80,7 +77,7 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 - 代码生成：根据数据库快速生成增删改查基础代码
 
 #### 功能预告
-任务调度 、邮件工具 、免费图床 、七牛云存储 、持续集成、多租户
+任务调度 、免费图床 、七牛云存储 、持续集成
 
 #### 更新日志
 2019年8月5日更新  
@@ -94,7 +91,13 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 3.第三方登录  
 4.手机号登录  
 5.社交账号管理  
-6.代码生成(初版)  
+6.代码生成(初版)   
+
+2019年8月14日更新  
+1.新增多租户功能  
+2.前端社交搜索功能完善  
+3.修复后端记录日志并发问题  
+4.后端内部包做整理  
 
 
 #### Pre Cloud微服务架构
