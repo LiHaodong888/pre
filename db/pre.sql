@@ -40,15 +40,6 @@ CREATE TABLE `social_UserConnection` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='社交登录表';
 
 -- ----------------------------
--- Records of social_UserConnection
--- ----------------------------
-BEGIN;
-INSERT INTO `social_UserConnection` VALUES ('4', 'gitee', '1758995', 1, '小东啊', 'https://gitee.com/li_haodong', 'https://gitee.com/assets/no_portrait.png', 'c1fca8c75ab27aaca5dfb5a6eace6399', NULL, 'dfb4a011a1f64b84351ed105e34a9ef606dc2b79c89c524e021b16a5a231b192', 1565078033891, '2019-07-22 13:29:56', NULL);
-INSERT INTO `social_UserConnection` VALUES ('4', 'github', '34288907', 1, 'LiHaodong888', 'https://github.com/34288907', 'https://avatars1.githubusercontent.com/u/34288907?v=4', 'f67968d673df3cba6b844792dc0f13202dc4d7c5', NULL, NULL, NULL, '2019-08-05 11:37:43', NULL);
-INSERT INTO `social_UserConnection` VALUES ('4', 'qq', '50C4D34B696F544B6D7768D6EAB1E9EE', 1, '旧情书。', NULL, 'http://thirdqq.qlogo.cn/g?b=oidb&k=ct6ia1Gv2PgIDQvMltfB1XA&s=40&t=1555562263', '2AF1394759F6B346007DC780ECAF31BE', NULL, 'BA0D2EDD55D0055AB6C2305FDD2B57E4', 1572923822297, '2019-08-07 11:11:13', NULL);
-COMMIT;
-
--- ----------------------------
 -- Table structure for sys_db
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_db`;
@@ -93,11 +84,11 @@ CREATE TABLE `sys_dept` (
 -- Records of sys_dept
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_dept` VALUES (4, '某某集团', 0, '2019-04-21 22:53:33', '2019-04-30 22:27:59', '0', 0, NULL);
-INSERT INTO `sys_dept` VALUES (5, '上海公司', 0, '2019-04-21 22:53:57', '2019-05-03 10:09:18', '0', 4, NULL);
-INSERT INTO `sys_dept` VALUES (6, '研发部', 0, '2019-04-21 22:54:10', '2019-04-24 08:03:08', '0', 5, NULL);
-INSERT INTO `sys_dept` VALUES (7, '财务部', 0, '2019-04-21 22:54:46', NULL, '0', 5, NULL);
-INSERT INTO `sys_dept` VALUES (12, '市场部', 0, '2019-04-30 14:31:46', '2019-04-30 14:47:44', '0', 5, NULL);
+INSERT INTO `sys_dept` VALUES (4, '某某集团', 0, '2019-04-21 22:53:33', '2019-04-30 22:27:59', '0', 0, 1);
+INSERT INTO `sys_dept` VALUES (5, '上海公司', 0, '2019-04-21 22:53:57', '2019-05-03 10:09:18', '0', 4, 1);
+INSERT INTO `sys_dept` VALUES (6, '研发部', 0, '2019-04-21 22:54:10', '2019-04-24 08:03:08', '0', 5, 1);
+INSERT INTO `sys_dept` VALUES (7, '财务部', 0, '2019-04-21 22:54:46', NULL, '0', 5, 1);
+INSERT INTO `sys_dept` VALUES (12, '市场部', 0, '2019-04-30 14:31:46', '2019-04-30 14:47:44', '0', 5, 1);
 COMMIT;
 
 -- ----------------------------
@@ -148,10 +139,10 @@ CREATE TABLE `sys_job` (
 -- Records of sys_job
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_job` VALUES (1, '董事长', 4, 0, '2019-05-03 09:43:56', NULL);
-INSERT INTO `sys_job` VALUES (3, '全栈开发', 6, 1, '2019-05-03 10:31:03', NULL);
-INSERT INTO `sys_job` VALUES (4, '软件测试', 6, 2, '2019-05-03 10:31:41', NULL);
-INSERT INTO `sys_job` VALUES (5, '财务总监', 7, 3, '2019-06-16 00:44:59', NULL);
+INSERT INTO `sys_job` VALUES (1, '董事长', 4, 0, '2019-05-03 09:43:56', 1);
+INSERT INTO `sys_job` VALUES (3, '全栈开发', 6, 1, '2019-05-03 10:31:03', 1);
+INSERT INTO `sys_job` VALUES (4, '软件测试', 6, 2, '2019-05-03 10:31:41', 1);
+INSERT INTO `sys_job` VALUES (5, '财务总监', 7, 3, '2019-06-16 00:44:59', 1);
 COMMIT;
 
 -- ----------------------------
@@ -272,9 +263,9 @@ CREATE TABLE `sys_role` (
 -- Records of sys_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_role` VALUES (5, '管理员', 'ADMIN_ROLE', '管理员', '2019-04-22 21:53:38', '2019-06-16 11:04:02', '0', 1, '4,5,6,7,12', NULL);
-INSERT INTO `sys_role` VALUES (7, '开发人员', 'DEV_ROLE', '开发人员', '2019-04-24 21:11:28', '2019-06-15 23:40:30', '0', 1, '2', NULL);
-INSERT INTO `sys_role` VALUES (8, '体验人员', 'ROLE_LEARN', '专门体验系统', '2019-08-03 15:52:36', '2019-08-03 15:53:47', '0', 4, '4,5,6,7,12', NULL);
+INSERT INTO `sys_role` VALUES (5, '管理员', 'ADMIN_ROLE', '管理员', '2019-04-22 21:53:38', '2019-06-16 11:04:02', '0', 1, '4,5,6,7,12', 1);
+INSERT INTO `sys_role` VALUES (7, '开发人员', 'DEV_ROLE', '开发人员', '2019-04-24 21:11:28', '2019-06-15 23:40:30', '0', 1, '2', 1);
+INSERT INTO `sys_role` VALUES (8, '体验人员', 'ROLE_LEARN', '专门体验系统', '2019-08-03 15:52:36', '2019-08-03 15:53:47', '0', 4, '4,5,6,7,12', 1);
 COMMIT;
 
 -- ----------------------------
@@ -466,8 +457,8 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES (4, 'admin', '$2a$10$bHivp.Dmy.eISTg3NzcifOaQyhw8cIlfys8IqmGo.6ZPiYjC1H0E.', 6, 3, 'lihaodongmail@163.com', '17521296869', NULL, '2019-04-23 23:29:51', '2019-06-15 21:12:25', '0', '0', NULL);
-INSERT INTO `sys_user` VALUES (5, 'qqq_123', '$2a$10$ABN7LoRx0ix.TH2P9NLuHuEQ8t1zmQpR06Bf66vVu35nbEMZz2q/i', 6, 4, 'lihaodongmail@163.com', '15212657091', NULL, '2019-08-04 10:33:32', '2019-08-04 12:31:32', '0', '0', NULL);
+INSERT INTO `sys_user` VALUES (4, 'admin', '$2a$10$bHivp.Dmy.eISTg3NzcifOaQyhw8cIlfys8IqmGo.6ZPiYjC1H0E.', 6, 3, 'lihaodongmail@163.com', '17521296869', NULL, '2019-04-23 23:29:51', '2019-06-15 21:12:25', '0', '0', 1);
+INSERT INTO `sys_user` VALUES (5, 'qqq_123', '$2a$10$ABN7LoRx0ix.TH2P9NLuHuEQ8t1zmQpR06Bf66vVu35nbEMZz2q/i', 6, 4, 'lihaodongmail@163.com', '15212657091', NULL, '2019-08-04 10:33:32', '2019-08-04 12:31:32', '0', '0', 1);
 COMMIT;
 
 -- ----------------------------
