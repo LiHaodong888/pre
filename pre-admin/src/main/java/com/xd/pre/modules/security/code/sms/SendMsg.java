@@ -28,11 +28,11 @@ public class SendMsg {
     /**
      * 这里填写你在平台里的ACOUNT_SID
      */
-    private static final String ACCOUNT_SID = "2be56dd4aa6e4564b9690abb2d0a3f89";
+    private static final String ACCOUNT_SID = "";
     /**
      * 这里填写你在平台里的AUTH_TOKEN
      */
-    private static final String AUTH_TOKEN = "cc8f4a3bf3664665ade85818fa3b2516";
+    private static final String AUTH_TOKEN = "";
     /**
      * 请求地址是固定的不用改
      */
