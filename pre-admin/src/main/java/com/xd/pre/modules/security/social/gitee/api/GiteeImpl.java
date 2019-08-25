@@ -1,11 +1,9 @@
 package com.xd.pre.modules.security.social.gitee.api;
 
-/**
- * @author huan.fu
- * @date 2018/11/26 - 18:12
- */
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.http.HttpUtil;
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 
@@ -30,8 +28,10 @@ public class GiteeImpl extends AbstractOAuth2ApiBinding implements Gitee {
 
     @Override
     public GiteeUserInfo getUserInfo() {
-        Map<String, Object> user = getRestTemplate().getForObject(String.format(URL_GET_USRE_INFO + "?access_token=%s", accessToken), Map.class);
-        log.info("当达到:{}", user);
+
+//        RestTemplate restTemplate = new RestTemplate();
+//        Map<String, Object> user = restTemplate.getForObject(String.format(URL_GET_USRE_INFO + "?access_token=%s", accessToken), Map.class);
+        Map<String, Object> user = JSON.parseObject(HttpUtil.get(String.format(URL_GET_USRE_INFO + "?access_token=%s", accessToken),5000), Map.class);
         if (ObjectUtil.isNotNull(user)) {
             int id = (int) user.get("id");
             String username = String.valueOf(user.get("login"));
