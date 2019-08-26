@@ -60,7 +60,7 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 - 基于Mybatis拦截器 + 策略模式实现数据权限控制
 - Jwt Token 鉴权机制 
 - 提供解决前后分离第三方社交登录方案 
-- Spring Social集成Security实现第三方社交登录   
+- Spring Social集成Security实现第三方社交登录
 - 基于Mybatis-Plus实现SaaS多租户功能  
 
 
@@ -74,7 +74,7 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 - 字典管理：对系统中经常使用的一些较为固定的数据进行维护，如：状态(正常/异常)，性别(男/女)等
 - 操作日志：记录用户操作的日志
 - 异常日志：记录异常日志，方便开发人员定位错误 
-- 代码生成：根据数据库快速生成增删改查基础代码
+- 代码生成：根据数据库快速生成entity、xml、mapper、sevice、serviceImpl基础代码,减少70%以上代码任务 
 - 社交登录: 目前支持QQ登录、微信登录、码云登录、GitHub登录
 
 #### 功能预告
