@@ -102,7 +102,8 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 
 
 #### Pre Cloud微服务架构
-Pre微服务版本Spring Cloud Alibaba 目前处于开发阶段 敬请期待
+Pre微服务版本Spring Cloud Alibaba
+项目地址: https://gitee.com/kaiyuantuandui/prex
 
 #### 系统预览
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1565014094683.jpg)
