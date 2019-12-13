@@ -7,11 +7,15 @@
         <groupId>com.xd</groupId>
         <version>1.4</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>pre-common</artifactId>
-    <packaging>jar</packaging>
 
-    <description>pre 公共模块</description>
+    <artifactId>pre-generator</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.xd</groupId>
+            <artifactId>pre-common</artifactId>
+            <version>1.4</version>
+        </dependency>
+    </dependencies>
 </project>

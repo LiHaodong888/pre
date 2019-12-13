@@ -7,23 +7,27 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.7.RELEASE</version>
+        <version>2.2.2.RELEASE</version>
         <relativePath/>
     </parent>
+
     <groupId>com.xd</groupId>
     <artifactId>pre</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>1.4</version>
     <name>pre</name>
     <description>Pre基于Spring Boot 、Spring Security的RBAC权限管理系统</description>
 
     <modules>
         <module>pre-common</module>
-        <module>pre-admin</module>
+        <module>pre-system</module>
+        <module>pre-log</module>
+        <module>pre-generator</module>
+        <module>pre-security</module>
     </modules>
 
     <properties>
         <java.version>1.8</java.version>
-        <mybatis-plus.version>3.1.2</mybatis-plus.version>
+        <mybatis-plus.version>3.2.0</mybatis-plus.version>
         <velocity.version>2.1</velocity.version>
         <hutool.version>4.5.6</hutool.version>
         <fastjson.version>1.2.58</fastjson.version>
@@ -31,6 +35,8 @@
         <joda-time.version>2.10.1</joda-time.version>
         <jasypt.version>2.1.0</jasypt.version>
         <spring-social.version>1.1.6.RELEASE</spring-social.version>
+        <elasticsearch.version>7.3.1</elasticsearch.version>
+        <pre.version>1.4</pre.version>
     </properties>
 
     <dependencies>
@@ -100,11 +106,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-test</artifactId>
         </dependency>
-        <!--spring security依赖-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+
         <!--JWT依赖-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
