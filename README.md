@@ -10,8 +10,8 @@
     <a href="http://mp.baomidou.com">
             <img src="https://img.shields.io/badge/mybatis--plus-3.2.0-blue.svg" alt="mybatis-plus">
     </a>  
-    <a href="https://shiro.apache.org/">
-            <img src="https://img.shields.io/badge/security-5.1.5-blue.svg" alt="shiro">
+    <a href="https://spring.io/projects/spring-security">
+            <img src="https://img.shields.io/badge/security-5.2.1-blue.svg" alt="spring security">
     </a>
 </div>
 
