@@ -100,12 +100,6 @@ public class SysUser extends Model<SysUser> {
      */
     @TableField(exist = false)
     private String deptName;;
-    /**
-     * 非数据库字段
-     * 岗位名称
-     */
-    @TableField(exist = false)
-    private String jobName;
 
     @TableField(exist = false)
     private String key;

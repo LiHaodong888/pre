@@ -49,8 +49,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Autowired
     private ISysDeptService deptService;
     @Autowired
-    private ISysJobService jobService;
-    @Autowired
     private ISysMenuService menuService;
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -124,7 +122,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // 获取部门
         sysUser.setDeptName(deptService.selectDeptNameByDeptId(sysUser.getDeptId()));
         // 获取岗位
-        sysUser.setJobName(jobService.selectJobNameByJobId(sysUser.getJobId()));
+//        sysUser.setJobName(jobService.selectJobNameByJobId(sysUser.getJobId()));
         return sysUser;
     }
 

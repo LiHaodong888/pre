@@ -36,13 +36,10 @@
         `user`.update_time,
         `user`.del_flag,
         `user`.lock_flag,
-        d.name AS deptName,
-        j.id AS job_id,
-        j.job_name as jobName
+        d.name AS deptName
         FROM
         sys_user AS `user`
         LEFT JOIN sys_dept AS d ON d.dept_id = `user`.dept_id
-        LEFT JOIN sys_job AS j ON j.id = `user`.job_id
         <where>
             <if test="query.username != null and query.username != ''">
                 and `user`.username LIKE CONCAT('%',#{query.username},'%')
