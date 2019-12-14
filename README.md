@@ -5,20 +5,20 @@
 <img src="https://gitee.com/li_haodong/picture_management/raw/master/pic/WechatIMG9.png" height="256" width="256">
 </div>
  <a href="http://spring.io/projects/spring-boot">
-            <img src="https://img.shields.io/badge/spring--boot-2.1.7.RELEASE-green.svg" alt="spring-boot">
+            <img src="https://img.shields.io/badge/spring--boot-2.2.2.RELEASE-green.svg" alt="spring-boot">
        </a>
     <a href="http://mp.baomidou.com">
-            <img src="https://img.shields.io/badge/mybatis--plus-3.1.2-blue.svg" alt="mybatis-plus">
+            <img src="https://img.shields.io/badge/mybatis--plus-3.2.0-blue.svg" alt="mybatis-plus">
     </a>  
-    <a href="https://shiro.apache.org/">
-            <img src="https://img.shields.io/badge/security-5.1.5-blue.svg" alt="shiro">
+    <a href="https://spring.io/projects/spring-security">
+            <img src="https://img.shields.io/badge/security-5.2.1-blue.svg" alt="spring security">
     </a>
 </div>
 
 #### 系统介绍
 Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限管理系统，项目支持数据权限管理，支持后端配置菜单动态路由, 第三方社交登录,努力做最简洁的后台管理系统。
 
-- 基于 Spring Boot 2.1.7 、Spring Security 的RBAC权限管理系统
+- 基于 Spring Boot 2.2.2 、Spring Security 的RBAC权限管理系统
 - 基于 Vue UI框架 Element-ui
 - 作为 Mybatis Plus 学习与生产实践
 - 作为 Lambda 、Stream Api 的学习与生产实践
