@@ -14,4 +14,12 @@
 
     <description>pre 公共模块</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.lionsoul</groupId>
+            <artifactId>ip2region</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+    </dependencies>
+
 </project>

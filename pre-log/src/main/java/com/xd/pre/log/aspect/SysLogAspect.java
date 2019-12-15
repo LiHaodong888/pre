@@ -3,6 +3,8 @@ package com.xd.pre.log.aspect;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.extra.servlet.ServletUtil;
+import cn.hutool.http.useragent.UserAgentUtil;
+import com.xd.pre.common.utils.IPUtil;
 import com.xd.pre.common.utils.R;
 import com.xd.pre.log.domain.SysLog;
 import com.xd.pre.log.event.SysLogEvent;
@@ -71,9 +73,14 @@ public class SysLogAspect {
         sysLog.setUserName(securityUser.getUsername());
         sysLog.setActionUrl(URLUtil.getPath(request.getRequestURI()));
         sysLog.setStartTime(LocalDateTime.now());
-        sysLog.setRequestIp(ServletUtil.getClientIP(request));
+        String ip = ServletUtil.getClientIP(request);
+        sysLog.setIp(ip);
+        sysLog.setLocation(IPUtil.getCityInfo(ip));
         sysLog.setRequestMethod(request.getMethod());
-        sysLog.setUa(request.getHeader("user-agent"));
+        String uaStr = request.getHeader("user-agent");
+        sysLog.setBrowser(UserAgentUtil.parse(uaStr).getBrowser().toString());
+        sysLog.setOs(UserAgentUtil.parse(uaStr).getOs().toString());
+
         //访问目标方法的参数 可动态改变参数值
         Object[] args = joinPoint.getArgs();
         //获取执行的方法名

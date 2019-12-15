@@ -33,7 +33,12 @@ public class SysLog implements Serializable {
     /**
      * 操作IP
      */
-    private String requestIp;
+    private String ip;
+
+    /**
+     * 操作地点
+     */
+    private String location;
 
     /**
      * 操作类型 1 操作记录 2异常记录
@@ -66,9 +71,14 @@ public class SysLog implements Serializable {
     private String params;
 
     /**
+     * 操作系统
+     */
+    private String os;
+
+    /**
      * 浏览器
      */
-    private String ua;
+    private String browser;
 
     /**
      * 类路径

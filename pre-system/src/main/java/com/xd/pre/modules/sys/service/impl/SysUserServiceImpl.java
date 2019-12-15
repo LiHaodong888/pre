@@ -180,7 +180,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             throw new BaseException("手机号已被注册");
         }
         userDTO.setDeptId(6);
-        userDTO.setJobId(4);
         userDTO.setLockFlag("0");
         SysUser sysUser = new SysUser();
         // 对象拷贝
