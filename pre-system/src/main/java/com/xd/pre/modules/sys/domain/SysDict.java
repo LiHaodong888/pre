@@ -1,7 +1,6 @@
 package com.xd.pre.modules.sys.domain;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -22,7 +21,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 public class SysDict implements Serializable {
 
-private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 编号
@@ -31,19 +30,14 @@ private static final long serialVersionUID=1L;
     private Integer id;
 
     /**
-     * 数据值
+     * 字典名称
      */
-    private String value;
+    private String dictName;
 
     /**
-     * 标签名
+     * 字典编码
      */
-    private String label;
-
-    /**
-     * 名称
-     */
-    private String name;
+    private String dictCode;
 
     /**
      * 描述
@@ -56,6 +50,18 @@ private static final long serialVersionUID=1L;
     private Integer sort;
 
     /**
+     * 备注信息
+     */
+    private String remark;
+
+    /**
+     * 删除标记
+     */
+    @TableField(fill = FieldFill.INSERT)
+    @TableLogic
+    private String delFlag;
+
+    /**
      * 创建时间
      */
     private LocalDateTime createTime;
@@ -64,15 +70,5 @@ private static final long serialVersionUID=1L;
      * 更新时间
      */
     private LocalDateTime updateTime;
-
-    /**
-     * 备注信息
-     */
-    private String remark;
-
-    /**
-     * 删除标记
-     */
-    private Integer delFlag;
 
 }

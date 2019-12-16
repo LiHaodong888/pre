@@ -37,6 +37,7 @@
         <spring-social.version>1.1.6.RELEASE</spring-social.version>
         <elasticsearch.version>7.3.1</elasticsearch.version>
         <pre.version>1.4</pre.version>
+        <easy-captcha.version>1.6.2</easy-captcha.version>
     </properties>
 
     <dependencies>
@@ -159,6 +160,12 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>19.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.whvcse</groupId>
+            <artifactId>easy-captcha</artifactId>
+            <version>${easy-captcha.version}</version>
         </dependency>
     </dependencies>
 

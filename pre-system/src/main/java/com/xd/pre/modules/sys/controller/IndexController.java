@@ -3,8 +3,8 @@ package com.xd.pre.modules.sys.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import com.wf.captcha.ArithmeticCaptcha;
 import com.xd.pre.common.exception.ValidateCodeException;
-import com.xd.pre.modules.security.code.img.CaptchaUtil;
 import com.xd.pre.modules.security.code.sms.AliYunSmsUtils;
 import com.xd.pre.modules.security.code.sms.SmsCodeService;
 import com.xd.pre.modules.security.code.sms.SmsResponse;
@@ -25,12 +25,9 @@ import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.ServletWebRequest;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -48,8 +45,6 @@ public class IndexController {
     @Autowired
     private ISysUserService userService;
 
-    @Autowired
-    private RedisTemplate<Object, Object> redisTemplate;
 
     @Autowired
     private SmsCodeService smsCodeService;
@@ -63,48 +58,8 @@ public class IndexController {
     @Value("${pre.url.address}")
     private String url;
 
-
-    /**
-     * 生成验证码
-     *
-     * @param response
-     * @param request
-     * @throws ServletException
-     * @throws IOException
-     */
-    @GetMapping("/captcha.jpg")
-    public void captcha(HttpServletResponse response, HttpServletRequest request) throws IOException {
-        response.setHeader("Cache-Control", "no-store, no-cache");
-        response.setContentType("image/jpeg");
-        // 生成图片验证码
-        BufferedImage image = CaptchaUtil.createImage();
-        // 生成文字验证码
-        String randomText = CaptchaUtil.drawRandomText(image);
-        // 保存到验证码到 redis 有效期两分钟
-        String t = request.getParameter("t");
-        redisTemplate.opsForValue().set(PreConstant.PRE_IMAGE_KEY + t, randomText.toLowerCase(), 2, TimeUnit.MINUTES);
-        ServletOutputStream out = response.getOutputStream();
-        ImageIO.write(image, "jpeg", out);
-    }
-
-
-    /**
-     * 发送短信验证码
-     *
-     * @param phone
-     * @return
-     */
-    @PostMapping("/sendCode/{phone}")
-    public R sendSmsCode(@PathVariable("phone") String phone) {
-        SmsResponse smsResponse = AliYunSmsUtils.sendSms(phone, "prex", "登录");
-
-        if (ObjectUtil.isNull(smsResponse)) {
-            return R.error("短信发送失败");
-        }
-        // 保存到验证码到 redis 有效期两分钟
-        redisTemplate.opsForValue().set(phone, smsResponse.getSmsCode(), 2, TimeUnit.MINUTES);
-        return R.ok();
-    }
+    @Autowired
+    private RedisTemplate<Object, Object> redisTemplate;
 
 
     @PostMapping("/register")

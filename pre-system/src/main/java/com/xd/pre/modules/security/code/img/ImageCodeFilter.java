@@ -100,7 +100,7 @@ public class ImageCodeFilter extends OncePerRequestFilter {
      * @return
      */
     private String obtainT(HttpServletRequest request) {
-        String token = "t";
+        String token = "key";
         return request.getParameter(token);
     }
 

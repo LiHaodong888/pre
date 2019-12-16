@@ -50,6 +50,8 @@
                     #{item, jdbcType=INTEGER}
                 </foreach>
             </if>
+
+        and `user`.del_flag = '0'
         </where>
         ORDER BY `user`.create_time DESC
     </select>

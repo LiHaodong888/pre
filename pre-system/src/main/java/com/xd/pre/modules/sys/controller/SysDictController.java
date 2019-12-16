@@ -1,11 +1,13 @@
 package com.xd.pre.modules.sys.controller;
 
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xd.pre.common.utils.R;
 import com.xd.pre.log.annotation.SysOperaLog;
 import com.xd.pre.modules.sys.domain.SysDict;
 import com.xd.pre.modules.sys.dto.DictDTO;
 import com.xd.pre.modules.sys.service.ISysDictService;
-import com.xd.pre.common.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -26,14 +28,15 @@ public class SysDictController {
     private ISysDictService dictService;
 
     /**
-     * 保存字典信息
+     * 添加字典信息
      *
      * @param sysDict
      * @return
      */
-    @SysOperaLog(descrption = "保存字典信息")
+    @SysOperaLog(descrption = "添加字典信息")
+    @PreAuthorize("hasAuthority('sys:dict:add')")
     @PostMapping
-    public R save(@RequestBody SysDict sysDict) {
+    public R add(@RequestBody SysDict sysDict) {
         return R.ok(dictService.save(sysDict));
     }
 
@@ -41,26 +44,16 @@ public class SysDictController {
      * 获取字典列表集合
      *
      * @param page
-     * @param pageSize
+     * @param sysDict
      * @return
      */
     @SysOperaLog(descrption = "查询字典集合")
     @GetMapping
     @PreAuthorize("hasAuthority('sys:dipt:view')")
-    public R getList(Integer page, Integer pageSize) {
-        return R.ok(dictService.selectDictList(page, pageSize));
+    public R getList(Page page, SysDict sysDict) {
+        return R.ok(dictService.page(page, Wrappers.query(sysDict)));
     }
 
-
-    /**
-     * @Author 李号东
-     * @Description 根据名称获取字典值详情
-     * @Date 15:20 2019-05-26
-     **/
-    @GetMapping("/getDictDetailList")
-    public R selectDictDetailList(@RequestParam String name) {
-        return R.ok(dictService.selectDictDetailList(name));
-    }
 
     /**
      * 更新字典
@@ -69,6 +62,7 @@ public class SysDictController {
      * @return
      */
     @SysOperaLog(descrption = "更新字典")
+    @PreAuthorize("hasAuthority('sys:dict:edit')")
     @PutMapping
     public R update(@RequestBody DictDTO dictDto) {
         return R.ok(dictService.updateDict(dictDto));
@@ -77,24 +71,26 @@ public class SysDictController {
 
     /**
      * 根据id删除字典
+     *
      * @param id
-     * @return
+     * @return //
      */
     @SysOperaLog(descrption = "根据id删除字典")
+    @PreAuthorize("hasAuthority('sys:dict:del')")
     @DeleteMapping("{id}")
     public R delete(@PathVariable("id") int id) {
         return R.ok(dictService.removeById(id));
     }
 
+
     /**
-     * 根据id删除字典
-     * @param name
+     * 根据字典名称查询字段详情
+     * @param dictName
      * @return
      */
-    @SysOperaLog(descrption = "根据name删除字典")
-    @DeleteMapping("/delete")
-    public R deleteName(@RequestParam String name) {
-        return R.ok(dictService.deleteDictByName(name));
+    @GetMapping("/queryDictItemByDictName/{dictName}")
+    public R queryDictItemByDictName(@PathVariable("dictName") String dictName) {
+        return R.ok(dictService.queryDictItemByDictName(dictName));
     }
 
 }

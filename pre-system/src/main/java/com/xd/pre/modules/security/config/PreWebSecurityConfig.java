@@ -99,7 +99,7 @@ public class PreWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login/**", "/mobile/login/**", "/favicon.ico", "/socialSignUp", "/bind", "/register/**").anonymous()
                 .antMatchers(HttpMethod.GET, "/*.html", "/**/*.html", "/**/*.css", "/**/*.js")
                 .permitAll()
-                .antMatchers("/captcha.jpg").anonymous()
+                .antMatchers("/auth/**").anonymous()
                 .antMatchers("/sendCode/**").anonymous()
                 .antMatchers("/tenant/list").anonymous()
                 .antMatchers("/tenant/setting/**").anonymous()

@@ -39,6 +39,7 @@ pre:
       - sys_role_menu
       - sys_role_dept
       - sys_user_role
+      - sys_dict_item
       - sys_dict
       - TABLES
       - COLUMNS

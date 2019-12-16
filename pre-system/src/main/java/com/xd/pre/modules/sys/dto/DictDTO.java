@@ -17,44 +17,15 @@ import java.time.LocalDateTime;
 public class DictDTO {
 
 
-    /**
-     * 编号
-     */
     private Integer id;
 
+    private String dictName;
 
-    /**
-     * 数据值
-     */
-    private String value;
+    private String dictCode;
 
-    /**
-     * 标签名
-     */
-    private String label;
-
-    /**
-     * 名称
-     */
-    private String name;
-
-    /**
-     * 描述
-     */
     private String description;
 
-    /**
-     * 排序（升序）
-     */
     private Integer sort;
 
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 备注信息
-     */
     private String remark;
 }
