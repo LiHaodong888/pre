@@ -62,6 +62,7 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 - 提供解决前后分离第三方社交登录方案 
 - Spring Social集成Security实现第三方社交登录
 - 基于Mybatis-Plus实现SaaS多租户功能  
+- 基于注解实现数据脱敏,防隐私
 
 
 #### 基本功能
