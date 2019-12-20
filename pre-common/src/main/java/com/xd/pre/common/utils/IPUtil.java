@@ -1,16 +1,19 @@
 package com.xd.pre.common.utils;
 
+import org.apache.commons.io.FileUtils;
 import org.lionsoul.ip2region.DataBlock;
 import org.lionsoul.ip2region.DbConfig;
 import org.lionsoul.ip2region.DbSearcher;
 import org.lionsoul.ip2region.Util;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 
 /**
  * @Classname IPUtil
- * @Description TODO
+ * @Description IP工具类
  * @Author Created by Lihaodong (alias:小东啊) im.lihaodong@gmail.com
  * @Date 2019/12/14 10:19 下午
  * @Version 1.0
@@ -18,19 +21,22 @@ import java.lang.reflect.Method;
 public class IPUtil {
 
     public static String getCityInfo(String ip) {
-        //db
-        String dbPath = IPUtil.class.getResource("/ip2region/ip2region.db").getPath();
-        File file = new File(dbPath);
-        if (file.exists() == false) {
-            System.out.println("Error: Invalid ip2region.db file");
-        }
-        //查询算法
-        int algorithm = DbSearcher.BTREE_ALGORITHM; //B-tree
-        //DbSearcher.BINARY_ALGORITHM //Binary
-        //DbSearcher.MEMORY_ALGORITYM //Memory
         try {
+            //db
+            ClassPathResource resource = new ClassPathResource("/ip2region/ip2region.db");
+            String tmpDir = System.getProperties().getProperty("java.io.tmpdir");
+            String dbPath = tmpDir + "ip.db";
+            File file = new File(dbPath);
+            InputStream inputStream = resource.getInputStream();
+            FileUtils.copyInputStreamToFile(inputStream, file);
+
+            //查询算法
+            int algorithm = DbSearcher.BTREE_ALGORITHM; //B-tree
+            //DbSearcher.BINARY_ALGORITHM //Binary
+            //DbSearcher.MEMORY_ALGORITYM //Memory
+
             DbConfig config = new DbConfig();
-            DbSearcher searcher = new DbSearcher(config, dbPath);
+            DbSearcher searcher = new DbSearcher(config, file.getPath());
 
             //define the method
             Method method = null;
