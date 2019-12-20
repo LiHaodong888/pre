@@ -31,7 +31,7 @@
         <velocity.version>2.1</velocity.version>
         <hutool.version>4.5.6</hutool.version>
         <fastjson.version>1.2.58</fastjson.version>
-        <jwt.version>0.9.0</jwt.version>
+        <jwt.version>0.9.1</jwt.version>
         <joda-time.version>2.10.1</joda-time.version>
         <jasypt.version>2.1.0</jasypt.version>
         <spring-social.version>1.1.6.RELEASE</spring-social.version>
@@ -166,6 +166,11 @@
             <groupId>com.github.whvcse</groupId>
             <artifactId>easy-captcha</artifactId>
             <version>${easy-captcha.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.2</version>
         </dependency>
     </dependencies>
 
