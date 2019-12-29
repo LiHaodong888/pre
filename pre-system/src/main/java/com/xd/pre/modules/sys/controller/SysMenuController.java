@@ -100,7 +100,7 @@ public class SysMenuController {
     @GetMapping("/getRouters")
     public R getRouters() {
         PreSecurityUser securityUser = SecurityUtil.getUser();
-        List<MenuVo> menuVos = PreUtil.buildMenus(menuService.selectMenuTree(securityUser.getUserId()));
+//        List<MenuVo> menuVos = PreUtil.buildMenus(menuService.selectMenuTree(securityUser.getUserId()));
         return R.ok(PreUtil.buildMenus(menuService.selectMenuTree(securityUser.getUserId())));
     }
 

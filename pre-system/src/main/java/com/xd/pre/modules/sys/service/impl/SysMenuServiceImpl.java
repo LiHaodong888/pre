@@ -4,8 +4,8 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.xd.pre.common.exception.BaseException;
 import com.xd.pre.common.constant.MenuConstant;
+import com.xd.pre.common.exception.PreBaseException;
 import com.xd.pre.modules.sys.domain.SysMenu;
 import com.xd.pre.modules.sys.dto.MenuDTO;
 import com.xd.pre.modules.sys.mapper.SysMenuMapper;
@@ -111,14 +111,14 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         if (menu.getType() == MenuConstant.MenuType.CATALOG.getValue() ||
                 menu.getType() == MenuConstant.MenuType.MENU.getValue()) {
             if (parentType != MenuConstant.MenuType.CATALOG.getValue()) {
-                throw new BaseException("上级菜单只能为目录类型");
+                throw new PreBaseException("上级菜单只能为目录类型");
             }
             return;
         }
         //按钮
         if (menu.getType() == MenuConstant.MenuType.BUTTON.getValue()) {
             if (parentType != MenuConstant.MenuType.MENU.getValue()) {
-                throw new BaseException("上级菜单只能为菜单类型");
+                throw new PreBaseException("上级菜单只能为菜单类型");
             }
         }
     }

@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.xd.pre.common.exception.PreBaseException;
 import com.xd.pre.modules.data.datascope.DataScope;
-import com.xd.pre.common.exception.BaseException;
 import com.xd.pre.security.PreSecurityUser;
 import com.xd.pre.modules.security.social.SocialRedisHelper;
 import com.xd.pre.modules.security.util.JwtUtil;
@@ -19,6 +19,7 @@ import com.xd.pre.modules.sys.dto.UserDTO;
 import com.xd.pre.modules.sys.mapper.SysUserMapper;
 import com.xd.pre.modules.sys.service.*;
 import com.xd.pre.modules.sys.util.PreUtil;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public IPage<SysUser> getUsersWithRolePage(Page page, UserDTO userDTO) {
 
-        if (ObjectUtil.isNotNull(userDTO) && userDTO.getDeptId() != 0) {
+        if ( ObjectUtils.anyNotNull(userDTO) && userDTO.getDeptId() != null) {
             userDTO.setDeptList(deptService.selectDeptIds(userDTO.getDeptId()));
         }
         return baseMapper.getUserVosPage(page, userDTO, new DataScope());
@@ -144,22 +145,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public String login(String username, String password) {
         //用户验证
-        Authentication authentication = null;
-        try {
-            // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername()去验证用户名和密码，
-            // 如果正确，则存储该用户名密码到security 的 context中
-            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        } catch (Exception e) {
-            if (e instanceof BadCredentialsException) {
-                throw new BaseException("用户名或密码错误", 402);
-            } else if (e instanceof DisabledException) {
-                throw new BaseException("账户被禁用", 402);
-            } else if (e instanceof AccountExpiredException) {
-                throw new BaseException("账户过期无法验证", 402);
-            } else {
-                throw new BaseException("账户被锁定,无法登录", 402);
-            }
-        }
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         //存储认证信息
         SecurityContextHolder.getContext().setAuthentication(authentication);
         //生成token
@@ -173,11 +159,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // 查询用户名是否存在
         SysUser byUserInfoName = findSecurityUser(userDTO.getUsername());
         if (ObjectUtil.isNotNull(byUserInfoName)) {
-            throw new BaseException("账户名已被注册");
+            throw new PreBaseException("账户名已被注册");
         }
         SysUser securityUser = findSecurityUser(userDTO.getPhone());
         if (ObjectUtil.isNotNull(securityUser)) {
-            throw new BaseException("手机号已被注册");
+            throw new PreBaseException("手机号已被注册");
         }
         userDTO.setDeptId(6);
         userDTO.setLockFlag("0");
@@ -217,24 +203,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // 进行账号校验
         SysUser sysUser = findSecurityUserByUser(new SysUser().setUsername(user.getUsername()));
         if (ObjectUtil.isNull(sysUser)) {
-            throw new BaseException("账号不存在");
+            throw new PreBaseException("账号不存在");
         }
         Integer userId = sysUser.getUserId();
-        try {
-            // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername()去验证用户名和密码，
-            // 如果正确，则存储该用户名密码到security 的 context中
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-        } catch (Exception e) {
-            if (e instanceof BadCredentialsException) {
-                throw new BaseException("用户名或密码错误", 402);
-            } else if (e instanceof DisabledException) {
-                throw new BaseException("账户被禁用", 402);
-            } else if (e instanceof AccountExpiredException) {
-                throw new BaseException("账户过期无法验证", 402);
-            } else {
-                throw new BaseException("账户被锁定,无法登录", 402);
-            }
-        }
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
         //将业务系统的用户与社交用户绑定
         socialRedisHelper.doPostSignUp(user.getKey(), userId);
         return true;

@@ -7,7 +7,7 @@ import cn.hutool.db.Db;
 import cn.hutool.db.Entity;
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
 import com.baomidou.mybatisplus.extension.handlers.AbstractSqlParserHandler;
-import com.xd.pre.common.exception.CheckedException;
+import com.xd.pre.common.exception.PreBaseException;
 import com.xd.pre.security.PreSecurityUser;
 import com.xd.pre.security.util.SecurityUtil;
 import com.xd.pre.modules.data.enums.DataScopeTypeEnum;
@@ -72,7 +72,7 @@ public class DataScopeInterceptor extends AbstractSqlParserHandler implements In
         if (CollUtil.isEmpty(deptIds)) {
             PreSecurityUser user = SecurityUtil.getUser();
             if (user == null) {
-                throw new CheckedException("auto datascope, set up security details true");
+                throw new PreBaseException("auto datascope, set up security details true");
             }
             // 解析角色Id
             List<String> roleIdList = user.getAuthorities()

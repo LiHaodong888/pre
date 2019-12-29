@@ -5,6 +5,7 @@ import com.xd.pre.modules.security.code.img.ImageCodeFilter;
 import com.xd.pre.modules.security.code.sms.SmsCodeAuthenticationSecurityConfig;
 import com.xd.pre.modules.security.code.sms.SmsCodeFilter;
 import com.xd.pre.modules.security.filter.PreJwtAuthenticationTokenFilter;
+import com.xd.pre.modules.security.handle.PreAccessDeineHandler;
 import com.xd.pre.modules.security.handle.PreAuthenticationEntryPointImpl;
 import com.xd.pre.modules.security.handle.PreAuthenticationFailureHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -35,9 +36,6 @@ import org.springframework.social.security.SpringSocialConfigurer;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class PreWebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private PreAuthenticationEntryPointImpl unauthorizedHandler;
 
     @Autowired
     private PreAuthenticationFailureHandler preAuthenticationFailureHandler;
@@ -89,8 +87,6 @@ public class PreWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 短信登录配置
                 .apply(smsCodeAuthenticationSecurityConfig).and()
                 .apply(springSocialConfigurer).and()
-                // 认证失败处理类
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 // 基于token，所以不需要session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 // 过滤请求
@@ -104,7 +100,7 @@ public class PreWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/tenant/list").anonymous()
                 .antMatchers("/tenant/setting/**").anonymous()
                 .antMatchers("/define/deploy/**").anonymous()
-                .antMatchers("/define/viewProcessImage/**")
+                .antMatchers("/file/**")
                 .permitAll()
                 // 访问/user 需要拥有admin权限
                 //  .antMatchers("/user").hasAuthority("ROLE_ADMIN")
@@ -112,33 +108,28 @@ public class PreWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .headers().frameOptions().disable();
+
+
+        // 添加自定义异常入口
+        httpSecurity
+                .exceptionHandling()
+                .authenticationEntryPoint(new PreAuthenticationEntryPointImpl())
+                .accessDeniedHandler(new PreAccessDeineHandler());
+
+
         // 添加JWT filter 用户名登录
         httpSecurity
                 // 添加图形证码校验过滤器
-                // .addFilterBefore(imageCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                 .addFilterBefore(imageCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 // 添加JWT验证过滤器
                 .addFilterBefore(preJwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 // 添加短信验证码过滤器
                 .addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                // 设置UserDetailsService
-                .userDetailsService(userDetailsService)
-                // 使用BCrypt进行密码的hash
-                .passwordEncoder(passwordEncoder());
-    }
-
-    /**
-     * 装载BCrypt密码编码器 密码加密
-     *
-     * @return
-     */
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 }
 

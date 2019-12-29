@@ -28,7 +28,7 @@ import java.util.List;
 
 @EnableTransactionManagement
 @Configuration
-@MapperScan({"com.xd.pre.modules.sys.mapper", "com.xd.pre.generator.mapper","com.xd.pre.log.mapper"})
+@MapperScan({"com.xd.pre.**.mapper"})
 public class MyBatisPlusConfig {
 
     @Autowired
