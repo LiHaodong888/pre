@@ -15,7 +15,7 @@
     </a>
 </div>
 
-#### 系统介绍
+### 系统介绍
 Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限管理系统，项目支持数据权限管理，支持后端配置菜单动态路由, 第三方社交登录,努力做最简洁的后台管理系统。
 
 - 基于 Spring Boot 2.2.2 、Spring Security 的RBAC权限管理系统
@@ -36,22 +36,25 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
     </tr>
 </table>
 
+### 文档与教程
+**使用文档** [https://www.kancloud.cn/xiaodong_it/pre_docs/1449633](https://www.kancloud.cn/xiaodong_it/pre_docs/1449633)
 
-#### 系统体验
-**开发文档**  [https://docs.52lhd.com/](https://docs.52lhd.com)
+**从零搭建RBAC权限系统** [https://www.kancloud.cn/xiaodong_it/pre_docs/1449653](https://www.kancloud.cn/xiaodong_it/pre_docs/1449653)
+
+### 系统体验
 
 **体验地址**  [https://pre.52lhd.com/](https://pre.52lhd.com/)
 
 **账号密码** ```admin/123456```
 
-#### 项目源码
+### 项目源码
 
 |     |   后端源码  |   前端源码  |
 |---  |--- | --- |
 |  GitHub   |  https://github.com/LiHaodong888/pre   |  https://github.com/LiHaodong888/pre-ui   |
 |  码云   |  https://gitee.com/li_haodong/pre   |  https://gitee.com/li_haodong/pre-ui   |
 
-#### 项目特点
+### 项目特点
 - 前后端分离架构
 - 代码注释丰富，极其简洁风格，上手快易理解
 - 采用Restfull API 规范开发
@@ -65,7 +68,7 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 - 基于注解实现数据脱敏,防隐私
 
 
-#### 基本功能
+### 基本功能
 
 - 用户管理：该功能主要完成系统用户配置，提供用户基础配置(用户名、手机号邮箱等)以及部门角色等
 - 角色管理：权限菜单分配，以部门基础设置角色的数据权限范围
@@ -81,7 +84,7 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 #### 功能预告
 任务调度 、免费图床 、七牛云存储 、持续集成
 
-#### 更新日志
+### 更新日志
 2019年8月5日更新  
 修复bug  
 1.修复点击异常日志LOGO以及图片变大  
@@ -102,11 +105,11 @@ Pre基于Spring Boot 、Spring Security 、Vue的前后端分离的的RBAC权限
 4.后端内部包做整理  
 
 
-#### Pre X微服务架构  
+### Pre X微服务架构  
 Pre微服务版本Spring Cloud、Spring Cloud Alibaba、Oauth2  
 项目地址: https://gitee.com/kaiyuantuandui/prex
 
-#### 系统预览
+### 系统预览
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1565014094683.jpg)
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1565014790417.jpg)
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561385170695.jpg)
@@ -116,7 +119,7 @@ Pre微服务版本Spring Cloud、Spring Cloud Alibaba、Oauth2
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561385273370.jpg)
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1561385291674.jpg)
 ![pre系统预览图](https://gitee.com/li_haodong/picture_management/raw/master/pic/1565014818254.jpg)
-#### 关于作者
+### 关于作者
 有问题可以加我(备注:pre)
 <div style="height:300px; width:256px;">
 <img src="https://gitee.com/li_haodong/picture_management/raw/master/pic/qrcode.png" height="300" width="256">
