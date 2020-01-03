@@ -16,7 +16,7 @@
         <dependency>
             <groupId>com.xd</groupId>
             <artifactId>pre-common</artifactId>
-            <version>1.4</version>
+            <version>${pre.version}</version>
         </dependency>
         <!--spring security依赖-->
         <dependency>

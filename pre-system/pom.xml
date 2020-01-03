@@ -17,22 +17,22 @@
         <dependency>
             <groupId>com.xd</groupId>
             <artifactId>pre-common</artifactId>
-            <version>1.4</version>
+            <version>${pre.version}</version>
         </dependency>
         <dependency>
             <groupId>com.xd</groupId>
             <artifactId>pre-log</artifactId>
-            <version>1.4</version>
+            <version>${pre.version}</version>
         </dependency>
         <dependency>
             <groupId>com.xd</groupId>
             <artifactId>pre-security</artifactId>
-            <version>1.4</version>
+            <version>${pre.version}</version>
         </dependency>
         <dependency>
             <groupId>com.xd</groupId>
             <artifactId>pre-generator</artifactId>
-            <version>1.4</version>
+            <version>${pre.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -54,6 +54,62 @@
             <version>4.1.0</version>
         </dependency>
 
+        <!-- 微信框架 参考：https://github.com/Wechat-Group/weixin-java-tools -->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-mp</artifactId>
+            <version>3.6.0</version>
+        </dependency>
+
+        <!--social相关依赖 -->
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-security</artifactId>
+            <version>${spring-social.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-core</artifactId>
+            <version>${spring-social.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-config</artifactId>
+            <version>${spring-social.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-web</artifactId>
+            <version>${spring-social.version}</version>
+        </dependency>
+        <!--JWT依赖-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda-time.version}</version>
+        </dependency>
+
+        <!-- quartz -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xd</groupId>
+            <artifactId>pre-wachat</artifactId>
+            <version>${pre.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xd</groupId>
+            <artifactId>pre-tools</artifactId>
+            <version>${pre.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -61,6 +117,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>

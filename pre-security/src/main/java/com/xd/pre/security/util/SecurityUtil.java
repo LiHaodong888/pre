@@ -1,7 +1,7 @@
 package com.xd.pre.security.util;
 
 import com.alibaba.fastjson.JSON;
-import com.xd.pre.common.exception.BaseException;
+import com.xd.pre.common.exception.PreBaseException;
 import com.xd.pre.common.utils.R;
 import com.xd.pre.security.PreSecurityUser;
 import lombok.experimental.UtilityClass;
@@ -48,7 +48,7 @@ public class SecurityUtil {
         try {
             return (PreSecurityUser) getAuthentication().getPrincipal();
         } catch (Exception e) {
-            throw new BaseException("登录状态过期", HttpStatus.UNAUTHORIZED.value());
+            throw new PreBaseException("登录状态过期", HttpStatus.UNAUTHORIZED.value());
         }
     }
 }

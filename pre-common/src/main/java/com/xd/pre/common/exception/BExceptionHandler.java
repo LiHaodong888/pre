@@ -27,8 +27,8 @@ public class BExceptionHandler {
     /**
      * 处理自定义异常
      */
-    @ExceptionHandler(BaseException.class)
-    public R handleRRException(BaseException e) {
+    @ExceptionHandler(PreBaseException.class)
+    public R handlerException(PreBaseException e) {
         return R.error(e.getCode(), e.getMsg());
     }
 
@@ -69,7 +69,7 @@ public class BExceptionHandler {
     }
 
     @ExceptionHandler(SQLException.class)
-    public R handleSQLException(SQLException e) {
+    public R handlerSqlException(SQLException e) {
         log.error(e.getMessage(), e);
         return R.error(e.getMessage());
     }

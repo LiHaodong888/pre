@@ -40,7 +40,6 @@ pre:
       - sys_role_dept
       - sys_user_role
       - sys_dict_item
-      - sys_dict
       - TABLES
       - COLUMNS
       - sys_job
@@ -56,8 +55,6 @@ server:
     io-threads: 4
     worker-threads: 20
 spring:
-  application:
-    name: pre
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
@@ -94,3 +91,5 @@ spring:
     password: ''
     port: 6379
     timeout: 6000ms
+
+uploadFileServerPathPrefix: /Users/lihaodong/Desktop/files

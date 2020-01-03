@@ -4,4 +4,4 @@
  | .__/  |_|     \___|
  |_|
 
-===== Pre: v1.2 Spring-Boot: v${spring-boot.version}=====
+===== Pre: v1.4 Spring-Boot: v${spring-boot.version}=====
