@@ -94,22 +94,6 @@
             <version>${joda-time.version}</version>
         </dependency>
 
-        <!-- quartz -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-quartz</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.xd</groupId>
-            <artifactId>pre-wachat</artifactId>
-            <version>${pre.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.xd</groupId>
-            <artifactId>pre-tools</artifactId>
-            <version>${pre.version}</version>
-        </dependency>
     </dependencies>
 
     <build>
