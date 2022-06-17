@@ -30,7 +30,7 @@
         <mybatis-plus.version>3.3.0</mybatis-plus.version>
         <velocity.version>2.1</velocity.version>
         <hutool.version>4.5.6</hutool.version>
-        <fastjson.version>1.2.58</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <jwt.version>0.9.1</jwt.version>
         <joda-time.version>2.10.1</joda-time.version>
         <jasypt.version>2.1.0</jasypt.version>
